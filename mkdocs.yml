@@ -14,13 +14,13 @@ theme:
   font:
     text: Prosto One Regular
     code: Red Hat Mono
-  logo: images/logo-white.png
   favicon: images/beezydev-website-favicon-color.png
   features:
     - navigation.indexes
     - content.code.annotate
     - navigation.top
   icon:
+    logo: fontawesome/solid/code-merge
     repo: fontawesome/brands/github
   name: material
   palette: 
