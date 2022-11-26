@@ -32,8 +32,8 @@ theme:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: black
-      accent: red
+      primary: deep purple
+      accent: purple
       toggle:
         icon: material/weather-sunny
         name: Switch to dark mode
@@ -41,8 +41,8 @@ theme:
     # Palette toggle for dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: black
-      accent: red
+      primary: deep purple
+      accent: purple
       toggle:
         icon: material/weather-night
         name: Switch to system preference
