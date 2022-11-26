@@ -3,10 +3,10 @@ site_url: https://beezy.dev
 
 plugins:
   - social:
-      card_color:
+      cards_color:
         fill: "#7A26C1"
         text: "#A437DB"
-      card_font: Prosto One Regular
+      cards_font: Prosto One Regular
   - git-revision-date-localized:
       enable_creation_date: true
   - git-authors
