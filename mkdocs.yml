@@ -14,7 +14,7 @@ theme:
   font:
     text: Prosto One Regular
     code: Red Hat Mono
-  logo: images/logo-no-background.svg
+  logo: images/logo-white.png
   favicon: images/beezydev-website-favicon-color.png
   features:
     - navigation.indexes
