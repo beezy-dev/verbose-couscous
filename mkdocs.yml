@@ -2,6 +2,11 @@ site_name: beezy.dev
 site_url: https://beezy.dev
 
 plugins:
+  - social:
+      card_color:
+        fill: "#7A26C1"
+        text: "#A437DB"
+      card_font: Prosto One Regular
   - git-revision-date-localized:
       enable_creation_date: true
   - git-authors
@@ -12,7 +17,7 @@ plugins:
 
 theme:
   font:
-    text: Red Hat Text
+    text: Prosto One Regular
     code: Red Hat Mono
   logo: images/logo-no-background.svg
   favicon: images/beezydev-website-favicon-color.png
@@ -48,6 +53,13 @@ theme:
 extra_css: 
   - stylesheets/extra.css
 extra:
+  consent:
+    title: Cookie consent
+    description: >- 
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
   social:
     - icon: fontawesome/brands/github 
       link: https://github.com/beezy-dev/verbose-couscous
