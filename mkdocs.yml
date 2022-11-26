@@ -14,6 +14,8 @@ theme:
   font:
     text: Red Hat Text
     code: Red Hat Mono
+  logo: images/logo-no-background.svg
+  favicon: images/beezydev-website-favicon-color.png
   features:
     - content.code.annotate
     - navigation.top
