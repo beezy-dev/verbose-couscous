@@ -17,6 +17,7 @@ theme:
   logo: images/logo-no-background.svg
   favicon: images/beezydev-website-favicon-color.png
   features:
+    - navigation.indexes
     - content.code.annotate
     - navigation.top
   icon:
@@ -85,7 +86,7 @@ nav:
   - Projects: 'index.md'
   - Contributing: 'CONTRIBUTING.md'
   - project-pancake: 
-    - 'project-pancake/index.md'    
+    - project-pancake/index.md    
     - Architecture:
       - Concepts: 'project-pancake/concepts.md' 
       - Architecture: 'project-pancake/architecture.md'
