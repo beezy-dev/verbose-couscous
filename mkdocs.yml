@@ -84,7 +84,7 @@ markdown_extensions:
 nav:
   - Projects: 'index.md'
   - Contributing: 'CONTRIBUTING.md'
-  - project-pancake:      
+  - project-pancake: "project-pancake/index.md"     
     - Architecture:
       - Concepts: 'project-pancake/concepts.md' 
       - Architecture: 'project-pancake/architecture.md'
