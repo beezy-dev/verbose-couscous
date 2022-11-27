@@ -59,6 +59,8 @@ extra:
   social:
     - icon: fontawesome/brands/github 
       link: https://github.com/beezy-dev/verbose-couscous
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/@beezydev 
   generator: true
 copyright: Apache-2.0 License. 
 repo_url: https://github.com/beezy-dev/verbose-couscouse 
