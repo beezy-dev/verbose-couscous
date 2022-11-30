@@ -1,4 +1,7 @@
-
+---
+hide:
+  - toc
+---
 
 ![logo](images/logo-no-background.svg)
 
