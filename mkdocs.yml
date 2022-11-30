@@ -85,8 +85,8 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 
 nav:
-  - Projects: 'index.md'
-  - Contributing: 'contributing.md'
+  - Projects: index.md
+  - Contributing: contributing.md
   - Projects:
     - EchoCD:
       - echocd/index.md
