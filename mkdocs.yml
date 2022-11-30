@@ -87,20 +87,20 @@ markdown_extensions:
 nav:
   - Projects: 'index.md'
   - Contributing: 'CONTRIBUTING.md'
-  - projects:
+  - Projects:
     - EchoCD:
       - echocd/index.md
-    - project-pancake: 
-      - project-pancake/index.md    
+    - pancake: 
+      - pancake/index.md    
       - Architecture:
-        - Concepts: 'project-pancake/concepts.md' 
-        - Architecture: 'project-pancake/architecture.md'
+        - Concepts: 'pancake/concepts.md' 
+        - Architecture: 'pancake/architecture.md'
       - Deploying:
-        - Requirements: 'project-pancake/bom.md'
-        - Hardware: 'project-pancake/hardware.md' 
-        - Software: 'project-pancake/software.md'
-        - Operating: 'project-pancake/ops.md' 
-      - Development: 'project-pancake/devenv.md'
+        - Requirements: 'pancake/bom.md'
+        - Hardware: 'pancake/hardware.md' 
+        - Software: 'pancake/software.md'
+        - Operating: 'pancake/ops.md' 
+      - Development: 'pancake/devenv.md'
     - verbose-couscous:
       - verbose-couscous/index.md
   - Reference: 'community.md'
