@@ -33,8 +33,3 @@ hide:
     [:octicons-arrow-right-24: Contribution welcome](/verbose-couscous)
     
 </div>
-
-
-
-
-

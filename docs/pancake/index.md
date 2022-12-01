@@ -1,31 +1,45 @@
 # Project Pancake 
 
-Project Pancake is demonstrating the concept of Open Hybrid Cloud with a far edge scenario.  
+## Overview 
+The scope of project *Pancake* is to demonstrating:
 
-The setup is composed of:  
+- the usage of of a microcontroller and basic electronic
+- the Python programming language 
+- containerizing applications
+- refactoring in phases a monolithic application into microservices 
+- deploying containers on a Kubernetes container platform
 
-- a control station 
-- an Red Hat OpenShift cluster deployed within a Public Cloud
-  - a control service
-  - a web service (NGINX + MongoDB) to record sessions
-  - Prometheus + Grafana to expose metrics 
-- an Red Hat Edge Gateway (optional)
-  - a control service 
-- an Edge device 
+## Phase 1
+Leveraging the *Raspberry Pico Wireless*, we will build a small rover controlled remotely by a simple web based application.
+The hardware is composed of:  
 
-The scenario is as follow:   
+- a Raspberry Pico Wireless 
+- a L298N motor controller with 2 DC engines
+- a NC522 NFC interface
+- a 4-battery holder pack
 
-- an user controls remotely a device by gesture captured via a webcam on the control station.
-- the control station sends the gestures to the control service.
-- the control service sends:
-  - a entry into Prometheus
-  - a feedback to the web service
-  - the requests to the device
+The code, written in Python and deployed on the Raspberry Pico Wireless, provides the following features:
+- connection capabilities to a wireless network
+- access to a web application to drive the rover
+- driving capabilities via left, right, forward, backward and stop functions
+- detecting minerals of interests 
 
-In far Edge scenario, the connectivity could be a challenge. To mitigate communication failure, an Edge gateway could be deployed closer to the Edge device as a reliable connectivity option.    
-Considering this scenario, the Edge gateway could either be:  
+## Phase 2
+The phase 1 outcome is a first prototype. Considering an edge scenario, this prototype would require to have a closed proximity to the rover per the wireless connection requirement but also due to the code being a monolithic software fully loaded on the rover itself.  
+Considering these 2 elements, many constraints can be unveiled when using the rover limiting the flexibility and the remote capabilities for such a device.  
 
-- a Red Hat OpenShift remote worker
-- a Red Hat Edge Device with Podman or Microshift
+Phase 2 is addressing these 2 key elements by:
 
-This scenario will be explored.   
+- refactoring the application into microservices
+- containerizing the microservices
+- leveraging the concept of Edge gateway
+
+## Phase 3
+While phase 2 was to address constraints, the phase 3 is about productizing the solution using a container platform, either on-prem, in the cloud or a hybrid cloud solution. 
+
+Phase 3 is addressing the followings:
+
+- securing the Edge connectivity using cloud native solutions
+- applying GitOps principle to deploy and maintain the rover solution
+- leveraging a hybrid cloud deployment for increased resilience 
+
