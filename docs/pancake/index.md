@@ -18,7 +18,8 @@ The hardware is composed of:
 - a NC522 NFC interface
 - a 4-battery holder pack
 
-The code, written in Python and deployed on the Raspberry Pico Wireless, provides the following features:
+The code, written in Python and deployed on the Raspberry Pico Wireless, provides the following features: 
+
 - connection capabilities to a wireless network
 - access to a web application to drive the rover
 - driving capabilities via left, right, forward, backward and stop functions
