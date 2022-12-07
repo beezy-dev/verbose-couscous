@@ -9,11 +9,13 @@ This demo is leveraging the [skupper example hello world](https://github.com/sku
 
 ## requirements
 
-This demo has been prepared for a Red Hat customers and partners using: 
+This demo has been prepared for Red Hat customers and partners using: 
 
 - [Red Hat OpenShift Local](https://developers.redhat.com/products/openshift-local/overview) running on a laptop and defined as the on-prem instance
 - [Azure Red Hat OpenShift](https://azure.microsoft.com/nl-nl/products/openshift/#overview) - a Microsoft/Red Hat managed OpenShift cluster
 - [Skupper](https://skupper.io/) - a multi cloud communication framework for Kubernetes  
+
+However, since OpenShift is a certified Kubernetes distribution, the overall walkthrough should work on any Kubernetes flavor. To that extend, despite using the ```oc``` command, all parameters and arguments have been set to the Kubernetes API ones. 
 
 ???+ note
 
@@ -177,7 +179,7 @@ frontend-c684c5c45-295hd   1/1     Running   0          92s
 ```
 
 run: 
-```bash title="access the hello-world from localhost"
+```bash title="access the hello-world from localhost with a port-forward"
 oc port-forward -n hello-world frontend-c684c5c45-295hd 8080:8080
 ```
 
@@ -187,3 +189,8 @@ Forwarding from 127.0.0.1:8080 -> 8080
 Forwarding from [::1]:8080 -> 8080
 ```
 
+### accessing the application 
+
+Opening http://127.0.0.1:8080 in a browser should provide the following:
+
+![skupper hello world](../images/shiny-octo-spoon-hello-world-01.png)
