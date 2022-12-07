@@ -17,7 +17,8 @@ This demo has been prepared for a Red Hat customers and partners using:
 
 ???+ note
 
-    Skupper has been selected in this context to provide a granular connectivity between the front-end and back-end across a secure network. Another solution using Submariner could be considered if unifying two cluster at a network level is required.  
+    Skupper has been selected in this context to provide a granular connectivity between the front-end and back-end across a secure network.  
+    Another solution using Submariner could be considered if unifying two cluster at a network level is required.  
 
 ## running locally 
 
@@ -147,7 +148,7 @@ deployment.apps/backend created
 
 ???+ warning
 
-    why using these tags? 
+    why using these tags?   
     why is this message appearing?
 
 
