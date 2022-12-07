@@ -21,11 +21,13 @@ This demo has been prepared for a Red Hat customers and partners using:
 
 ## running locally 
 
+### start OpenShift Local
+run:
 ```bash title="start OpenShift Local"
 ➜  ~ crc start
 ```
 
-outputing: 
+output: 
 ```
 WARN A new version (2.11.0) has been published on https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/2.11.0/crc-macos-installer.pkg 
 INFO Checking if running as non-root              
@@ -94,14 +96,13 @@ Use the 'oc' command line interface:
   $ oc login -u developer https://api.crc.testing:6443
 ```
 
-### log in as admin 
-
+run:
 ```bash title="log in as admin"
 ➜  ~ eval $(crc oc-env)
 ➜  ~ oc login -u kubeadmin https://api.crc.testing:6443
 ```
 
-outputing: 
+output: 
 ```
 Logged into "https://api.crc.testing:6443" as "kubeadmin" using existing credentials.
 
@@ -109,3 +110,79 @@ You have access to 66 projects, the list has been suppressed. You can list all p
 
 Using project "default".
 ```
+
+### deploy hello-world
+
+run:
+```bash title="create a project/namespace"
+oc create namespace hello-world
+```
+
+output:
+```
+namespace/hello-world created
+```
+
+run:
+```bash title="deploy the front-end image within the created project/namespace"
+oc create deployment frontend --image ghcr.io/beezy-dev/frontend:2010aba1e1bb5a348fdb498aa75ea97f6e30ee02 -n hello-world
+```
+
+output:
+```
+Warning: would violate PodSecurity "restricted:v1.24": allowPrivilegeEscalation != false (container "frontend" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "frontend" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "frontend" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "frontend" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
+deployment.apps/frontend created
+```
+
+run:
+```bash title=""
+oc create deployment backend --image ghcr.io/beezy-dev/backend:2010aba1e1bb5a348fdb498aa75ea97f6e30ee02 -n hello-world
+```
+
+output:
+```
+Warning: would violate PodSecurity "restricted:v1.24": allowPrivilegeEscalation != false (container "backend" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "backend" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "backend" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "backend" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
+deployment.apps/backend created
+```
+
+???+ warning
+
+    why using these tags? 
+    why is this message appearing?
+
+
+run:
+```bash title="expose the front-end and back-end"
+oc expose deployment/frontend --port 8080 --type LoadBalancer -n hello-world
+oc expose deployment/backend --port 8080 --type LoadBalancer -n hello-world
+```
+
+output:
+```
+service/frontend exposed
+service/backend exposed
+```
+
+run:
+```bash title="have a look at the created pods"
+oc get pod -n hello-world
+```
+
+output:
+```
+NAME                       READY   STATUS    RESTARTS   AGE
+backend-79c4d4676f-7s9kv   1/1     Running   0          76s
+frontend-c684c5c45-295hd   1/1     Running   0          92s
+```
+
+run: 
+```bash title="access the hello-world from localhost"
+oc port-forward -n hello-world frontend-c684c5c45-295hd 8080:8080
+```
+
+output:
+```
+Forwarding from 127.0.0.1:8080 -> 8080
+Forwarding from [::1]:8080 -> 8080
+```
+
