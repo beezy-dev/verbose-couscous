@@ -344,3 +344,6 @@ backend-79c4d4676f-zrfzc                      1/1     Running   0          3s
 skupper-router-58578d87f8-tbl7m               2/2     Running   0          5m16s
 skupper-service-controller-5b8f545d4c-782fx   1/1     Running   0          5m14s
 ```
+
+![skupper hello world 3](../images/shiny-octo-spoon-hello-world-03.png)
+
