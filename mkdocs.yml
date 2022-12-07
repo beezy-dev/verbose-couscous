@@ -101,6 +101,8 @@ nav:
         - Software: pancake/software.md
         - Operating: pancake/ops.md 
       - Development: pancake/devenv.md
+    - shiny-octo-spoon: 
+      - shiny-octo-spoon/index.md
     - verbose-couscous:
       - verbose-couscous/index.md
   - Reference: community.md
