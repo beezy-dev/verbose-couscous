@@ -305,5 +305,5 @@ frontend   LoadBalancer   172.30.155.146   40.88.201.78   8080:30547/TCP   21s
 
 Check in a browser:
 
-![skupper hello world 2](../images/shiny-octo-spoon-hello-world-01)
+![skupper hello world 2](../images/shiny-octo-spoon-hello-world-02.png)
 
