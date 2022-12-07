@@ -256,6 +256,14 @@ output:
 ```
 Site configured to link to https://claims-default.apps.azhnz6tm.eastus.aroapp.io:443/d57e084e-7654-11ed-9e43-acde48001122 (name=link1)
 Check the status of the link using 'skupper link status'.
+
+Links created from this site:
+-------------------------------
+Link link1 is active
+
+Currently active links from other sites:
+----------------------------------------
+There are no active links
 ```
 
 ### deploy front-end
@@ -307,3 +315,32 @@ Check in a browser:
 
 ![skupper hello world 2](../images/shiny-octo-spoon-hello-world-02.png)
 
+run:
+```bash title="expose the front-end and back-end"
+oc config use-context local
+oc get pods
+```
+
+output:
+```
+NAME                                          READY   STATUS    RESTARTS   AGE
+backend-79c4d4676f-dw99z                      1/1     Running   0          71s
+skupper-router-58578d87f8-tbl7m               2/2     Running   0          3m54s
+skupper-service-controller-5b8f545d4c-782fx   1/1     Running   0          3m52s
+```
+
+### what happen in case of the backend failure
+
+run:
+```bash title="delete the backend pod"
+oc delete pod backend-79c4d4676f-dw99z
+oc get pods
+```
+
+output:
+```
+NAME                                          READY   STATUS    RESTARTS   AGE
+backend-79c4d4676f-zrfzc                      1/1     Running   0          3s
+skupper-router-58578d87f8-tbl7m               2/2     Running   0          5m16s
+skupper-service-controller-5b8f545d4c-782fx   1/1     Running   0          5m14s
+```
