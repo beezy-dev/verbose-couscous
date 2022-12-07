@@ -24,13 +24,13 @@ hide:
 
     [:octicons-arrow-right-24: Getting started](/pancake)
 
--   :material--clouds:{ .lg .middle } __shiny-octo-spoon__
+-   :material-clouds:{ .lg .middle } __shiny-octo-spoon__
 
     ---
 
     An open hybrid cloud story. 
 
-    [:octicons-arrow-right-24: Contribution welcome](/shiny-octo-spoon)
+    [:octicons-arrow-right-24: Getting started](/shiny-octo-spoon)
 
 -   :material-file-document-multiple:{ .lg .middle } __verbose-couscous__
 
