@@ -8,13 +8,13 @@ hide:
 ## Open Source Project on beezy.dev
 
 <div class="grid cards" markdown>
--   :material-radar:{ .lg .middle } __EchoCD__
+-   :material-radar:{ .lg .middle } __Echo CA__
    
     ---
 
     More details to come.
 
-    [:octicons-arrow-right-24: Getting started](/echocd)
+    [:octicons-arrow-right-24: Getting started](/echo-ca)
 
 -   :material-robot:{ .lg .middle } __pancake__
    

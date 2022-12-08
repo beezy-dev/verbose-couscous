@@ -14,18 +14,18 @@ This demo is leveraging the [skupper example hello world](https://github.com/sku
 
 ## requirements
 
-This demo has been prepared for Red Hat customers and partners using: 
+This demo has been prepared for Kubernetes in general, and tested on Red Hat OpenShift for a customers and partners event using the followings: 
 
 - [Red Hat OpenShift Local](https://developers.redhat.com/products/openshift-local/overview) running on a laptop and defined as the on-prem instance
 - [Azure Red Hat OpenShift](https://azure.microsoft.com/nl-nl/products/openshift/#overview) - a Microsoft/Red Hat managed OpenShift cluster
 - [Skupper](https://skupper.io/) - a multi cloud communication framework for Kubernetes  
 
-However, since OpenShift is a certified Kubernetes distribution, the overall walkthrough should work on any Kubernetes flavor. To that extend, despite using the ```oc``` command, all parameters and arguments have been set to the Kubernetes API ones. 
+However, since OpenShift is a certified Kubernetes distribution, the overall walkthrough should work on any Kubernetes flavor. To that extend, despite using the ```oc``` command, all parameters and arguments have been set to be compatible with ```kubectl```. 
 
 ???+ note
 
     Skupper has been selected in this context to provide a granular connectivity between the front-end and back-end across a secure network.  
-    Another solution using Submariner could be considered if unifying two cluster at a network level is required.  
+    Another solution would be to use Submariner if unifying two cluster at a network level from a scope perspective.  
 
 ## running locally 
 

@@ -88,8 +88,8 @@ nav:
   - Projects: index.md
   - Contributing: contribute.md
   - Projects:
-    - EchoCD:
-      - echocd/index.md
+    - Echo CA:
+      - echo-ca/index.md
     - pancake: 
       - pancake/index.md    
       - Architecture:
