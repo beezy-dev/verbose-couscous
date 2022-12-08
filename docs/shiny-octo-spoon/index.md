@@ -1,4 +1,4 @@
-# shiny octo sppon 
+# shiny octo spoon 
 
 ## a hybrid cloud story
 
