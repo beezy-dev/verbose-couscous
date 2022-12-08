@@ -8,6 +8,10 @@ This demo is leveraging the [skupper example hello world](https://github.com/sku
 - how to deploy applications in a PaaS or even CaaS approach? or how to release in full "gated" autonomy
 - how to support split front-end/back-end architecture? or how to leverage the cloud to deploy applications within data sovereignty environment
 
+
+![skupper hello world 0](../images/shiny-octo-spoon-hello-world-00.png)
+
+
 ## requirements
 
 This demo has been prepared for Red Hat customers and partners using: 
