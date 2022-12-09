@@ -5,7 +5,6 @@
 
 To simplify the cabling, the Raspberry Pico W will be mounted on a breakout board from Freenove.
 
-![pico on freenove](../images/pancake-01.jpg)
 <img src="https://beezy.dev/images/pancake-01.jpg" width="50%" height="50%" >
 
 
@@ -18,6 +17,5 @@ This is approach is optional but provides with, and not limited to, the followin
 The GPIO status LED is a nice addition as it allows to dev on your Pico without any component attach and observe the LED on/off status.
 
 
-
-![pico w pinout](../images/pancake-01.svg)
+![pico w pinout](../images/pancake-02.svg)
 
