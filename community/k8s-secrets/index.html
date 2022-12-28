@@ -1169,9 +1169,18 @@ mindmap
 <p>Considering the above, the attach surface is similar to an open door policy. Let's digg into the Kubernetes Secret Management and then see how to mitigate from an end-to-end perspective this unwanted <code>open door policy</code>.</p>
 <h2 id="kubernetes-secrets">Kubernetes Secrets</h2>
 <p>Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively <code>admin</code> and <code>p@ssw0rd$</code>. As definid earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:</p>
-<div class="highlight"><span class="filename">```p@ssw0rd$``` is ```cEBzc3cwcmQkCg==```</span><pre><span></span><code><span class="nb">echo</span> <span class="s1">&#39;p@ssw0rd$&#39;</span> <span class="p">|</span> base64
+<div class="highlight"><span class="filename">base64 output is cEBzc3cwcmQkCg==</span><pre><span></span><code><span class="nb">echo</span> <span class="s1">&#39;p@ssw0rd$&#39;</span> <span class="p">|</span> base64
 </code></pre></div>
-<div class="highlight"><span class="filename">mysecret.yml</span><pre><span></span><code>
+<div class="highlight"><span class="filename">mysecret.yml</span><pre><span></span><code>--- 
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+  namespace: myapp
+type: Opaque
+data:
+  USER_NAME: YWRtaW4K
+  PASSWORD: cEBzc3cwcmQkCg==
 </code></pre></div>
 <p>When creating the secret using the commande </p>
 <h2 id="kubernetes-project-mitigation">Kubernetes Project Mitigation</h2>
