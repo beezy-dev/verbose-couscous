@@ -67,7 +67,7 @@ Then the encoded credentials can be used within an YAML manifest like:
 
 Finally, to actually create the secret within the Kubernetes cluster, run the following:
 
-!!! note "CLI only" inline end
+!!! note inline end   
     While convenient from a GitOps perspective, the YAML manifest is optional as secret can be create using the ```kubectl create secret``` command.
 
 ```bash title="create a secret based on a YAML manifest" 
@@ -76,7 +76,7 @@ kubectl apply -f mysecret.yml
 
 The above is trivial as they are commons to any Kubernetes API objects CURD operations. However, the sequence workflow might help with the mitigation path. The overall process can be drafted with the following diagram:  
 
-!!! info inline end
+!!! info inline end  
     Considering this sequence diagram, actions at the manfiest, API server, and etcd levels will be required to ensure end-to-end mitigations.
  
 ```mermaid
