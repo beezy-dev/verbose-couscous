@@ -61,14 +61,14 @@ echo 'p@ssw0rd$' | base64
 
 Then the encoded credentials can be used within an YAML manifest like:  
 
+!!! note inline end   
+    While convenient from a GitOps perspective, the YAML manifest is optional as secret can be create using the ```kubectl create secret``` command.
+
 ``` title="mysecret.yml"
 --8<-- "files/mysecret.yml"
 ```
 
 Finally, to actually create the secret within the Kubernetes cluster, run the following:
-
-!!! note inline end   
-    While convenient from a GitOps perspective, the YAML manifest is optional as secret can be create using the ```kubectl create secret``` command.
 
 ```bash title="create a secret based on a YAML manifest" 
 kubectl apply -f mysecret.yml
