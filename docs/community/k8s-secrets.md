@@ -51,6 +51,7 @@ Considering the above, the attach surface is similar to an open door policy. Let
 
 ## Kubernetes Secrets 
 
+### Create a secret
 Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively ```admin``` and ```p@ssw0rd$```. As defined earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:
 
 ```bash title="credential base64 encoding"
@@ -73,9 +74,18 @@ kubectl apply -f mysecret.yml
 !!! note "CLI only"
     While convenient from a GitOps perspective, the YAML manifest is optional as secret can be create using the ```kubectl create secret``` command.
 
+The above are trivial operations as they are commons to any Kubernetes API objects. However, the sequence workflow might help with the mitigation path. The above operations can be resumed with the following diagram:  
 
-
-When creating the secret using the commande 
+```mermaid
+sequenceDiagram
+participant User or App
+participant etcd
+participant API Server
+autonumber
+  User or App->>API Server: create Secret
+  Note right of User or App: base64 encoded sensitive data
+  API Server->>etcd: store Secret
+```
 
 
 
