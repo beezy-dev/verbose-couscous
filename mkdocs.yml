@@ -99,6 +99,7 @@ nav:
         - Software: pancake/software.md
         - Operating: pancake/ops.md 
       - Development: pancake/devenv.md
+    - secrets in k8s: community/k8s-secrets.md
     - shiny-octo-spoon: 
       - shiny-octo-spoon/index.md
     - verbose-couscous:
