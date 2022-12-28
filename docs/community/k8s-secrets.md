@@ -53,12 +53,12 @@ Considering the above, the attach surface is similar to an open door policy. Let
 
 Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively ```admin``` and ```p@ssw0rd$```. As definid earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:
 
-```bash title="```p@ssw0rd$``` is ```cEBzc3cwcmQkCg==```"
+```bash title="base64 output is cEBzc3cwcmQkCg=="
 echo 'p@ssw0rd$' | base64
 ```
 
 ``` title="mysecret.yml"
---8<-- "../files/mysecret.yml"
+--8<-- "files/mysecret.yml"
 ```
 
 When creating the secret using the commande 
