@@ -67,7 +67,7 @@ Then the encoded credentials can be used within an YAML manifest like:
 
 Finally, to actually create the secret within the Kubernetes cluster, run the following:
 
-??? note "CLI only" inline end
+!!! note "CLI only" inline end
     While convenient from a GitOps perspective, the YAML manifest is optional as secret can be create using the ```kubectl create secret``` command.
 
 ```bash title="create a secret based on a YAML manifest" 
