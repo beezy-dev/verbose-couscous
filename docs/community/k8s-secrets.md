@@ -76,6 +76,9 @@ kubectl apply -f mysecret.yml
 
 The above is trivial as they are commons to any Kubernetes API objects CURD operations. However, the sequence workflow might help with the mitigation path. The overall process can be drafted with the following diagram:  
 
+!!! info inline end
+    Considering this sequence diagram, actions at the manfiest, API server, and etcd levels will be required to ensure end-to-end mitigations.
+ 
 ```mermaid
 sequenceDiagram
 participant User or App
@@ -87,9 +90,7 @@ autonumber
   API Server->>etcd: store Secret
 ```
 
-!!! info inline end
-    Considering this sequence diagram, actions at the manfiest, API server, and etcd levels will be required to ensure end-to-end mitigations.
-    
+   
 
 ## Kubernetes Project Mitigation 
 
