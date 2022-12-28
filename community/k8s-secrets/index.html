@@ -898,6 +898,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#kubernetes-secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes Secrets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubernetes-project-mitigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes Project Mitigation
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1062,6 +1084,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#kubernetes-secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes Secrets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubernetes-project-mitigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes Project Mitigation
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1120,6 +1164,18 @@ mindmap
 
 <p>This contribution is focusing on the etcd and secrets components listed within the above diagram. </p>
 <h2 id="why-etcd-secrets">Why etcd &amp; secrets?</h2>
+<p>The etcd key value store is the most critical piece of a Kubernetes cluster as it servers as a sort of distributed CMDB for every components; from nodes, to configmap, to services, ... If etcd fails, the entire cluster will collapse, if it is hacked, the entire workloads and components are compromised. The key value store does not provide any encryption capabilities. </p>
+<p>Then secret. As everything else, secrets are stored within the cluster etcd. Secret payloads are not encrypted but encoded in base64. This is by default a mechanism to protect the data field payload going through software that might chok on special characters.  </p>
+<p>Considering the above, the attach surface is similar to an open door policy. Let's digg into the Kubernetes Secret Management and then see how to mitigate from an end-to-end perspective this unwanted <code>open door policy</code>.</p>
+<h2 id="kubernetes-secrets">Kubernetes Secrets</h2>
+<p>Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively <code>admin</code> and <code>p@ssw0rd$</code>. As definid earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:</p>
+<div class="highlight"><span class="filename">```p@ssw0rd$``` is ```cEBzc3cwcmQkCg==```</span><pre><span></span><code><span class="nb">echo</span> <span class="s1">&#39;p@ssw0rd$&#39;</span> <span class="p">|</span> base64
+</code></pre></div>
+<div class="highlight"><span class="filename">mysecret.yml</span><pre><span></span><code>
+</code></pre></div>
+<p>When creating the secret using the commande </p>
+<h2 id="kubernetes-project-mitigation">Kubernetes Project Mitigation</h2>
+<p>The address the relative high concern, the <a href="https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/">Kubernetes Project</a> advises to leverage the <code>EncryptionConfiguration</code> API objects to perform encryption at rest for Secrets at creation time. </p>
 
   
     
