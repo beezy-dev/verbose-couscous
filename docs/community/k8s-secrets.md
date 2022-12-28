@@ -51,15 +51,29 @@ Considering the above, the attach surface is similar to an open door policy. Let
 
 ## Kubernetes Secrets 
 
-Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively ```admin``` and ```p@ssw0rd$```. As definid earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:
+Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively ```admin``` and ```p@ssw0rd$```. As defined earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:
 
-```bash title="base64 output is cEBzc3cwcmQkCg=="
+```bash title="credential base64 encoding"
+echo 'admin' | base64
 echo 'p@ssw0rd$' | base64
 ```
+
+Then the encoded credentials can be used within an YAML manifest like:  
 
 ``` title="mysecret.yml"
 --8<-- "files/mysecret.yml"
 ```
+
+Finally, to actually create the secret within the Kubernetes cluster, run the following:
+
+```bash title="create a secret based on a YAML manifest" 
+kubectl apply -f mysecret.yml
+```
+
+!!! note "CLI only"
+    While convenient from a GitOps perspective, the YAML manifest is optional as secret can be create using the ```kubectl create secret``` command.
+
+
 
 When creating the secret using the commande 
 
