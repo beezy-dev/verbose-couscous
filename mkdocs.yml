@@ -85,9 +85,8 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 
 nav:
-  - Projects: index.md
-  - Contributing: contribute.md
-  - Projects:
+  - Projects: 
+    - index.md
     - Echo CA:
       - echo-ca/index.md
     - pancake: 
@@ -99,11 +98,13 @@ nav:
         - Software: pancake/software.md
         - Operating: pancake/ops.md 
       - Development: pancake/devenv.md
-    - secrets in k8s: community/k8s-secrets.md
     - shiny-octo-spoon: 
       - shiny-octo-spoon/index.md
     - verbose-couscous:
       - verbose-couscous/index.md
+  - Articles:
+    - Secrets in k8s: community/k8s-secrets.md
+  - Contributing: contribute.md
   - Reference: community.md
   - Terminology: pancake/concepts.md
   - Support: support.md
