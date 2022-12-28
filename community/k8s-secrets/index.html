@@ -1232,8 +1232,8 @@ participant User or App
 participant etcd
 participant API Server
 autonumber
-  User or App-&gt;&gt;API Server: create Secret
-  Note right of User or App: base64 encoded sensitive data
+  User or App-&gt;&gt;API Server: create Secret mysecret
+  Note right of User or App: base64 encoded data field
   API Server-&gt;&gt;etcd: store Secret</code></pre>
 <h2 id="kubernetes-project-mitigation">Kubernetes Project Mitigation</h2>
 <p>The address the relative high concern, the <a href="https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/">Kubernetes Project</a> advises to leverage the <code>EncryptionConfiguration</code> API objects to perform encryption at rest for Secrets at creation time. </p>
