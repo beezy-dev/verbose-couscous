@@ -42,3 +42,30 @@ mindmap
 This contribution is focusing on the etcd and secrets components listed within the above diagram. 
 
 ## Why etcd & secrets?
+
+The etcd key value store is the most critical piece of a Kubernetes cluster as it servers as a sort of distributed CMDB for every components; from nodes, to configmap, to services, ... If etcd fails, the entire cluster will collapse, if it is hacked, the entire workloads and components are compromised. The key value store does not provide any encryption capabilities. 
+
+Then secret. As everything else, secrets are stored within the cluster etcd. Secret payloads are not encrypted but encoded in base64. This is by default a mechanism to protect the data field payload going through software that might chok on special characters.  
+
+Considering the above, the attach surface is similar to an open door policy. Let's digg into the Kubernetes Secret Management and then see how to mitigate from an end-to-end perspective this unwanted ```open door policy```.
+
+## Kubernetes Secrets 
+
+Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively ```admin``` and ```p@ssw0rd$```. As definid earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:
+
+```bash title="```p@ssw0rd$``` is ```cEBzc3cwcmQkCg==```"
+echo 'p@ssw0rd$' | base64
+```
+
+``` title="mysecret.yml"
+--8<-- "../files/mysecret.yml"
+```
+
+When creating the secret using the commande 
+
+
+
+## Kubernetes Project Mitigation 
+
+The address the relative high concern, the [Kubernetes Project](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/) advises to leverage the ```EncryptionConfiguration``` API objects to perform encryption at rest for Secrets at creation time. 
+
