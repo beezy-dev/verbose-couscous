@@ -1,9 +1,9 @@
 
 # Keep your Secrets secret!
 
-When starting a security journey with Kubernetes, the following mindmap can be built up:
+The journey to secure a container platform could be overwheelming. Building a layer based or mindmap diagram can help to define the different components requiring attention. Here is an example of such mindmap, work in progress and not a definite/static diagram:
 
-<img src="https://beezy.dev/images/mermaid-diagram-2022-12-28-131205.svg" width="50%" height="50%" >
+<img src="https://beezy.dev/images/mermaid-diagram-2022-12-28-131205.svg" width="75%" height="75%" >
 
 <!--
 This is the mermaid.js manifest for the mindmap diagram
@@ -36,3 +36,5 @@ mindmap
       Mutation
       Secrets 
 ``` -->
+
+This contribution is focusing on the etcd and secrets components listed within the above diagram. 
