@@ -71,10 +71,10 @@ Finally, to actually create the secret within the Kubernetes cluster, run the fo
 kubectl apply -f mysecret.yml
 ```
 
-!!! note "CLI only"
+??? note "CLI only"
     While convenient from a GitOps perspective, the YAML manifest is optional as secret can be create using the ```kubectl create secret``` command.
 
-The above are trivial operations as they are commons to any Kubernetes API objects. However, the sequence workflow might help with the mitigation path. The above operations can be resumed with the following diagram:  
+The above is trivial as they are commons to any Kubernetes API objects CURD operations. However, the sequence workflow might help with the mitigation path. The overall process can be drafted with the following diagram:  
 
 ```mermaid
 sequenceDiagram
@@ -86,6 +86,10 @@ autonumber
   Note right of User or App: base64 encoded data field
   API Server->>etcd: store Secret
 ```
+
+!!! info inline end
+    Considering this sequence diagram, actions at the manfiest, API server, and etcd levels will be required to ensure end-to-end mitigations.
+    
 
 ## Kubernetes Project Mitigation 
 
