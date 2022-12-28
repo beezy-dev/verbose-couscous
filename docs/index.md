@@ -5,7 +5,7 @@ hide:
 
 # Projects
 
-<img src="https://beezy.dev/images/logo-no-background.svg" width="75%" height="75%" >
+<img src="https://beezy.dev/images/logo-no-background.svg" width="50%" height="50%" >
 
 <!-- ![logo](images/logo-no-background.svg) -->
 

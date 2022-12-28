@@ -11,7 +11,7 @@ This is the mermaid.js manifest for the mindmap diagram
  ```mermaid
 mindmap
   kubernetes security
-    Governance
+    Governance 
       Everything as Code
       Regulations
       Business Continuity Plan 
