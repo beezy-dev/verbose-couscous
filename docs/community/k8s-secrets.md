@@ -31,7 +31,7 @@ mindmap
       Secrets 
 ```
 
-![](../images/mermaid-diagram-2022-12-28-130817.svg)
+![](../images/mermaid-diagram-2022-12-28-131205.svg)
 
 <!-- mindmap
   root((kubernetes security))
