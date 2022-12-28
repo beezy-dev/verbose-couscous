@@ -1,7 +1,13 @@
 
 # Keep your Secrets secret!
 
-```mermaid
+When starting a security journey with Kubernetes, the following mindmap can be built up:
+
+<img src="https://beezy.dev/images/mermaid-diagram-2022-12-28-131205.svg" width="50%" height="50%" >
+
+<!--
+This is the mermaid.js manifest for the mindmap diagram
+ ```mermaid
 mindmap
   kubernetes security
     Governance
@@ -29,33 +35,4 @@ mindmap
       Code
       Mutation
       Secrets 
-```
-
-![](../images/mermaid-diagram-2022-12-28-131205.svg)
-
-<!-- mindmap
-  root((kubernetes security))
-    Core
-      Operating System 
-      Hardening 
-      Patching Life Cycle
-    Infrastructure
-      Identity, Access, Entiltement Management
-      Security Posture Management
-      Network Security Zone
-      Data Classification
-    Business Continuity Plan 
-    Container Registry
-    Control Plane
-      API 
-        Authentication
-        Segmentations
-      etcd 
-        Authenthication
-        Encryption
-      Network
-        Ingress
-        Egress 
-        Policies
-        Segmentations
-    Worker -->
+``` -->
