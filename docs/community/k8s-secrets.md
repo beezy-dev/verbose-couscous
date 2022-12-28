@@ -82,12 +82,10 @@ participant User or App
 participant etcd
 participant API Server
 autonumber
-  User or App->>API Server: create Secret
-  Note right of User or App: base64 encoded sensitive data
+  User or App->>API Server: create Secret mysecret
+  Note right of User or App: base64 encoded data field
   API Server->>etcd: store Secret
 ```
-
-
 
 ## Kubernetes Project Mitigation 
 
