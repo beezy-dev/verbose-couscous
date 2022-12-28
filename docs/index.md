@@ -3,7 +3,11 @@ hide:
   - toc
 ---
 
-![logo](images/logo-no-background.svg)
+# Projects
+
+<img src="https://beezy.dev/images/logo-no-background.svg" width="75%" height="75%" >
+
+<!-- ![logo](images/logo-no-background.svg) -->
 
 ## Open Source Project on beezy.dev
 
