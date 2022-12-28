@@ -1222,11 +1222,11 @@ data:
 <p>Finally, to actually create the secret within the Kubernetes cluster, run the following:</p>
 <div class="highlight"><span class="filename">create a secret based on a YAML manifest</span><pre><span></span><code>kubectl apply -f mysecret.yml
 </code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">CLI only</p>
+<details class="note">
+<summary>CLI only</summary>
 <p>While convenient from a GitOps perspective, the YAML manifest is optional as secret can be create using the <code>kubectl create secret</code> command.</p>
-</div>
-<p>The above are trivial operations as they are commons to any Kubernetes API objects. However, the sequence workflow might help with the mitigation path. The above operations can be resumed with the following diagram:  </p>
+</details>
+<p>The above is trivial as they are commons to any Kubernetes API objects CURD operations. However, the sequence workflow might help with the mitigation path. The overall process can be drafted with the following diagram:  </p>
 <pre class="mermaid"><code>sequenceDiagram
 participant User or App
 participant etcd
@@ -1235,6 +1235,10 @@ autonumber
   User or App-&gt;&gt;API Server: create Secret mysecret
   Note right of User or App: base64 encoded data field
   API Server-&gt;&gt;etcd: store Secret</code></pre>
+<div class="admonition info inline end">
+<p class="admonition-title">Info</p>
+<p>Considering this sequence diagram, actions at the manfiest, API server, and etcd levels will be required to ensure end-to-end mitigations.</p>
+</div>
 <h2 id="kubernetes-project-mitigation">Kubernetes Project Mitigation</h2>
 <p>The address the relative high concern, the <a href="https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/">Kubernetes Project</a> advises to leverage the <code>EncryptionConfiguration</code> API objects to perform encryption at rest for Secrets at creation time. </p>
 
