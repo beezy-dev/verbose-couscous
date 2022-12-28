@@ -2,37 +2,37 @@
 # Keep your Secrets secret!
 
 ```mermaid
-    mindmap
-    id)kubernetes security(
-        Governance
-        Everything as Code
-        Regulations
-        Business Continuity Plan 
-        Security Posture Management
-        Identity Access Entiltement Management
-        Infrastructure 
-        Operating System 
-        Hardening 
-        Patching Life Cycle
-        Network
-        Storage 
-        Orchestrator 
-        API
-        etcd
-        Scheduler 
-        Network
-        Registry
-        Secrets
-        Container
-        Base Image
-        Patching Life Cycle
-        Code
-        Mutation
-        Secrets 
-```
-<!-- 
-
 mindmap
+  id)kubernetes security(
+    Governance
+      Everything as Code
+      Regulations
+      Business Continuity Plan 
+      Security Posture Management
+    Identity Access Entiltement Management
+    Infrastructure 
+      Operating System 
+      Hardening 
+      Patching Life Cycle
+      Network
+      Storage 
+    Orchestrator 
+      API
+      etcd
+      Scheduler 
+      Network
+      Registry
+      Secrets
+    Container
+      Base Image
+      Patching Life Cycle
+      Code
+      Mutation
+      Secrets 
+```
+
+
+<!-- mindmap
   root((kubernetes security))
     Core
       Operating System 
