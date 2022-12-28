@@ -828,6 +828,23 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    
+  
+    Secrets in k8s
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -843,6 +860,47 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#security-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-etcd-secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why etcd &amp; secrets?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -976,6 +1034,36 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#security-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-etcd-secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why etcd &amp; secrets?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -995,6 +1083,7 @@
 
 
 <h1 id="keep-your-secrets-secret">Keep your Secrets secret!</h1>
+<h2 id="security-overview">Security Overview</h2>
 <p>The journey to secure a container platform could be overwheelming. Building a layer based or mindmap diagram can help to define the different components requiring attention. Here is an example of such mindmap, work in progress and not a definite/static diagram:</p>
 <p><img src="https://beezy.dev/images/mermaid-diagram-2022-12-28-131205.svg" width="75%" height="75%" ></p>
 <!--
@@ -1030,6 +1119,7 @@ mindmap
 ``` -->
 
 <p>This contribution is focusing on the etcd and secrets components listed within the above diagram. </p>
+<h2 id="why-etcd-secrets">Why etcd &amp; secrets?</h2>
 
   
     
