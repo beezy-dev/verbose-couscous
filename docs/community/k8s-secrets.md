@@ -49,9 +49,9 @@ Then secret. As everything else, secrets are stored within the cluster etcd. Sec
 
 Considering the above, the attach surface is similar to an open door policy. Let's digg into the Kubernetes Secret Management and then see how to mitigate from an end-to-end perspective this unwanted ```open door policy```.
 
-## Kubernetes Secrets 
+## Create a Kubernetes Secret
 
-### Create a secret from Ops perspective
+### from Ops perspective
 Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively ```admin``` and ```p@ssw0rd$```. As defined earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:
 
 ```bash title="credential base64 encoding"
@@ -62,8 +62,8 @@ echo 'p@ssw0rd$' | base64
 Then the encoded credentials can be used within an YAML manifest like:  
 
 !!! warning inline end  
-    While convenient from a GitOps perspective, but **unsafe**, the YAML manifest is optional as secret can be create using the ```kubectl create secret``` command.  
-    The data field values can be then decoded on any system giving back the original values.
+    While convenient from a GitOps perspective, the YAML manifest is optional as secrets can be create using the ```kubectl create secret``` command.  
+    However, the manifest is **unsafe**; the data field values can be then decoded on any system giving back the original values.
 
 ``` title="mysecret.yml"
 --8<-- "files/mysecret.yml"
@@ -75,7 +75,7 @@ Finally, to actually create the secret within the Kubernetes cluster, run the fo
 kubectl apply -f mysecret.yml
 ```
 
-### Creating a secret from an architecture perspective
+### from an architecture perspective
 While the above is trivial as they are commons to any Kubernetes API objects CURD operations, let's have a sequence diagram to understand the components in action: 
 
 !!! info inline end  
@@ -92,9 +92,12 @@ autonumber
   API Server->>etcd: store Secret
 ```
 
+## Mitigation Path 
 
+Let's zoom in on the mindmap focusing on Kubernetes CRUD operations to elaborate an iterative mitigation path.
 
-## Kubernetes Project Mitigation 
+![](../images/mermaid-diagram-2022-12-29-104705.svg)
+
 
 The address the relative high concern, the [Kubernetes Project](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/) advises to leverage the ```EncryptionConfiguration``` API objects to perform encryption at rest for Secrets at creation time. 
 
