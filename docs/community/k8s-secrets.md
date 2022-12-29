@@ -51,7 +51,7 @@ Considering the above, the attach surface is similar to an open door policy. Let
 
 ## Kubernetes Secrets 
 
-### Create a secret
+### Create a secret from Ops perspective
 Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively ```admin``` and ```p@ssw0rd$```. As defined earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:
 
 ```bash title="credential base64 encoding"
@@ -61,8 +61,9 @@ echo 'p@ssw0rd$' | base64
 
 Then the encoded credentials can be used within an YAML manifest like:  
 
-!!! note inline end   
-    While convenient from a GitOps perspective, the YAML manifest is optional as secret can be create using the ```kubectl create secret``` command.
+!!! warning inline end  
+    While convenient from a GitOps perspective, but **unsafe**, the YAML manifest is optional as secret can be create using the ```kubectl create secret``` command.  
+    The data field values can be then decoded on any system giving back the original values.
 
 ``` title="mysecret.yml"
 --8<-- "files/mysecret.yml"
@@ -74,10 +75,11 @@ Finally, to actually create the secret within the Kubernetes cluster, run the fo
 kubectl apply -f mysecret.yml
 ```
 
-The above is trivial as they are commons to any Kubernetes API objects CURD operations. However, the sequence workflow might help with the mitigation path. The overall process can be drafted with the following diagram:  
+### Creating a secret from an architecture perspective
+While the above is trivial as they are commons to any Kubernetes API objects CURD operations, let's have a sequence diagram to understand the components in action: 
 
 !!! info inline end  
-    Considering this sequence diagram, actions at the manfiest, API server, and etcd levels will be required to ensure end-to-end mitigations.
+    For this diagram, the data field flows through a series of component, usually TLS encupsulated. However, the origin and end points are considered unsafe during since there is any data encryption.
  
 ```mermaid
 sequenceDiagram
@@ -90,7 +92,7 @@ autonumber
   API Server->>etcd: store Secret
 ```
 
-   
+
 
 ## Kubernetes Project Mitigation 
 
