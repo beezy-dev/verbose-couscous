@@ -103,7 +103,7 @@ nav:
     - verbose-couscous:
       - verbose-couscous/index.md
   - Articles:
-    - Secrets in k8s: community/k8s-secrets.md
+    - Secrets in Kubernetes: community/k8s-secrets.md
   - Contributing: contribute.md
   - Reference: community.md
   - Terminology: pancake/concepts.md
