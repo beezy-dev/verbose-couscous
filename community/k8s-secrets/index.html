@@ -1451,7 +1451,7 @@ Leverage the Kubernetes <code>EncryptionConfiguration</code> to handle data fiel
 </div>
 <div class="admonition bug">
 <p class="admonition-title">Bug</p>
-<p>An "Encrypt-All" request for enhancement would be required to provide full protection.</p>
+<p>A request for enhancement to the Kubernetes project might be required to provide encryption for every API object definition. </p>
 </div>
 <h3 id="manifest">Manifest</h3>
 <p>One could consider to simply use the <code>kubectl</code> command to create the secret and it would be fine if the workstation is hardened to avoid memory and console footprints. But this would reduce the autonomy and velocity of a CI/CD development leveraging a container platform as it will require to have the endpoint owner to inject the secret, which at the end will still be base64 encoded within the etcd datastore if no  </p>
