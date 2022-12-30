@@ -152,6 +152,8 @@ While encrypting the data at the disk/file system level will protect any CRUD op
 !!! bug 
     A request for enhancement to the Kubernetes project might be required to provide encryption for every API object definition. 
 
+![etcd mitigation](../images/etcd-mitigations.png)
+
 ### Manifest
 
 One could consider to simply use the ```kubectl``` command to create the secret and it would be fine if the workstation is hardened to avoid memory and console footprints. But this would reduce the autonomy and velocity of a CI/CD development leveraging a container platform as it will require to have the endpoint owner to inject the secret, which at the end will still be base64 encoded within the etcd datastore if no  
