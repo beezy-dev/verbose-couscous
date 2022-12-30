@@ -1568,8 +1568,30 @@ Leverage the Kubernetes <code>EncryptionConfiguration</code> to handle data fiel
 <p><img alt="etcd mitigation" src="../../images/etcd-mitigations.png" /></p>
 <h3 id="manifest">Manifest</h3>
 <h4 id="overview_1">Overview</h4>
-<p>One could consider to simply use the <code>kubectl</code> command to create the secret and it would be fine if the workstation is hardened to avoid memory and console footprints. But this would reduce the autonomy and velocity of a CI/CD development leveraging a container platform as it will require to have the endpoint owner to inject the secret, which at the end will still be base64 encoded within the etcd datastore if no  </p>
-<p>Considering a GitOps approach, revisioning a Kubernetes Secret manifest is providing the sensitive data to the entire organization having read access and even more in case of breach.   </p>
+<p>One would consider to simply use the <code>kubectl</code> command to create the secret and it would be fine if the workstation is hardened to avoid memory and console footprints. This would reduce the autonomy and velocity of an agile development leveraging a container platform as it will require a manual request to the credential owner to inject the secret with the platform before any deployment activities.   </p>
+<p>Another would consider that applications have to rely on a Key Management Service (KMS) to retrieve their secrets instead of using the unsecure etcd. This approach removes the security burden of managing secrets within Kubernetes. While this would work for most new applications or even old one with minimum refactoring, many others are not capable of leveraging this option due to their core functionality linked to Kubernetes. Here are some examples:</p>
+<ul>
+<li>network components like CoreDNS, NGINX, ...</li>
+<li>storage components like Ceph, Ondat, ... </li>
+<li>persistent volume being encrypted at rest and storing their encryption key as secrets</li>
+<li>cert-manager storing the private certificate</li>
+<li>Service Accounts </li>
+</ul>
+<p>Here is an example of secrets created by a freshly deployed RKE2 cluster:</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># kubectl get nodes -A</span>
+NAME                    STATUS   ROLES                       AGE     VERSION
+localhost.localdomain   Ready    control-plane,etcd,master   7m12s   v1.24.9+rke2r1
+<span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># kubectl get secrets -A</span>
+NAMESPACE     NAME                                        TYPE                 DATA   AGE
+kube-system   localhost.localdomain.node-password.rke2    Opaque               <span class="m">1</span>      7m6s
+kube-system   rke2-ingress-nginx-admission                Opaque               <span class="m">3</span>      6m16s
+kube-system   rke2-serving                                kubernetes.io/tls    <span class="m">2</span>      7m7s
+kube-system   sh.helm.release.v1.rke2-canal.v1            helm.sh/release.v1   <span class="m">1</span>      6m54s
+kube-system   sh.helm.release.v1.rke2-coredns.v1          helm.sh/release.v1   <span class="m">1</span>      6m54s
+kube-system   sh.helm.release.v1.rke2-ingress-nginx.v1    helm.sh/release.v1   <span class="m">1</span>      6m22s
+kube-system   sh.helm.release.v1.rke2-metrics-server.v1   helm.sh/release.v1   <span class="m">1</span>      6m22s
+</code></pre></div>
+<p>Considering the GitOps practice, revisioning a Kubernetes Secret manifest would be similar as providing the sensitive data to the entire organization, and even more in case of breach.   </p>
 <h4 id="mitigation_1">Mitigation</h4>
 <h3 id="api">API</h3>
 <h4 id="overview_2">Overview</h4>
