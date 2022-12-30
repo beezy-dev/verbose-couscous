@@ -6,7 +6,6 @@ The journey to secure a container platform could be overwheelming. Building a la
 
 ![](../images/mermaid-diagram-2022-12-28-131205.svg)
 
-
 <!-- 
 This is the mermaid.js manifest for the mindmap diagram
  ```mermaid
@@ -51,7 +50,7 @@ Considering the above, the attach surface is similar to an open door policy. Let
 
 ## Create a Kubernetes Secret
 
-### from Ops perspective
+### from Ops view
 Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively ```admin``` and ```p@ssw0rd$```. As defined earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:
 
 ```bash title="credential base64 encoding"
@@ -75,7 +74,7 @@ Finally, to actually create the secret within the Kubernetes cluster, run the fo
 kubectl apply -f mysecret.yml
 ```
 
-### from an architecture perspective
+### from an architecture view
 While the above is trivial as they are commons to any Kubernetes API objects CURD operations, let's have a sequence diagram to understand the components in action: 
 
 !!! info inline end  
@@ -92,12 +91,39 @@ autonumber
   API Server->>etcd: store Secret
 ```
 
-## Mitigation Path 
+## Iterative Mitigation Path 
 
 Let's zoom in on the mindmap focusing on Kubernetes CRUD operations to elaborate an iterative mitigation path.
 
 ![](../images/mermaid-diagram-2022-12-29-104705.svg)
 
+<!-- 
+This is the mermaid.js manifest for the mindmap diagram
+ ```mermaid
+mindmap
+  id)kubernetes secrets(
+    etcd
+      Auth
+      File System
+      Patching Life Cycle
+      Pod Access
+      TLS  
+    API
+      Auth
+      Config Hardening
+      Patch Life Cycle
+      RBAC
+      TLS
+    CLI or Manifest
+      Data Field
+      GitOps
+``` -->
+
+### Manifest
+
+### etcd
+
+### API
 
 The address the relative high concern, the [Kubernetes Project](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/) advises to leverage the ```EncryptionConfiguration``` API objects to perform encryption at rest for Secrets at creation time. 
 
