@@ -160,7 +160,7 @@ While encrypting the data at the disk/file system level will protect any CRUD op
 
 One would consider to simply use the ```kubectl``` command to create the secret and it would be fine if the workstation is hardened to avoid memory and console footprints. This would reduce the autonomy and velocity of an agile development leveraging a container platform as it will require a manual request to the credential owner to inject the secret with the platform before any deployment activities.   
 
-Another would consider that applications have to rely on a Key Management Service (KMS) to retrieve their secrets instead of using the unsecure etcd. This approach removes the security burden of managing secrets within Kubernetes. While this would work for most new applications or even old one with minimum refactoring, many others are not capable of leveraging this option due to their core functionality linked to Kubernetes. Here are some examples:
+Another would consider that applications have to rely on a Key Management Service (KMS) to retrieve their secrets instead of using the unsecure etcd. This approach removes the security burden of managing secrets within Kubernetes. While from application/workload perspective it might be feasible, Kubernetes core components might not be able to for resilience reasons. If a core component, network or storage related, would not be able to access the KMS to retrieve. Here are some examples:
 
 - network components like CoreDNS, NGINX, ...
 - storage components like Ceph, Ondat, ... 
@@ -168,9 +168,9 @@ Another would consider that applications have to rely on a Key Management Servic
 - cert-manager storing the private certificate
 - Service Accounts 
 
-Here is an example of secrets created by a freshly deployed RKE2 cluster:
+Here is two example of secrets created by a freshly deployed Kubernetes clusters from different vendors:
 
-```bash
+```bash title="RKE2"
 [root@localhost ~]# kubectl get nodes -A
 NAME                    STATUS   ROLES                       AGE     VERSION
 localhost.localdomain   Ready    control-plane,etcd,master   7m12s   v1.24.9+rke2r1
@@ -183,6 +183,14 @@ kube-system   sh.helm.release.v1.rke2-canal.v1            helm.sh/release.v1   1
 kube-system   sh.helm.release.v1.rke2-coredns.v1          helm.sh/release.v1   1      6m54s
 kube-system   sh.helm.release.v1.rke2-ingress-nginx.v1    helm.sh/release.v1   1      6m22s
 kube-system   sh.helm.release.v1.rke2-metrics-server.v1   helm.sh/release.v1   1      6m22s
+```
+
+```bash title="OpenShift Local"
+➜  ~ oc get nodes -A   
+NAME                 STATUS   ROLES           AGE   VERSION
+crc-t6jgr-master-0   Ready    master,worker   44d   v1.24.6+5157800
+➜  ~ oc get secrets -A |wc -l
+     834
 ```
 
 
