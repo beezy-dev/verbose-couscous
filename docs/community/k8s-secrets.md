@@ -131,14 +131,17 @@ In other words, these two options refer to:
     - tools like ```kubectl``` or others would have encryption capabilities to secure the data field.  
       However, within the context of Kubernetes and its workload, it would require both the API server and the applications to somehow know that the data field is encrypted and how to decrypt for CRUD operations.   
     - the Kubernetes API server has an encryption at rest configuration API object  ```EncryptionConfiguration``` to configure [encryption providers](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/). This approach streamlines the process as every CRUD operations depends on the API server which will handle the encryption/decryption requests.  
-
-!!! warning
-    While the CLI tooling approach might address the unsecure manifest and ease GitOps practice, it would be a rather significant implementation. Reducing the implementation complexity by using the existing ```EncryptionConfiguration``` would ease the consumption of secrets but leave the Ops with an unsecure manifest.
-
 - from a deployment perspective, etcd will consume available storage from the master node(s), storage that could be encrypted using different options, one being dm-crypt.  
   
-!!! warning  
-    Encrypting the data at the disk/file system level will protect any CRUD operations on the etcd content being written on disk. However, this does not protect against unauthorized etcd client access. 
+!!! warning 
+    While the CLI tooling approach might address the unsecure manifest and ease GitOps practice, it would be a rather significant implementation. Reducing the implementation complexity by using the existing ```EncryptionConfiguration``` would ease the consumption of secrets but leave the Ops with an unsecure manifest. 
+
+    While using the ```EncryptionConfiguration``` protects the data field for Secrets and ConfigMap, it does not encrypt all the other API object definition like Pods, Services, StatefulSet, ...
+
+    While encrypting the data at the disk/file system level will protect any CRUD operations on the etcd content being written on disk, it will not protect against unauthorized etcd client access.
+
+    Therefore, both options needs to be implemented to reduce the blast radius from security standpoint. An "Encrypt-All" request for enhancement would be required to provide full protection.  
+    
 
 ### Manifest
 
