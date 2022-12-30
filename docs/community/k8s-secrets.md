@@ -158,9 +158,37 @@ While encrypting the data at the disk/file system level will protect any CRUD op
 
 #### Overview
 
-One could consider to simply use the ```kubectl``` command to create the secret and it would be fine if the workstation is hardened to avoid memory and console footprints. But this would reduce the autonomy and velocity of a CI/CD development leveraging a container platform as it will require to have the endpoint owner to inject the secret, which at the end will still be base64 encoded within the etcd datastore if no  
+One would consider to simply use the ```kubectl``` command to create the secret and it would be fine if the workstation is hardened to avoid memory and console footprints. This would reduce the autonomy and velocity of an agile development leveraging a container platform as it will require a manual request to the credential owner to inject the secret with the platform before any deployment activities.   
 
-Considering a GitOps approach, revisioning a Kubernetes Secret manifest is providing the sensitive data to the entire organization having read access and even more in case of breach.   
+Another would consider that applications have to rely on a Key Management Service (KMS) to retrieve their secrets instead of using the unsecure etcd. This approach removes the security burden of managing secrets within Kubernetes. While this would work for most new applications or even old one with minimum refactoring, many others are not capable of leveraging this option due to their core functionality linked to Kubernetes. Here are some examples:
+
+- network components like CoreDNS, NGINX, ...
+- storage components like Ceph, Ondat, ... 
+- persistent volume being encrypted at rest and storing their encryption key as secrets
+- cert-manager storing the private certificate
+- Service Accounts 
+
+Here is an example of secrets created by a freshly deployed RKE2 cluster:
+
+```bash
+[root@localhost ~]# kubectl get nodes -A
+NAME                    STATUS   ROLES                       AGE     VERSION
+localhost.localdomain   Ready    control-plane,etcd,master   7m12s   v1.24.9+rke2r1
+[root@localhost ~]# kubectl get secrets -A
+NAMESPACE     NAME                                        TYPE                 DATA   AGE
+kube-system   localhost.localdomain.node-password.rke2    Opaque               1      7m6s
+kube-system   rke2-ingress-nginx-admission                Opaque               3      6m16s
+kube-system   rke2-serving                                kubernetes.io/tls    2      7m7s
+kube-system   sh.helm.release.v1.rke2-canal.v1            helm.sh/release.v1   1      6m54s
+kube-system   sh.helm.release.v1.rke2-coredns.v1          helm.sh/release.v1   1      6m54s
+kube-system   sh.helm.release.v1.rke2-ingress-nginx.v1    helm.sh/release.v1   1      6m22s
+kube-system   sh.helm.release.v1.rke2-metrics-server.v1   helm.sh/release.v1   1      6m22s
+```
+
+
+
+
+Considering the GitOps practice, revisioning a Kubernetes Secret manifest would be similar as providing the sensitive data to the entire organization, and even more in case of breach.   
 
 #### Mitigation
 
