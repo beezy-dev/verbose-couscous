@@ -950,10 +950,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#manifest" class="md-nav__link">
+  <a href="#etcd" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Manifest
+        etcd
       
     </span>
   </a>
@@ -961,10 +961,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#etcd" class="md-nav__link">
+  <a href="#manifest" class="md-nav__link">
     <span class="md-ellipsis">
       
-        etcd
+        Manifest
       
     </span>
   </a>
@@ -1203,10 +1203,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#manifest" class="md-nav__link">
+  <a href="#etcd" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Manifest
+        etcd
       
     </span>
   </a>
@@ -1214,10 +1214,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#etcd" class="md-nav__link">
+  <a href="#manifest" class="md-nav__link">
     <span class="md-ellipsis">
       
-        etcd
+        Manifest
       
     </span>
   </a>
@@ -1366,8 +1366,31 @@ mindmap
       GitOps
 ``` -->
 
-<h3 id="manifest">Manifest</h3>
 <h3 id="etcd">etcd</h3>
+<p>By design, etcd provides a TLS for transport and authentication but no <a href="https://etcd.io/docs/v3.5/op-guide/security/#does-etcd-encrypt-data-stored-on-disk-drives">encryption capabilities</a>. The project's mitigations offered are:  </p>
+<ul>
+<li>Let client applications encrypt and decrypt the data</li>
+<li>Use a feature of underlying storage systems for encrypting stored data like <a href="https://en.wikipedia.org/wiki/Dm-crypt">dm-crypt</a></li>
+</ul>
+<p>In other words, these two options refer to:</p>
+<ul>
+<li>from a Kubernetes perspective, clients are the CLI toolings via the API server;</li>
+<li>tools like <code>kubectl</code> or others would have encryption capabilities to secure the data field.<br />
+    However, within the context of Kubernetes and its workload, it would require both the API server and the applications to somehow know that the data field is encrypted and how to decrypt for CRUD operations.   </li>
+<li>the Kubernetes API server has an encryption at rest configuration API object  <code>EncryptionConfiguration</code> to configure <a href="https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/">encryption providers</a>. This approach streamlines the process as every CRUD operations depends on the API server which will handle the encryption/decryption requests.  </li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>While the CLI tooling approach might address the unsecure manifest and ease GitOps practice, it would be a rather significant implementation. Reducing the implementation complexity by using the existing <code>EncryptionConfiguration</code> would ease the consumption of secrets but leave the Ops with an unsecure manifest.</p>
+</div>
+<ul>
+<li>from a deployment perspective, etcd will consume available storage from the master node(s), storage that could be encrypted using different options, one being dm-crypt.  </li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Encrypting the data at the disk/file system level will protect any CRUD operations on the etcd content being written on disk. However, this does not protect against unauthorized etcd client access. </p>
+</div>
+<h3 id="manifest">Manifest</h3>
 <h3 id="api">API</h3>
 <p>The address the relative high concern, the <a href="https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/">Kubernetes Project</a> advises to leverage the <code>EncryptionConfiguration</code> API objects to perform encryption at rest for Secrets at creation time. </p>
 
