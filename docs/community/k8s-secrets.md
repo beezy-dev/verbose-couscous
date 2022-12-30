@@ -170,7 +170,41 @@ Another would consider that applications have to rely on a Key Management Servic
 
 Here is two example of secrets created by a freshly deployed Kubernetes clusters from different vendors:
 
-```bash title="RKE2"
+```bash title="OpenShift Local"
+[root@localhost ~]# oc get nodes -A   
+NAME                 STATUS   ROLES           AGE   VERSION
+crc-t6jgr-master-0   Ready    master,worker   44d   v1.24.6+5157800
+[root@localhost ~]# oc get secrets -A |wc -l
+     834
+[root@localhost ~]# oc get secrets -A 
+...
+hostpath-provisioner                               csi-hostpath-provisioner-sa-dockercfg-d7xnc                     kubernetes.io/dockercfg               1      43d
+hostpath-provisioner                               csi-hostpath-provisioner-sa-token-wvrpf                         kubernetes.io/service-account-token   4      43d
+hostpath-provisioner                               csi-provisioner-dockercfg-ddb6w                                 kubernetes.io/dockercfg               1      43d
+hostpath-provisioner                               csi-provisioner-token-jgq9b                                     kubernetes.io/service-account-token   4      43d
+...
+openshift-apiserver-operator                       openshift-apiserver-operator-dockercfg-ffh89                    kubernetes.io/dockercfg               1      44d
+openshift-apiserver-operator                       openshift-apiserver-operator-serving-cert                       kubernetes.io/tls                     2      44d
+openshift-apiserver-operator                       openshift-apiserver-operator-token-79c76                        kubernetes.io/service-account-token   4      44d
+...
+openshift-config                                   etcd-client                                                     kubernetes.io/tls                     2      44d
+openshift-config                                   etcd-metric-client                                              kubernetes.io/tls                     2      44d
+openshift-config                                   etcd-metric-signer                                              kubernetes.io/tls                     2      44d
+openshift-config                                   etcd-signer                                                     kubernetes.io/tls                     2      44d
+openshift-config                                   htpass-secret                                                   Opaque                                1      43d
+openshift-config                                   initial-service-account-private-key                             Opaque                                1      44d
+openshift-config                                   login-template                                                  Opaque                                1      43d
+openshift-config                                   pull-secret                                                     kubernetes.io/dockerconfigjson        1      44d
+openshift-config                                   support                                                         Opaque                                1      44d
+openshift-config                                   webhook-authentication-integrated-oauth                         Opaque                                1      44d
+...
+openshift-sdn                                      sdn-controller-metrics-certs                                    kubernetes.io/tls                     2      44d
+openshift-sdn                                      sdn-controller-token-77dpc                                      kubernetes.io/service-account-token   4      44d
+openshift-sdn                                      sdn-dockercfg-vp4kz                                             kubernetes.io/dockercfg               1      44d
+openshift-sdn                                      sdn-metrics-certs                                               kubernetes.io/tls                     2      44d
+```
+
+```bash title="Rancher Kubernetes Engine 2"
 [root@localhost ~]# kubectl get nodes -A
 NAME                    STATUS   ROLES                       AGE     VERSION
 localhost.localdomain   Ready    control-plane,etcd,master   7m12s   v1.24.9+rke2r1
@@ -185,13 +219,7 @@ kube-system   sh.helm.release.v1.rke2-ingress-nginx.v1    helm.sh/release.v1   1
 kube-system   sh.helm.release.v1.rke2-metrics-server.v1   helm.sh/release.v1   1      6m22s
 ```
 
-```bash title="OpenShift Local"
-➜  ~ oc get nodes -A   
-NAME                 STATUS   ROLES           AGE   VERSION
-crc-t6jgr-master-0   Ready    master,worker   44d   v1.24.6+5157800
-➜  ~ oc get secrets -A |wc -l
-     834
-```
+
 
 
 
