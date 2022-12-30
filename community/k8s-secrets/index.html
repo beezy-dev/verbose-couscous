@@ -1443,7 +1443,7 @@ mindmap
 <p>While the CLI tooling approach might address the unsecure manifest and ease GitOps practice, it would be a rather significant implementation. Reducing the implementation complexity by using the existing <code>EncryptionConfiguration</code> would ease the consumption of secrets but leave the Ops with an unsecure manifest. </p>
 <p>While using the <code>EncryptionConfiguration</code> protects the data field for Secrets and ConfigMap, it does not encrypt all the other API object definition like Pods, Services, StatefulSet, ...</p>
 <p>While encrypting the data at the disk/file system level will protect any CRUD operations on the etcd content being written on disk, it will not protect against unauthorized etcd client access.</p>
-<p><strong><em>Therefore, both options needs to be implemented to reduce the blast radius from security standpoint.</em></strong>  </p>
+<p><strong><em>Therefore, both options are required to reduce the blast radius.</em></strong>  </p>
 <div class="admonition success">
 <p class="admonition-title">Success</p>
 <p>Encrypt all master node(s) disk or/and any storage endpoint used by etcd.<br />
