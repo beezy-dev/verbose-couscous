@@ -938,15 +938,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#iterative-mitigation-path" class="md-nav__link">
+  <a href="#attack-surface-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Iterative Mitigation Path
+        Attack Surface Overview
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Iterative Mitigation Path">
+    <nav class="md-nav" aria-label="Attack Surface Overview">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -957,6 +957,34 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="etcd">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mitigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mitigation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1191,15 +1219,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#iterative-mitigation-path" class="md-nav__link">
+  <a href="#attack-surface-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Iterative Mitigation Path
+        Attack Surface Overview
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Iterative Mitigation Path">
+    <nav class="md-nav" aria-label="Attack Surface Overview">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1210,6 +1238,34 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="etcd">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mitigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mitigation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1341,8 +1397,8 @@ autonumber
   User or App-&gt;&gt;API Server: create Secret mysecret
   Note right of User or App: base64 encoded data field
   API Server-&gt;&gt;etcd: store Secret</code></pre>
-<h2 id="iterative-mitigation-path">Iterative Mitigation Path</h2>
-<p>Let's zoom in on the mindmap focusing on Kubernetes CRUD operations to elaborate an iterative mitigation path.</p>
+<h2 id="attack-surface-overview">Attack Surface Overview</h2>
+<p>Let's zoom in on the mindmap focusing on Kubernetes CRUD operations to define the potential attack surface and build an iterative mitigation path.</p>
 <p><img alt="" src="../../images/mermaid-diagram-2022-12-29-104705.svg" /></p>
 <!-- 
 This is the mermaid.js manifest for the mindmap diagram
@@ -1367,6 +1423,7 @@ mindmap
 ``` -->
 
 <h3 id="etcd">etcd</h3>
+<h4 id="overview">Overview</h4>
 <p>By design, etcd provides a TLS for transport and authentication but no <a href="https://etcd.io/docs/v3.5/op-guide/security/#does-etcd-encrypt-data-stored-on-disk-drives">encryption capabilities</a>. The project's mitigations offered are:  </p>
 <ul>
 <li>Let client applications encrypt and decrypt the data</li>
@@ -1382,16 +1439,24 @@ mindmap
 </li>
 <li>from a deployment perspective, etcd will consume available storage from the master node(s), storage that could be encrypted using different options, one being dm-crypt.  </li>
 </ul>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
+<h4 id="mitigation">Mitigation</h4>
 <p>While the CLI tooling approach might address the unsecure manifest and ease GitOps practice, it would be a rather significant implementation. Reducing the implementation complexity by using the existing <code>EncryptionConfiguration</code> would ease the consumption of secrets but leave the Ops with an unsecure manifest. </p>
 <p>While using the <code>EncryptionConfiguration</code> protects the data field for Secrets and ConfigMap, it does not encrypt all the other API object definition like Pods, Services, StatefulSet, ...</p>
 <p>While encrypting the data at the disk/file system level will protect any CRUD operations on the etcd content being written on disk, it will not protect against unauthorized etcd client access.</p>
-<p><strong>Therefore, both options needs to be implemented to reduce the blast radius from security standpoint An "Encrypt-All" request for enhancement would be required to provide full protection.</strong>  </p>
+<p><strong><em>Therefore, both options needs to be implemented to reduce the blast radius from security standpoint.</em></strong>  </p>
+<div class="admonition success">
+<p class="admonition-title">Success</p>
+<p>Encrypt all master node(s) disk or/and any storage endpoint used by etcd.<br />
+Leverage the Kubernetes <code>EncryptionConfiguration</code> to handle data field encryption operation via the API server and a defined provider (See <a href="#API">API</a> for more details).</p>
+</div>
+<div class="admonition bug">
+<p class="admonition-title">Bug</p>
+<p>An "Encrypt-All" request for enhancement would be required to provide full protection.</p>
 </div>
 <h3 id="manifest">Manifest</h3>
+<p>One could consider to simply use the <code>kubectl</code> command to create the secret and it would be fine if the workstation is hardened to avoid memory and console footprints. But this would reduce the autonomy and velocity of a CI/CD development leveraging a container platform as it will require to have the endpoint owner to inject the secret, which at the end will still be base64 encoded within the etcd datastore if no  </p>
+<p>Considering a GitOps approach, revisioning a Kubernetes Secret manifest is providing the sensitive data to the entire organization having read access and even more in case of breach.   </p>
 <h3 id="api">API</h3>
-<p>The address the relative high concern, the <a href="https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/">Kubernetes Project</a> advises to leverage the <code>EncryptionConfiguration</code> API objects to perform encryption at rest for Secrets at creation time. </p>
 
   
     
