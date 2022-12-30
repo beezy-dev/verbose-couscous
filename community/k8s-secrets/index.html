@@ -1578,7 +1578,39 @@ Leverage the Kubernetes <code>EncryptionConfiguration</code> to handle data fiel
 <li>Service Accounts </li>
 </ul>
 <p>Here is two example of secrets created by a freshly deployed Kubernetes clusters from different vendors:</p>
-<div class="highlight"><span class="filename">RKE2</span><pre><span></span><code><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># kubectl get nodes -A</span>
+<div class="highlight"><span class="filename">OpenShift Local</span><pre><span></span><code><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># oc get nodes -A   </span>
+NAME                 STATUS   ROLES           AGE   VERSION
+crc-t6jgr-master-0   Ready    master,worker   44d   v1.24.6+5157800
+<span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># oc get secrets -A |wc -l</span>
+     <span class="m">834</span>
+<span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># oc get secrets -A </span>
+...
+hostpath-provisioner                               csi-hostpath-provisioner-sa-dockercfg-d7xnc                     kubernetes.io/dockercfg               <span class="m">1</span>      43d
+hostpath-provisioner                               csi-hostpath-provisioner-sa-token-wvrpf                         kubernetes.io/service-account-token   <span class="m">4</span>      43d
+hostpath-provisioner                               csi-provisioner-dockercfg-ddb6w                                 kubernetes.io/dockercfg               <span class="m">1</span>      43d
+hostpath-provisioner                               csi-provisioner-token-jgq9b                                     kubernetes.io/service-account-token   <span class="m">4</span>      43d
+...
+openshift-apiserver-operator                       openshift-apiserver-operator-dockercfg-ffh89                    kubernetes.io/dockercfg               <span class="m">1</span>      44d
+openshift-apiserver-operator                       openshift-apiserver-operator-serving-cert                       kubernetes.io/tls                     <span class="m">2</span>      44d
+openshift-apiserver-operator                       openshift-apiserver-operator-token-79c76                        kubernetes.io/service-account-token   <span class="m">4</span>      44d
+...
+openshift-config                                   etcd-client                                                     kubernetes.io/tls                     <span class="m">2</span>      44d
+openshift-config                                   etcd-metric-client                                              kubernetes.io/tls                     <span class="m">2</span>      44d
+openshift-config                                   etcd-metric-signer                                              kubernetes.io/tls                     <span class="m">2</span>      44d
+openshift-config                                   etcd-signer                                                     kubernetes.io/tls                     <span class="m">2</span>      44d
+openshift-config                                   htpass-secret                                                   Opaque                                <span class="m">1</span>      43d
+openshift-config                                   initial-service-account-private-key                             Opaque                                <span class="m">1</span>      44d
+openshift-config                                   login-template                                                  Opaque                                <span class="m">1</span>      43d
+openshift-config                                   pull-secret                                                     kubernetes.io/dockerconfigjson        <span class="m">1</span>      44d
+openshift-config                                   support                                                         Opaque                                <span class="m">1</span>      44d
+openshift-config                                   webhook-authentication-integrated-oauth                         Opaque                                <span class="m">1</span>      44d
+...
+openshift-sdn                                      sdn-controller-metrics-certs                                    kubernetes.io/tls                     <span class="m">2</span>      44d
+openshift-sdn                                      sdn-controller-token-77dpc                                      kubernetes.io/service-account-token   <span class="m">4</span>      44d
+openshift-sdn                                      sdn-dockercfg-vp4kz                                             kubernetes.io/dockercfg               <span class="m">1</span>      44d
+openshift-sdn                                      sdn-metrics-certs                                               kubernetes.io/tls                     <span class="m">2</span>      44d
+</code></pre></div>
+<div class="highlight"><span class="filename">Rancher Kubernetes Engine 2</span><pre><span></span><code><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># kubectl get nodes -A</span>
 NAME                    STATUS   ROLES                       AGE     VERSION
 localhost.localdomain   Ready    control-plane,etcd,master   7m12s   v1.24.9+rke2r1
 <span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># kubectl get secrets -A</span>
@@ -1590,12 +1622,6 @@ kube-system   sh.helm.release.v1.rke2-canal.v1            helm.sh/release.v1   <
 kube-system   sh.helm.release.v1.rke2-coredns.v1          helm.sh/release.v1   <span class="m">1</span>      6m54s
 kube-system   sh.helm.release.v1.rke2-ingress-nginx.v1    helm.sh/release.v1   <span class="m">1</span>      6m22s
 kube-system   sh.helm.release.v1.rke2-metrics-server.v1   helm.sh/release.v1   <span class="m">1</span>      6m22s
-</code></pre></div>
-<div class="highlight"><span class="filename">OpenShift Local</span><pre><span></span><code>➜  ~ oc get nodes -A   
-NAME                 STATUS   ROLES           AGE   VERSION
-crc-t6jgr-master-0   Ready    master,worker   44d   v1.24.6+5157800
-➜  ~ oc get secrets -A <span class="p">|</span>wc -l
-     <span class="m">834</span>
 </code></pre></div>
 <p>Considering the GitOps practice, revisioning a Kubernetes Secret manifest would be similar as providing the sensitive data to the entire organization, and even more in case of breach.   </p>
 <h4 id="mitigation_1">Mitigation</h4>
