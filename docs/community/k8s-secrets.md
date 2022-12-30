@@ -140,7 +140,7 @@ In other words, these two options refer to:
 
     While encrypting the data at the disk/file system level will protect any CRUD operations on the etcd content being written on disk, it will not protect against unauthorized etcd client access.
 
-    Therefore, both options needs to be implemented to reduce the blast radius from security standpoint. An "Encrypt-All" request for enhancement would be required to provide full protection.  
+    **Therefore, both options needs to be implemented to reduce the blast radius from security standpoint An "Encrypt-All" request for enhancement would be required to provide full protection.**  
     
 
 ### Manifest
