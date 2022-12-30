@@ -911,10 +911,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#from-ops-perspective" class="md-nav__link">
+  <a href="#from-ops-view" class="md-nav__link">
     <span class="md-ellipsis">
       
-        from Ops perspective
+        from Ops view
       
     </span>
   </a>
@@ -922,10 +922,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#from-an-architecture-perspective" class="md-nav__link">
+  <a href="#from-an-architecture-view" class="md-nav__link">
     <span class="md-ellipsis">
       
-        from an architecture perspective
+        from an architecture view
       
     </span>
   </a>
@@ -938,13 +938,52 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mitigation-path" class="md-nav__link">
+  <a href="#iterative-mitigation-path" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mitigation Path
+        Iterative Mitigation Path
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Iterative Mitigation Path">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#manifest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manifest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        etcd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1125,10 +1164,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#from-ops-perspective" class="md-nav__link">
+  <a href="#from-ops-view" class="md-nav__link">
     <span class="md-ellipsis">
       
-        from Ops perspective
+        from Ops view
       
     </span>
   </a>
@@ -1136,10 +1175,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#from-an-architecture-perspective" class="md-nav__link">
+  <a href="#from-an-architecture-view" class="md-nav__link">
     <span class="md-ellipsis">
       
-        from an architecture perspective
+        from an architecture view
       
     </span>
   </a>
@@ -1152,13 +1191,52 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mitigation-path" class="md-nav__link">
+  <a href="#iterative-mitigation-path" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mitigation Path
+        Iterative Mitigation Path
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Iterative Mitigation Path">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#manifest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manifest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        etcd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1224,7 +1302,7 @@ mindmap
 <p>Then secret. As everything else, secrets are stored within the cluster etcd. Secret payloads are not encrypted but encoded in base64. This is by default a mechanism to protect the data field payload going through software that might chok on special characters.  </p>
 <p>Considering the above, the attach surface is similar to an open door policy. Let's digg into the Kubernetes Secret Management and then see how to mitigate from an end-to-end perspective this unwanted <code>open door policy</code>.</p>
 <h2 id="create-a-kubernetes-secret">Create a Kubernetes Secret</h2>
-<h3 id="from-ops-perspective">from Ops perspective</h3>
+<h3 id="from-ops-view">from Ops view</h3>
 <p>Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively <code>admin</code> and <code>p@ssw0rd$</code>. As defined earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:</p>
 <div class="highlight"><span class="filename">credential base64 encoding</span><pre><span></span><code><span class="nb">echo</span> <span class="s1">&#39;admin&#39;</span> <span class="p">|</span> base64
 <span class="nb">echo</span> <span class="s1">&#39;p@ssw0rd$&#39;</span> <span class="p">|</span> base64
@@ -1249,7 +1327,7 @@ data:
 <p>Finally, to actually create the secret within the Kubernetes cluster, run the following:</p>
 <div class="highlight"><span class="filename">create a secret based on a YAML manifest</span><pre><span></span><code>kubectl apply -f mysecret.yml
 </code></pre></div>
-<h3 id="from-an-architecture-perspective">from an architecture perspective</h3>
+<h3 id="from-an-architecture-view">from an architecture view</h3>
 <p>While the above is trivial as they are commons to any Kubernetes API objects CURD operations, let's have a sequence diagram to understand the components in action: </p>
 <div class="admonition info inline end">
 <p class="admonition-title">Info</p>
@@ -1263,9 +1341,34 @@ autonumber
   User or App-&gt;&gt;API Server: create Secret mysecret
   Note right of User or App: base64 encoded data field
   API Server-&gt;&gt;etcd: store Secret</code></pre>
-<h2 id="mitigation-path">Mitigation Path</h2>
+<h2 id="iterative-mitigation-path">Iterative Mitigation Path</h2>
 <p>Let's zoom in on the mindmap focusing on Kubernetes CRUD operations to elaborate an iterative mitigation path.</p>
 <p><img alt="" src="../../images/mermaid-diagram-2022-12-29-104705.svg" /></p>
+<!-- 
+This is the mermaid.js manifest for the mindmap diagram
+ ```mermaid
+mindmap
+  id)kubernetes secrets(
+    etcd
+      Auth
+      File System
+      Patching Life Cycle
+      Pod Access
+      TLS  
+    API
+      Auth
+      Config Hardening
+      Patch Life Cycle
+      RBAC
+      TLS
+    CLI or Manifest
+      Data Field
+      GitOps
+``` -->
+
+<h3 id="manifest">Manifest</h3>
+<h3 id="etcd">etcd</h3>
+<h3 id="api">API</h3>
 <p>The address the relative high concern, the <a href="https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/">Kubernetes Project</a> advises to leverage the <code>EncryptionConfiguration</code> API objects to perform encryption at rest for Secrets at creation time. </p>
 
   
@@ -1282,7 +1385,7 @@ autonumber
         <span class="md-icon" title="Date of last update">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
         </span>
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 29, 2022</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 30, 2022</span>
       </span>
     
     
