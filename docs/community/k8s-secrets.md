@@ -119,9 +119,28 @@ mindmap
       GitOps
 ``` -->
 
-### Manifest
-
 ### etcd
+By design, etcd provides a TLS for transport and authentication but no [encryption capabilities](https://etcd.io/docs/v3.5/op-guide/security/#does-etcd-encrypt-data-stored-on-disk-drives). The project's mitigations offered are:  
+ 
+- Let client applications encrypt and decrypt the data
+- Use a feature of underlying storage systems for encrypting stored data like [dm-crypt](https://en.wikipedia.org/wiki/Dm-crypt)
+
+In other words, these two options refer to:
+
+- from a Kubernetes perspective, clients are the CLI toolings via the API server;
+  - tools like ```kubectl``` or others would have encryption capabilities to secure the data field.  
+    However, within the context of Kubernetes and its workload, it would require both the API server and the applications to somehow know that the data field is encrypted and how to decrypt for CRUD operations.   
+  - the Kubernetes API server has an encryption at rest configuration API object  ```EncryptionConfiguration``` to configure [encryption providers](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/). This approach streamlines the process as every CRUD operations depends on the API server which will handle the encryption/decryption requests.  
+
+!!! warning
+    While the CLI tooling approach might address the unsecure manifest and ease GitOps practice, it would be a rather significant implementation. Reducing the implementation complexity by using the existing ```EncryptionConfiguration``` would ease the consumption of secrets but leave the Ops with an unsecure manifest.
+
+- from a deployment perspective, etcd will consume available storage from the master node(s), storage that could be encrypted using different options, one being dm-crypt.  
+  
+!!! warning  
+    Encrypting the data at the disk/file system level will protect any CRUD operations on the etcd content being written on disk. However, this does not protect against unauthorized etcd client access. 
+
+### Manifest
 
 ### API
 
