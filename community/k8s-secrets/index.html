@@ -1374,10 +1374,12 @@ mindmap
 </ul>
 <p>In other words, these two options refer to:</p>
 <ul>
-<li>from a Kubernetes perspective, clients are the CLI toolings via the API server;</li>
+<li>from a Kubernetes perspective, clients are the CLI toolings via the API server;<ul>
 <li>tools like <code>kubectl</code> or others would have encryption capabilities to secure the data field.<br />
-    However, within the context of Kubernetes and its workload, it would require both the API server and the applications to somehow know that the data field is encrypted and how to decrypt for CRUD operations.   </li>
+  However, within the context of Kubernetes and its workload, it would require both the API server and the applications to somehow know that the data field is encrypted and how to decrypt for CRUD operations.   </li>
 <li>the Kubernetes API server has an encryption at rest configuration API object  <code>EncryptionConfiguration</code> to configure <a href="https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/">encryption providers</a>. This approach streamlines the process as every CRUD operations depends on the API server which will handle the encryption/decryption requests.  </li>
+</ul>
+</li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
