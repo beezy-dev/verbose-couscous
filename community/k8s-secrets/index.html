@@ -929,10 +929,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#from-operation-standpoint" class="md-nav__link">
+  <a href="#from-an-operation-standpoint" class="md-nav__link">
     <span class="md-ellipsis">
       
-        from Operation standpoint
+        from an operation standpoint
       
     </span>
   </a>
@@ -1300,10 +1300,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#from-operation-standpoint" class="md-nav__link">
+  <a href="#from-an-operation-standpoint" class="md-nav__link">
     <span class="md-ellipsis">
       
-        from Operation standpoint
+        from an operation standpoint
       
     </span>
   </a>
@@ -1559,7 +1559,7 @@ autonumber
   User or App-&gt;&gt;API Server: create Secret mysecret
   Note right of User or App: base64 encoded data field
   API Server-&gt;&gt;etcd: store Secret</code></pre>
-<h4 id="from-operation-standpoint">from Operation standpoint</h4>
+<h4 id="from-an-operation-standpoint">from an operation standpoint</h4>
 <p>Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively <code>admin</code> and <code>p@ssw0rd$</code>. As defined earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:</p>
 <div class="highlight"><span class="filename">credential base64 encoding</span><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
 <span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;p@ssw0rd$&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
