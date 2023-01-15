@@ -74,7 +74,7 @@ autonumber
 ```
 
 #### Operation Overview
-Let's consider an application in needs of credentials to connect to an endpoint. These values need to be encoded in based64 to avoid being truncated.
+Let's consider an application in needs of credentials to connect to an endpoint.  
 
 ```bash title="Encoding the values in base64"
 echo 'admin' | base64
