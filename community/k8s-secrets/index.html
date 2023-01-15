@@ -1716,7 +1716,7 @@ autonumber
 <div class="admonition warning inline end">
 <p class="admonition-title">Warning</p>
 <p>While convenient from a GitOps perspective, the YAML manifest is optional as secrets can be create using the <code>kubectl create secret</code> command.<br />
-However, the manifest is <strong>unsafe</strong>; the data field values can be then decoded on any system giving back the original values.</p>
+However, the manifest is <strong>unsafe</strong>; the data field values can be decoded on any system giving back the original values.</p>
 </div>
 <div class="highlight"><span class="filename">Inserting the values within a Secret manifest: mysecret.yml</span><pre><span></span><code>--- 
 apiVersion: v1
