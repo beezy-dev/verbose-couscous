@@ -972,12 +972,7 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#attack-surface-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1098,6 +1093,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1343,12 +1343,7 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#attack-surface-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1481,6 +1476,11 @@
     </nav>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
     </ul>
   
@@ -1566,7 +1566,7 @@ autonumber
   API Server-&gt;&gt;etcd: store Secret</code></pre>
 <h4 id="operation-overview">Operation Overview</h4>
 <p>Let's consider an application in needs of credentials to connect to an endpoint.  </p>
-<div class="highlight"><span class="filename">Encoding the values in base64</span><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
+<div class="highlight"><span class="filename">Encoding the values in base64 (Linux/Unix).</span><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
 <span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;p@ssw0rd$&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
 </code></pre></div>
 <div class="admonition warning inline end">
@@ -1585,11 +1585,11 @@ data:
   USERNAME: YWRtaW4K
   PASSWORD: cEBzc3cwcmQkCg==
 </code></pre></div>
-<div class="highlight"><span class="filename">Creating a Secret based on a YAML manifest</span><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>mysecret.yml
+<div class="highlight"><span class="filename">Creating a Secret based on a YAML manifest.</span><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>mysecret.yml
 </code></pre></div>
 <h2 id="iterative-design">Iterative Design</h2>
 <h3 id="case-study">Case Study</h3>
-<h2 id="attack-surface-overview">Attack Surface Overview</h2>
+<h3 id="attack-surface-overview">Attack Surface Overview</h3>
 <p>Let's zoom in on the mindmap focusing on Kubernetes CRUD operations to define the potential attack surface and build an iterative mitigation path.</p>
 <p><img alt="" src="../../images/mermaid-diagram-2022-12-29-104705.svg" /></p>
 <!-- 
@@ -1614,8 +1614,8 @@ mindmap
       GitOps
 ``` -->
 
-<h3 id="etcd">etcd</h3>
-<h4 id="overview">Overview</h4>
+<h4 id="etcd">etcd</h4>
+<h5 id="overview">Overview</h5>
 <p>By design, etcd provides a TLS for transport and authentication but no <a href="https://etcd.io/docs/v3.5/op-guide/security/#does-etcd-encrypt-data-stored-on-disk-drives">encryption capabilities</a>. The project's mitigations offered are:  </p>
 <ul>
 <li>Let client applications encrypt and decrypt the data</li>
@@ -1631,7 +1631,7 @@ mindmap
 </li>
 <li>from a deployment perspective, etcd will consume available storage from the master node(s), storage that could be encrypted using different options, one being dm-crypt.  </li>
 </ul>
-<h4 id="mitigation">Mitigation</h4>
+<h5 id="mitigation">Mitigation</h5>
 <p>While the CLI tooling approach might address the unsecure manifest and ease GitOps practice, it would be a rather significant implementation. Reducing the implementation complexity by using the existing <code>EncryptionConfiguration</code> would ease the consumption of secrets but leave the Ops with an unsecure manifest. </p>
 <p>While using the <code>EncryptionConfiguration</code> protects the data field for Secrets and ConfigMap, it does not encrypt all the other API object definition like Pods, Services, StatefulSet, ...</p>
 <p>While encrypting the data at the disk/file system level will protect any CRUD operations on the etcd content being written on disk, it will not protect against unauthorized etcd client access.</p>
@@ -1646,8 +1646,8 @@ Leverage the Kubernetes <code>EncryptionConfiguration</code> to handle data fiel
 <p>A request for enhancement to the Kubernetes project might be required to provide encryption for every API object definition. </p>
 </div>
 <p><img alt="etcd mitigation" src="../../images/etcd-mitigations.png" /></p>
-<h3 id="manifest">Manifest</h3>
-<h4 id="overview_1">Overview</h4>
+<h4 id="manifest">Manifest</h4>
+<h5 id="overview_1">Overview</h5>
 <p>One would consider to simply use the <code>kubectl</code> command to create the secret and it would be fine if the workstation is hardened to avoid memory and console footprints. This would reduce the autonomy and velocity of an agile development leveraging a container platform as it will require a manual request to the credential owner to inject the secret with the platform before any deployment activities.   </p>
 <p>Another would consider that applications have to rely on a Key Management Service (KMS) to retrieve their secrets instead of using the unsecure etcd. This approach removes the security burden of managing secrets within Kubernetes. While from application/workload perspective it might be feasible, Kubernetes core components might not be able to for resilience reasons. If a core component, network or storage related, would not be able to access the KMS to retrieve. Here are some examples:</p>
 <ul>
@@ -1704,10 +1704,10 @@ kube-system<span class="w">   </span>sh.helm.release.v1.rke2-ingress-nginx.v1<sp
 kube-system<span class="w">   </span>sh.helm.release.v1.rke2-metrics-server.v1<span class="w">   </span>helm.sh/release.v1<span class="w">   </span><span class="m">1</span><span class="w">      </span>6m22s
 </code></pre></div>
 <p>Considering the GitOps practice, revisioning a Kubernetes Secret manifest would be similar as providing the sensitive data to the entire organization, and even more in case of breach.   </p>
-<h4 id="mitigation_1">Mitigation</h4>
-<h3 id="api">API</h3>
-<h4 id="overview_2">Overview</h4>
-<h4 id="mitigation_2">Mitigation</h4>
+<h5 id="mitigation_1">Mitigation</h5>
+<h4 id="api">API</h4>
+<h5 id="overview_2">Overview</h5>
+<h5 id="mitigation_2">Mitigation</h5>
 
   
     
