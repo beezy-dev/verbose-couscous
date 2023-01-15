@@ -53,9 +53,24 @@ Then secret. As everything else, secrets are stored within the cluster etcd. Sec
 
 Considering the above, the attach surface is similar to an open door policy. Let's digg into the Kubernetes Secret Management and then see how to mitigate from an end-to-end perspective this unwanted ```open door policy```.
 
-## Create a Kubernetes Secret
+#### from an architecture view
+While the above is trivial as they are commons to any Kubernetes API objects CURD operations, let's have a sequence diagram to understand the components in action: 
 
-### from Ops view
+!!! info inline end  
+    For this diagram, the data field flows through a series of component, usually TLS encupsulated. However, the origin and end points are considered unsafe during since there is any data encryption.
+ 
+```mermaid
+sequenceDiagram
+participant User or App
+participant etcd
+participant API Server
+autonumber
+  User or App->>API Server: create Secret mysecret
+  Note right of User or App: base64 encoded data field
+  API Server->>etcd: store Secret
+```
+
+#### from Ops view
 Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively ```admin``` and ```p@ssw0rd$```. As defined earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:
 
 ```bash title="credential base64 encoding"
@@ -79,22 +94,9 @@ Finally, to actually create the secret within the Kubernetes cluster, run the fo
 kubectl apply -f mysecret.yml
 ```
 
-### from an architecture view
-While the above is trivial as they are commons to any Kubernetes API objects CURD operations, let's have a sequence diagram to understand the components in action: 
+## Iterative Design
 
-!!! info inline end  
-    For this diagram, the data field flows through a series of component, usually TLS encupsulated. However, the origin and end points are considered unsafe during since there is any data encryption.
- 
-```mermaid
-sequenceDiagram
-participant User or App
-participant etcd
-participant API Server
-autonumber
-  User or App->>API Server: create Secret mysecret
-  Note right of User or App: base64 encoded data field
-  API Server->>etcd: store Secret
-```
+### Case Study 
 
 ## Attack Surface Overview 
 Let's zoom in on the mindmap focusing on Kubernetes CRUD operations to define the potential attack surface and build an iterative mitigation path.
