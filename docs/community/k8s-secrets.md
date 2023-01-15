@@ -68,7 +68,7 @@ autonumber
   API Server->>etcd: store Secret
 ```
 
-#### from Operation standpoint
+#### from an operation standpoint
 Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively ```admin``` and ```p@ssw0rd$```. As defined earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:
 
 ```bash title="credential base64 encoding"
