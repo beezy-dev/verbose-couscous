@@ -3,6 +3,9 @@
 
 <!-- ## Foreword by 
 
+-- options: 
+Robert E. / Chris J. 
+
 ## Preface  -->
 
 ## Introductory Material 
@@ -97,7 +100,7 @@ kubectl apply -f mysecret.yml
 
 ### Case Study 
 
-### Attack Surface Overview 
+### Securing Kubernetes Secrets 
 Let's zoom in on the mindmap focusing on Kubernetes CRUD operations to define the potential attack surface and build an iterative mitigation path.
 
 ![](../images/mermaid-diagram-2022-12-29-104705.svg)
