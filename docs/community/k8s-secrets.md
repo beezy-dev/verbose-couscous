@@ -83,7 +83,7 @@ echo 'p@ssw0rd$' | base64
 
 !!! warning inline end  
     While convenient from a GitOps perspective, the YAML manifest is optional as secrets can be create using the ```kubectl create secret``` command.  
-    However, the manifest is **unsafe**; the data field values can be then decoded on any system giving back the original values.
+    However, the manifest is **unsafe**; the data field values can be decoded on any system giving back the original values.
 
 ``` title="Inserting the values within a Secret manifest: mysecret.yml"
 --8<-- "files/mysecret.yml"
