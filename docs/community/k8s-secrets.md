@@ -47,17 +47,15 @@ This document is focusing on the ```Secrets``` component listed within the above
 
 ### Kubernetes Secret Object
 
-The etcd key value store is the most critical piece of a Kubernetes cluster as it servers as a sort of distributed CMDB for every components; from nodes, to configmap, to services, ... If etcd fails, the entire cluster will collapse, if it is hacked, the entire workloads and components are compromised. The key value store does not provide any encryption capabilities. 
+From an architecture standpoint, Kubernetes has a critical dependency on *etcd*, a key value store, acting as a distributed CMDB tracking the states of every components (from nodes, to config map, to services, ...). If *etcd* fails, the entire cluster will collaspe. If it is hacked, the entire cluster, workloads, and third party components are compromised. 
 
-Then secret. As everything else, secrets are stored within the cluster etcd. Secret payloads are not encrypted but encoded in base64. This is by default a mechanism to protect the data field payload going through software that might chok on special characters.  
+Yet, *etcd* does not provide any encryption capabilities. Instead, the data field of each Kubernetes API object (e.g. Secrets and ConfigMap), composed or not of sensitive data, will be encoded in base64 to protect the data integrity during client-server exchanges.  
 
-Considering the above, the attach surface is similar to an open door policy. Let's digg into the Kubernetes Secret Management and then see how to mitigate from an end-to-end perspective this unwanted ```open door policy```.
-
-#### from an architecture view
-While the above is trivial as they are commons to any Kubernetes API objects CURD operations, let's have a sequence diagram to understand the components in action: 
+#### from an architecture standpoint
+The below diagram illustrates the Creation opertion workflow of a Kubernetes Secret object: 
 
 !!! info inline end  
-    For this diagram, the data field flows through a series of component, usually TLS encupsulated. However, the origin and end points are considered unsafe during since there is any data encryption.
+    For this diagram, the data field flows through a series of component, usually TLS encupsulated. However, the origin and destination are considered unsafe due to the lack of data encryption.
  
 ```mermaid
 sequenceDiagram
@@ -70,7 +68,7 @@ autonumber
   API Server->>etcd: store Secret
 ```
 
-#### from Ops view
+#### from Operation standpoint
 Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively ```admin``` and ```p@ssw0rd$```. As defined earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:
 
 ```bash title="credential base64 encoding"
