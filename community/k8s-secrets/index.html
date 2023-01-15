@@ -918,10 +918,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#from-an-architecture-view" class="md-nav__link">
+  <a href="#from-an-architecture-standpoint" class="md-nav__link">
     <span class="md-ellipsis">
       
-        from an architecture view
+        from an architecture standpoint
       
     </span>
   </a>
@@ -929,10 +929,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#from-ops-view" class="md-nav__link">
+  <a href="#from-operation-standpoint" class="md-nav__link">
     <span class="md-ellipsis">
       
-        from Ops view
+        from Operation standpoint
       
     </span>
   </a>
@@ -1289,10 +1289,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#from-an-architecture-view" class="md-nav__link">
+  <a href="#from-an-architecture-standpoint" class="md-nav__link">
     <span class="md-ellipsis">
       
-        from an architecture view
+        from an architecture standpoint
       
     </span>
   </a>
@@ -1300,10 +1300,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#from-ops-view" class="md-nav__link">
+  <a href="#from-operation-standpoint" class="md-nav__link">
     <span class="md-ellipsis">
       
-        from Ops view
+        from Operation standpoint
       
     </span>
   </a>
@@ -1543,14 +1543,13 @@ mindmap
 
 <p>This document is focusing on the <code>Secrets</code> component listed within the above diagram. </p>
 <h3 id="kubernetes-secret-object">Kubernetes Secret Object</h3>
-<p>The etcd key value store is the most critical piece of a Kubernetes cluster as it servers as a sort of distributed CMDB for every components; from nodes, to configmap, to services, ... If etcd fails, the entire cluster will collapse, if it is hacked, the entire workloads and components are compromised. The key value store does not provide any encryption capabilities. </p>
-<p>Then secret. As everything else, secrets are stored within the cluster etcd. Secret payloads are not encrypted but encoded in base64. This is by default a mechanism to protect the data field payload going through software that might chok on special characters.  </p>
-<p>Considering the above, the attach surface is similar to an open door policy. Let's digg into the Kubernetes Secret Management and then see how to mitigate from an end-to-end perspective this unwanted <code>open door policy</code>.</p>
-<h4 id="from-an-architecture-view">from an architecture view</h4>
-<p>While the above is trivial as they are commons to any Kubernetes API objects CURD operations, let's have a sequence diagram to understand the components in action: </p>
+<p>From an architecture standpoint, Kubernetes has a critical dependency on <em>etcd</em>, a key value store, acting as a distributed CMDB tracking the states of every components (from nodes, to config map, to services, ...). If <em>etcd</em> fails, the entire cluster will collaspe. If it is hacked, the entire cluster, workloads, and third party components are compromised. </p>
+<p>Yet, <em>etcd</em> does not provide any encryption capabilities. Instead, the data field of each Kubernetes API object (e.g. Secrets and ConfigMap), composed or not of sensitive data, will be encoded in base64 to protect the data integrity during client-server exchanges.  </p>
+<h4 id="from-an-architecture-standpoint">from an architecture standpoint</h4>
+<p>The below diagram illustrates the Creation opertion workflow of a Kubernetes Secret object: </p>
 <div class="admonition info inline end">
 <p class="admonition-title">Info</p>
-<p>For this diagram, the data field flows through a series of component, usually TLS encupsulated. However, the origin and end points are considered unsafe during since there is any data encryption.</p>
+<p>For this diagram, the data field flows through a series of component, usually TLS encupsulated. However, the origin and destination are considered unsafe due to the lack of data encryption.</p>
 </div>
 <pre class="mermaid"><code>sequenceDiagram
 participant User or App
@@ -1560,7 +1559,7 @@ autonumber
   User or App-&gt;&gt;API Server: create Secret mysecret
   Note right of User or App: base64 encoded data field
   API Server-&gt;&gt;etcd: store Secret</code></pre>
-<h4 id="from-ops-view">from Ops view</h4>
+<h4 id="from-operation-standpoint">from Operation standpoint</h4>
 <p>Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively <code>admin</code> and <code>p@ssw0rd$</code>. As defined earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:</p>
 <div class="highlight"><span class="filename">credential base64 encoding</span><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
 <span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;p@ssw0rd$&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
