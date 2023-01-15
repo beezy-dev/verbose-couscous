@@ -918,10 +918,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#from-an-architecture-standpoint" class="md-nav__link">
+  <a href="#architecture-standpoint" class="md-nav__link">
     <span class="md-ellipsis">
       
-        from an architecture standpoint
+        Architecture standpoint
       
     </span>
   </a>
@@ -929,10 +929,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#from-an-operation-standpoint" class="md-nav__link">
+  <a href="#operation-standpoint" class="md-nav__link">
     <span class="md-ellipsis">
       
-        from an operation standpoint
+        Operation standpoint
       
     </span>
   </a>
@@ -1289,10 +1289,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#from-an-architecture-standpoint" class="md-nav__link">
+  <a href="#architecture-standpoint" class="md-nav__link">
     <span class="md-ellipsis">
       
-        from an architecture standpoint
+        Architecture standpoint
       
     </span>
   </a>
@@ -1300,10 +1300,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#from-an-operation-standpoint" class="md-nav__link">
+  <a href="#operation-standpoint" class="md-nav__link">
     <span class="md-ellipsis">
       
-        from an operation standpoint
+        Operation standpoint
       
     </span>
   </a>
@@ -1545,7 +1545,7 @@ mindmap
 <h3 id="kubernetes-secret-object">Kubernetes Secret Object</h3>
 <p>From an architecture standpoint, Kubernetes has a critical dependency on <em>etcd</em>, a key value store, acting as a distributed CMDB tracking the states of every components (from nodes, to config map, to services, ...). If <em>etcd</em> fails, the entire cluster will collaspe. If it is hacked, the entire cluster, workloads, and third party components are compromised. </p>
 <p>Yet, <em>etcd</em> does not provide any encryption capabilities. Instead, the data field of each Kubernetes API object (e.g. Secrets and ConfigMap), composed or not of sensitive data, will be encoded in base64 to protect the data integrity during client-server exchanges.  </p>
-<h4 id="from-an-architecture-standpoint">from an architecture standpoint</h4>
+<h4 id="architecture-standpoint">Architecture standpoint</h4>
 <p>The below diagram illustrates the Creation opertion workflow of a Kubernetes Secret object: </p>
 <div class="admonition info inline end">
 <p class="admonition-title">Info</p>
@@ -1559,7 +1559,7 @@ autonumber
   User or App-&gt;&gt;API Server: create Secret mysecret
   Note right of User or App: base64 encoded data field
   API Server-&gt;&gt;etcd: store Secret</code></pre>
-<h4 id="from-an-operation-standpoint">from an operation standpoint</h4>
+<h4 id="operation-standpoint">Operation standpoint</h4>
 <p>Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively <code>admin</code> and <code>p@ssw0rd$</code>. As defined earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:</p>
 <div class="highlight"><span class="filename">credential base64 encoding</span><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
 <span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;p@ssw0rd$&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
