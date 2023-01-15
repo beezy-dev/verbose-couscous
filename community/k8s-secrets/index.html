@@ -905,19 +905,19 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-etcd-secrets" class="md-nav__link">
+          <li class="md-nav__item">
+  <a href="#kubernetes-secret-object" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why etcd &amp; secrets?
+        Kubernetes Secret Object
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1259,19 +1259,19 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-etcd-secrets" class="md-nav__link">
+          <li class="md-nav__item">
+  <a href="#kubernetes-secret-object" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why etcd &amp; secrets?
+        Kubernetes Secret Object
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1508,7 +1508,7 @@ mindmap
 ``` -->
 
 <p>This document is focusing on the <code>Secrets</code> component listed within the above diagram. </p>
-<h2 id="why-etcd-secrets">Why etcd &amp; secrets?</h2>
+<h3 id="kubernetes-secret-object">Kubernetes Secret Object</h3>
 <p>The etcd key value store is the most critical piece of a Kubernetes cluster as it servers as a sort of distributed CMDB for every components; from nodes, to configmap, to services, ... If etcd fails, the entire cluster will collapse, if it is hacked, the entire workloads and components are compromised. The key value store does not provide any encryption capabilities. </p>
 <p>Then secret. As everything else, secrets are stored within the cluster etcd. Secret payloads are not encrypted but encoded in base64. This is by default a mechanism to protect the data field payload going through software that might chok on special characters.  </p>
 <p>Considering the above, the attach surface is similar to an open door policy. Let's digg into the Kubernetes Secret Management and then see how to mitigate from an end-to-end perspective this unwanted <code>open door policy</code>.</p>
