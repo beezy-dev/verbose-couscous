@@ -45,7 +45,7 @@ mindmap
 
 This document is focusing on the ```Secrets``` component listed within the above diagram. 
 
-## Why etcd & secrets?
+### Kubernetes Secret Object
 
 The etcd key value store is the most critical piece of a Kubernetes cluster as it servers as a sort of distributed CMDB for every components; from nodes, to configmap, to services, ... If etcd fails, the entire cluster will collapse, if it is hacked, the entire workloads and components are compromised. The key value store does not provide any encryption capabilities. 
 
