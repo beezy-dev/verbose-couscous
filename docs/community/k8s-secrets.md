@@ -1,6 +1,10 @@
 
 # Keep your Secrets secret!
 
+<!-- ## Foreword by 
+
+## Preface  -->
+
 ## Introductory Material 
 
 ### Kubernetes Security
@@ -70,14 +74,14 @@ autonumber
 ```
 
 #### Operation Overview
-Let's consider an application in needs of credentials to connect to an endpoint. These values need to be encoded in based64 to avoid being truncated. This can be done with:
+Let's consider an application in needs of credentials to connect to an endpoint. These values need to be encoded in based64 to avoid being truncated.
 
-```bash title="credential base64 encoding"
+```bash title="Encoding the values in base64"
 echo 'admin' | base64
 echo 'p@ssw0rd$' | base64
 ```
 
-Then the encoded credentials can be used within an YAML manifest like:  
+These encoded values can be inserted within an YAML manifest like:  
 
 !!! warning inline end  
     While convenient from a GitOps perspective, the YAML manifest is optional as secrets can be create using the ```kubectl create secret``` command.  
@@ -87,9 +91,7 @@ Then the encoded credentials can be used within an YAML manifest like:
 --8<-- "files/mysecret.yml"
 ```
 
-Finally, to actually create the secret within the Kubernetes cluster, run the following:
-
-```bash title="create a secret based on a YAML manifest" 
+```bash title="Creating a Secret based on a YAML manifest" 
 kubectl apply -f mysecret.yml
 ```
 
