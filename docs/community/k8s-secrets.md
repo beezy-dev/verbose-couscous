@@ -47,7 +47,8 @@ This document is focusing on the ```Secrets``` component listed within the above
 
 ### Kubernetes Secret Object
 
-From an architecture standpoint, Kubernetes has a critical dependency on *etcd*, a key value store, acting as a distributed CMDB tracking the states of every components (from nodes, to config map, to services, ...). If *etcd* fails, the entire cluster will collaspe. If it is hacked, the entire cluster, workloads, and third party components are compromised. 
+From an architecture standpoint, Kubernetes has a critical dependency on *etcd*, a key value store, acting as a distributed CMDB tracking the states of every components (from nodes, to config map, to services, ...).    
+If *etcd* fails, the entire cluster will collaspe. If it is hacked, the entire cluster, workloads, and third party components are compromised. 
 
 Yet, *etcd* does not provide any encryption capabilities. Instead, the data field of each Kubernetes API object (e.g. Secrets and ConfigMap), composed or not of sensitive data, will be encoded in base64 to protect the data integrity during client-server exchanges.  
 
