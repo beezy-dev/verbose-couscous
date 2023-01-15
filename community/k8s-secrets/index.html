@@ -914,24 +914,19 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Kubernetes Secret Object">
+      <ul class="md-nav__list">
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#create-a-kubernetes-secret" class="md-nav__link">
+          <li class="md-nav__item">
+  <a href="#from-an-architecture-view" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Create a Kubernetes Secret
+        from an architecture view
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Create a Kubernetes Secret">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#from-ops-view" class="md-nav__link">
@@ -944,11 +939,33 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#from-an-architecture-view" class="md-nav__link">
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iterative-design" class="md-nav__link">
     <span class="md-ellipsis">
       
-        from an architecture view
+        Iterative Design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Iterative Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#case-study" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Case Study
       
     </span>
   </a>
@@ -1268,24 +1285,19 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Kubernetes Secret Object">
+      <ul class="md-nav__list">
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#create-a-kubernetes-secret" class="md-nav__link">
+          <li class="md-nav__item">
+  <a href="#from-an-architecture-view" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Create a Kubernetes Secret
+        from an architecture view
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Create a Kubernetes Secret">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#from-ops-view" class="md-nav__link">
@@ -1298,11 +1310,33 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#from-an-architecture-view" class="md-nav__link">
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iterative-design" class="md-nav__link">
     <span class="md-ellipsis">
       
-        from an architecture view
+        Iterative Design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Iterative Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#case-study" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Case Study
       
     </span>
   </a>
@@ -1512,8 +1546,21 @@ mindmap
 <p>The etcd key value store is the most critical piece of a Kubernetes cluster as it servers as a sort of distributed CMDB for every components; from nodes, to configmap, to services, ... If etcd fails, the entire cluster will collapse, if it is hacked, the entire workloads and components are compromised. The key value store does not provide any encryption capabilities. </p>
 <p>Then secret. As everything else, secrets are stored within the cluster etcd. Secret payloads are not encrypted but encoded in base64. This is by default a mechanism to protect the data field payload going through software that might chok on special characters.  </p>
 <p>Considering the above, the attach surface is similar to an open door policy. Let's digg into the Kubernetes Secret Management and then see how to mitigate from an end-to-end perspective this unwanted <code>open door policy</code>.</p>
-<h2 id="create-a-kubernetes-secret">Create a Kubernetes Secret</h2>
-<h3 id="from-ops-view">from Ops view</h3>
+<h4 id="from-an-architecture-view">from an architecture view</h4>
+<p>While the above is trivial as they are commons to any Kubernetes API objects CURD operations, let's have a sequence diagram to understand the components in action: </p>
+<div class="admonition info inline end">
+<p class="admonition-title">Info</p>
+<p>For this diagram, the data field flows through a series of component, usually TLS encupsulated. However, the origin and end points are considered unsafe during since there is any data encryption.</p>
+</div>
+<pre class="mermaid"><code>sequenceDiagram
+participant User or App
+participant etcd
+participant API Server
+autonumber
+  User or App-&gt;&gt;API Server: create Secret mysecret
+  Note right of User or App: base64 encoded data field
+  API Server-&gt;&gt;etcd: store Secret</code></pre>
+<h4 id="from-ops-view">from Ops view</h4>
 <p>Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively <code>admin</code> and <code>p@ssw0rd$</code>. As defined earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:</p>
 <div class="highlight"><span class="filename">credential base64 encoding</span><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
 <span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;p@ssw0rd$&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
@@ -1538,20 +1585,8 @@ data:
 <p>Finally, to actually create the secret within the Kubernetes cluster, run the following:</p>
 <div class="highlight"><span class="filename">create a secret based on a YAML manifest</span><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>mysecret.yml
 </code></pre></div>
-<h3 id="from-an-architecture-view">from an architecture view</h3>
-<p>While the above is trivial as they are commons to any Kubernetes API objects CURD operations, let's have a sequence diagram to understand the components in action: </p>
-<div class="admonition info inline end">
-<p class="admonition-title">Info</p>
-<p>For this diagram, the data field flows through a series of component, usually TLS encupsulated. However, the origin and end points are considered unsafe during since there is any data encryption.</p>
-</div>
-<pre class="mermaid"><code>sequenceDiagram
-participant User or App
-participant etcd
-participant API Server
-autonumber
-  User or App-&gt;&gt;API Server: create Secret mysecret
-  Note right of User or App: base64 encoded data field
-  API Server-&gt;&gt;etcd: store Secret</code></pre>
+<h2 id="iterative-design">Iterative Design</h2>
+<h3 id="case-study">Case Study</h3>
 <h2 id="attack-surface-overview">Attack Surface Overview</h2>
 <p>Let's zoom in on the mindmap focusing on Kubernetes CRUD operations to define the potential attack surface and build an iterative mitigation path.</p>
 <p><img alt="" src="../../images/mermaid-diagram-2022-12-29-104705.svg" /></p>
