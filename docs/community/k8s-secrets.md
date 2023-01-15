@@ -70,7 +70,7 @@ autonumber
 ```
 
 #### Operation Overview
-Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively ```admin``` and ```p@ssw0rd$```. As defined earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:
+Let's consider an application in needs of credentials to connect to an endpoint. These values need to be encoded in based64 to avoid being truncated. This can be done with:
 
 ```bash title="credential base64 encoding"
 echo 'admin' | base64
