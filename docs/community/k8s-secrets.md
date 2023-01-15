@@ -51,7 +51,7 @@ From an architecture standpoint, Kubernetes has a critical dependency on *etcd*,
 
 Yet, *etcd* does not provide any encryption capabilities. Instead, the data field of each Kubernetes API object (e.g. Secrets and ConfigMap), composed or not of sensitive data, will be encoded in base64 to protect the data integrity during client-server exchanges.  
 
-#### from an architecture standpoint
+#### Architecture standpoint
 The below diagram illustrates the Creation opertion workflow of a Kubernetes Secret object: 
 
 !!! info inline end  
@@ -68,7 +68,7 @@ autonumber
   API Server->>etcd: store Secret
 ```
 
-#### from an operation standpoint
+#### Operation standpoint
 Let's consider that an application needs to connect to an endpoint requesting basic credentials, respectively ```admin``` and ```p@ssw0rd$```. As defined earlier, these value needs to be encoded in based64 to avoid being truncated. This can be done with:
 
 ```bash title="credential base64 encoding"
