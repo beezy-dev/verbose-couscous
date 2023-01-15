@@ -76,7 +76,7 @@ autonumber
 #### Operation Overview
 Let's consider an application in needs of credentials to connect to an endpoint.  
 
-```bash title="Encoding the values in base64"
+```bash title="Encoding the values in base64 (Linux/Unix)."
 echo 'admin' | base64
 echo 'p@ssw0rd$' | base64
 ```
@@ -89,7 +89,7 @@ echo 'p@ssw0rd$' | base64
 --8<-- "files/mysecret.yml"
 ```
 
-```bash title="Creating a Secret based on a YAML manifest" 
+```bash title="Creating a Secret based on a YAML manifest." 
 kubectl apply -f mysecret.yml
 ```
 
@@ -97,7 +97,7 @@ kubectl apply -f mysecret.yml
 
 ### Case Study 
 
-## Attack Surface Overview 
+### Attack Surface Overview 
 Let's zoom in on the mindmap focusing on Kubernetes CRUD operations to define the potential attack surface and build an iterative mitigation path.
 
 ![](../images/mermaid-diagram-2022-12-29-104705.svg)
@@ -124,9 +124,9 @@ mindmap
       GitOps
 ``` -->
 
-### etcd
+#### etcd
 
-#### Overview
+##### Overview
 
 By design, etcd provides a TLS for transport and authentication but no [encryption capabilities](https://etcd.io/docs/v3.5/op-guide/security/#does-etcd-encrypt-data-stored-on-disk-drives). The project's mitigations offered are:  
  
@@ -141,7 +141,7 @@ In other words, these two options refer to:
     - the Kubernetes API server has an encryption at rest configuration API object  ```EncryptionConfiguration``` to configure [encryption providers](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/). This approach streamlines the process as every CRUD operations depends on the API server which will handle the encryption/decryption requests.  
 - from a deployment perspective, etcd will consume available storage from the master node(s), storage that could be encrypted using different options, one being dm-crypt.  
   
-#### Mitigation
+##### Mitigation
 
 While the CLI tooling approach might address the unsecure manifest and ease GitOps practice, it would be a rather significant implementation. Reducing the implementation complexity by using the existing ```EncryptionConfiguration``` would ease the consumption of secrets but leave the Ops with an unsecure manifest. 
 
@@ -160,9 +160,9 @@ While encrypting the data at the disk/file system level will protect any CRUD op
 
 ![etcd mitigation](../images/etcd-mitigations.png)
 
-### Manifest
+#### Manifest
 
-#### Overview
+##### Overview
 
 One would consider to simply use the ```kubectl``` command to create the secret and it would be fine if the workstation is hardened to avoid memory and console footprints. This would reduce the autonomy and velocity of an agile development leveraging a container platform as it will require a manual request to the credential owner to inject the secret with the platform before any deployment activities.   
 
@@ -232,13 +232,13 @@ kube-system   sh.helm.release.v1.rke2-metrics-server.v1   helm.sh/release.v1   1
 
 Considering the GitOps practice, revisioning a Kubernetes Secret manifest would be similar as providing the sensitive data to the entire organization, and even more in case of breach.   
 
-#### Mitigation
+##### Mitigation
 
-### API
+#### API
 
-#### Overview
+##### Overview
 
-#### Mitigation
+##### Mitigation
 
  
 
