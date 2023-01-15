@@ -1,10 +1,15 @@
 
 # Keep your Secrets secret!
 
-## Security Overview
-The journey to secure a container platform could be overwheelming. Building a layer based or mindmap diagram can help to define the different components requiring attention. Here is an example of such mindmap, work in progress and not a definite/static diagram:
+## Introductory Material 
 
-![](../images/mermaid-diagram-2022-12-28-131205.svg)
+### Kubernetes Security
+Kubernetes is all about providing a high level of abstraction to reduce the application lifecycle dependency on the "from what the entire infrastructure stack is composed of, how it is configured and maintained". Interesting enough, the DevOps movement tries to build bridges to ease the collaboration between the Dev and Ops teams while Kubernetes provides an easy path to a self-service experience for Application teams with a fully decorrelation with the underlying platform.
+
+The absraction does not reduce the importance of architecturing, building and maintaining a
+platform within the industry and policy required practices to improve reslience and decrease the risks of cybersecurity breach. Considering the latter, the journey to secure an container platform is overwheelming. The below mindmap helps to define at a high level the different components requiring attention. Here is an example of such mindmap, work in progress and not a definite/static diagram:
+
+![kubernetes security mindmap](../images/mermaid-diagram-2022-12-28-131205.svg)
 
 <!-- 
 This is the mermaid.js manifest for the mindmap diagram
@@ -38,7 +43,7 @@ mindmap
       Secrets 
 ``` -->
 
-This contribution is focusing on the etcd and secrets components listed within the above diagram. 
+This document is focusing on the ```Secrets``` component listed within the above diagram. 
 
 ## Why etcd & secrets?
 
@@ -170,7 +175,7 @@ Another would consider that applications have to rely on a Key Management Servic
 
 Here is two example of secrets created by a freshly deployed Kubernetes clusters from different vendors:
 
-```bash title="OpenShift Local"
+```bash title="OpenShift Local (CRC)"
 [root@localhost ~]# oc get nodes -A   
 NAME                 STATUS   ROLES           AGE   VERSION
 crc-t6jgr-master-0   Ready    master,worker   44d   v1.24.6+5157800
