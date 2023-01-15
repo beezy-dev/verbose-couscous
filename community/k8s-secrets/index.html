@@ -1503,6 +1503,10 @@
 
 
 <h1 id="keep-your-secrets-secret">Keep your Secrets secret!</h1>
+<!-- ## Foreword by 
+
+## Preface  -->
+
 <h2 id="introductory-material">Introductory Material</h2>
 <h3 id="kubernetes-security">Kubernetes Security</h3>
 <p>Kubernetes is all about providing a high level of abstraction to reduce the application lifecycle dependency on the "from what the entire infrastructure stack is composed of, how it is configured and maintained". Interesting enough, the DevOps movement tries to build bridges to ease the collaboration between the Dev and Ops teams while Kubernetes provides an easy path to a self-service experience for Application teams with a fully decorrelation with the underlying platform.</p>
@@ -1561,11 +1565,11 @@ autonumber
   Note right of User or App: base64 encoded data field
   API Server-&gt;&gt;etcd: store Secret</code></pre>
 <h4 id="operation-overview">Operation Overview</h4>
-<p>Let's consider an application in needs of credentials to connect to an endpoint. These values need to be encoded in based64 to avoid being truncated. This can be done with:</p>
-<div class="highlight"><span class="filename">credential base64 encoding</span><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
+<p>Let's consider an application in needs of credentials to connect to an endpoint. These values need to be encoded in based64 to avoid being truncated.</p>
+<div class="highlight"><span class="filename">Encoding the values in base64</span><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
 <span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;p@ssw0rd$&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
 </code></pre></div>
-<p>Then the encoded credentials can be used within an YAML manifest like:  </p>
+<p>These encoded values can be inserted within an YAML manifest like:  </p>
 <div class="admonition warning inline end">
 <p class="admonition-title">Warning</p>
 <p>While convenient from a GitOps perspective, the YAML manifest is optional as secrets can be create using the <code>kubectl create secret</code> command.<br />
@@ -1582,8 +1586,7 @@ data:
   USERNAME: YWRtaW4K
   PASSWORD: cEBzc3cwcmQkCg==
 </code></pre></div>
-<p>Finally, to actually create the secret within the Kubernetes cluster, run the following:</p>
-<div class="highlight"><span class="filename">create a secret based on a YAML manifest</span><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>mysecret.yml
+<div class="highlight"><span class="filename">Creating a Secret based on a YAML manifest</span><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>mysecret.yml
 </code></pre></div>
 <h2 id="iterative-design">Iterative Design</h2>
 <h3 id="case-study">Case Study</h3>
