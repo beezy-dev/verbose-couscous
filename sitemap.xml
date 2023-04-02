@@ -71,6 +71,16 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://beezy.dev/pancake/phase0/</loc>
+         <lastmod>2023-04-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://beezy.dev/pancake/phase1/</loc>
+         <lastmod>2023-04-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://beezy.dev/pancake/rover/</loc>
          <lastmod>2023-04-02</lastmod>
          <changefreq>daily</changefreq>
