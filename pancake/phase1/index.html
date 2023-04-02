@@ -390,6 +390,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -430,23 +432,14 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#phase-1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Phase 1
-      
-    </span>
-  </a>
-  
-</li>
       
         <li class="md-nav__item">
   <a href="#workspace" class="md-nav__link">
@@ -475,6 +468,17 @@
     <span class="md-ellipsis">
       
         Software
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations
       
     </span>
   </a>
@@ -884,23 +888,14 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#phase-1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Phase 1
-      
-    </span>
-  </a>
-  
-</li>
       
         <li class="md-nav__item">
   <a href="#workspace" class="md-nav__link">
@@ -935,6 +930,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -954,9 +960,7 @@
   
 
 
-  <h1>Phase 1</h1>
-
-<h2 id="phase-1">Phase 1</h2>
+<h1 id="phase-1">Phase 1</h1>
 <p>Discover the basics of software architecture on a microcontroller compared to a single-board computer or standard computer.<br />
 This phase will introduce a first software iteration to remotely control the robot from a simple web page.  </p>
 <p>The code provides the following features: <br />
@@ -1034,6 +1038,7 @@ This phase will introduce a first software iteration to remotely control the rob
 <p>While this is the two official ways of developing on a Raspberry Pico, other compiled languages like Rust could also be leverage to build a firmware. Check the video from <a href="https://www.youtube.com/watch?v=Yi0WRF5WPFw">Low Level Learning</a>.</p>
 <h2 id="software">Software</h2>
 <p>The phase 1 source code is available <a href="https://github.com/beezy-dev/project-pancake/blob/main/code/phase01/main.py">here</a>.</p>
+<p>By loading the below code, the microcontroller will connect to a local wireless network (to be configured) and provide a web server and basic HTML page to control the robot' s movement (forward, backward, left and right). </p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Copyright 2022 Rom Adams (https://github.com/romdalf) at Red Hat Inc. </span>
 <span class="c1">#</span>
 <span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
@@ -1220,6 +1225,7 @@ This phase will introduce a first software iteration to remotely control the rob
 <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
     <span class="n">machine</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 </code></pre></div>
+<h2 id="limitations">Limitations</h2>
 
   
     
