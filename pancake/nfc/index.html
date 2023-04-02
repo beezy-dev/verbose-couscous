@@ -8,13 +8,9 @@
       
       
       
-        <link rel="canonical" href="https://beezy.dev/pancake/concepts/">
+        <link rel="canonical" href="https://beezy.dev/pancake/nfc/">
       
       
-        <link rel="prev" href="../../community/">
-      
-      
-        <link rel="next" href="../../support/">
       
       
         
@@ -25,7 +21,7 @@
     
     
       
-        <title>Terminology - beezy.dev</title>
+        <title>Ground Detection - beezy.dev</title>
       
     
     
@@ -76,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#edge" class="md-skip">
+        <a href="#ground-detection" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Terminology
+              Ground Detection
             
           </span>
         </div>
@@ -759,33 +755,9 @@
       
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    
-  
-    Terminology
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -800,79 +772,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#edge" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Edge
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#container" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Container
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#microservice" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Microservice
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#kubernetes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kubernetes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#gitops" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        GitOps
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -919,6 +818,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -927,10 +828,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#edge" class="md-nav__link">
+  <a href="#scenario" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Edge
+        Scenario
       
     </span>
   </a>
@@ -938,10 +839,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#container" class="md-nav__link">
+  <a href="#hardware" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Container
+        Hardware
       
     </span>
   </a>
@@ -949,32 +850,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#microservice" class="md-nav__link">
+  <a href="#software" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Microservice
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#kubernetes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kubernetes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#gitops" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        GitOps
+        Software
       
     </span>
   </a>
@@ -1000,151 +879,92 @@
   
 
 
-  <h1>Terminology</h1>
+<h1 id="ground-detection">Ground Detection</h1>
+<h2 id="scenario">Scenario</h2>
+<p>During the exploration with the robot, objects located on the surface could be discovered and would trigger a:</p>
+<ul>
+<li>bonus; a special material has been discovered </li>
+<li>damage; a dangerous material might have damaged the robot</li>
+</ul>
+<h2 id="hardware">Hardware</h2>
+<p>A NFC module, here RC522, with cards and tags, provide with the module, could be randomly placed on the exploration zone.</p>
+<p>The RC522 requires 7 pins for the wiring including 2 for power purposes.   </p>
+<p><img alt="RC522" src="../../images/RC522-RFID-CARD-READERS-Pinout.png" /></p>
+<table>
+<thead>
+<tr>
+<th>RC522</th>
+<th>PICO W</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VCC</td>
+<td>3v3</td>
+</tr>
+<tr>
+<td>RST</td>
+<td>PIN0</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND (next to PIN0)</td>
+</tr>
+<tr>
+<td>IRQ</td>
+<td>-</td>
+</tr>
+<tr>
+<td>TX</td>
+<td>PIN4</td>
+</tr>
+<tr>
+<td>MOSI</td>
+<td>PIN3</td>
+</tr>
+<tr>
+<td>SCK</td>
+<td>PIN2</td>
+</tr>
+<tr>
+<td>RX</td>
+<td>PIN1</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="pico w pinout" src="../../images/pancake-02.svg" /></p>
+<h2 id="software">Software</h2>
+<p>Sources are available on <a href="https://github.com/beezy-dev/project-pancake">Project Pancake</a>.</p>
+<p>The code uses the <code>mfrc522</code> library, file that need to be copied on the RP2040 for the code to work. </p>
+<p>The below code can be added to provide detection of cards and tags. The actual gamification part is not included. </p>
+<div class="highlight"><pre><span></span><code><span class="c1">## NFC reader ############################################################</span>
+<span class="c1"># import NFC reader library</span>
+<span class="kn">from</span> <span class="nn">mfrc522</span> <span class="kn">import</span> <span class="n">MFRC522</span>
 
-<p>The below concept definitions are based on field user experience and not from an academic standpoint. The latter will have a link to a Wikipedia reference for a non bias definition.  </p>
-<h2 id="edge">Edge</h2>
-<p>Depending on the industry and core business, the concept of Edge computing might be totally different.<br />
-From a generic standpoint, edge computing is a device outside of the main computing premise of an organization ranging from a branch office to a water level sensor.  </p>
-<p>Here are some generic use cases:  </p>
-<ul>
-<li>For retailers like Target, the Point of Sales (PoS) where you checkout is an edge device or the Alexa devices for AWS.</li>
-<li>For banks like Bank of Scotland, the Automated Teller Machine (ATM) where you get cash from is an edge device or the payment device at a retail shop. </li>
-<li>For telecom companies like NTT Docomo, a cell tower is an edge device or a smartphone is also an edge device.</li>
-<li>For Public Services like USGS, sensors in lakes and rivers are edge devices.</li>
-<li>For a media company like Amazon, a FireTV stick is an edge device.</li>
-</ul>
-<p>Within Project Pancake, our Edge device is a piece of equipment hundred miles away from the main computing premise and connected to an untrusted network. <br />
-Considering this scenario, an Edge gateway might be used to repeat the data path from a down- and upstream perspective to avoid data loss. </p>
-<p><a href="https://en.wikipedia.org/wiki/Edge_device">Edge device on Wikipedia</a>  </p>
-<h2 id="container">Container</h2>
-<p>The concept of container is used to define a way to package an application with the necessary libraries for this application to run.<br />
-That packaging is supposed to run seamlessly on any container platforms regardless of its composition as long as the packaging is respectful of the open standards (<a href="https://opencontainers.org/about/overview/">OCI</a>).   </p>
-<p>In other words, there is no need anymore to perform deep compatibility analysis to ensure an application can run a specific version of Linux with libraries and hardware.   </p>
-<p>On top of this, since the container will include the necessary libraries for the application to run, any patching or upgrade at the lower level, aka the Operating System, will not impact the application.  </p>
-<p><a href="https://en.wikipedia.org/wiki/Containerization_(computing)">Containerization on Wikipedia</a> </p>
-<h2 id="microservice">Microservice</h2>
-<p>The concept of microservice is often associated with the containerization of applications. While an application could be composed of multiple modules composing a single unit, microservices would decouple these modules in multiple small servides.  </p>
-<p>As an example, if an online retail company as an e-commerce, this application might be composed of the following modules:   </p>
-<ul>
-<li>front-end web module</li>
-<li>search module </li>
-<li>suggestion module</li>
-<li>payment module</li>
-<li>shipping module</li>
-<li>caching module</li>
-</ul>
-<p>In a non microservice architecture, also called monolithic architecture, all the modules will be packed within a single unit: </p>
-<pre class="mermaid"><code>    erDiagram
-    E-COMMERCE {
-      module front-end
-      module search
-      module suggestion
-      module payment
-      module shipping
-      module caching
-    }</code></pre>
-<p>Within the world of microservice and container, these modules would all have their own container, so 6 containers, instead of 1.  </p>
-<p><pre class="mermaid"><code>   erDiagram
-   FRONT-END ||--o{ SEARCH : query
-   SEARCH }o--o{ SUGGESTION: influence
-   SUGGESTION {
-    include previousTransaction
-    include previousSearch
-    include similarSearchesOthers
-   }
-   SUGGESTION ||--o{ DATABASE : enrich
-   DATABASE ||--|| CACHING: accelerate
-   CACHING }o--o{ SEARCH: return
-   SEARCH }o--|| CART : add
-   CART ||--|| SHIPPING : select
-   SHIPPING ||--|| PAYMENT : transact</code></pre>
-This approach provides more flexibility from a development and lifecycle perspectice as patching or updating the code from one of the services would not impact the entire stack. 
-Also, having the Suggestion module failing will not impact the entire shopping experience but reduce potential upsell.<br />
-Finally, the concept of "Service Mesh" can be introduced to monitor specific metrics that could impact the shopping experience. Here are three examples:  </p>
-<ul>
-<li>If the shopping experience is consider slow or even timeout, each relationship is reporting metrics (e.g. latency) can be analyzed and define which part of the stack is the root cause.</li>
-<li>With microservices, code changes are granular. This allows the dev team to appreciate the impact on the overall experience. </li>
-<li>Very closed to the previous example, this architecture allows to introduce multiple version of a module within the stack and perform A/B testing scenario with/out user experience feedback.</li>
-</ul>
-<p><a href="https://en.wikipedia.org/wiki/Microservices">Microservices on Wikipedia</a>  </p>
-<h2 id="kubernetes">Kubernetes</h2>
-<p>Kubernetes is a platform to orchestrate containers leveraging a set of software to abstract every infrastructure layer (compute, network, storage, security, ...) into plain natural english.  </p>
-<p>E.g. Configuring a TLS terminate endpoint for a web application:  </p>
-<ul>
-<li>legacy: interact with LAN, WAN, load balancer and firewall devices, requesting a SSL certificate to a third party and loading it into a load balancer context.<br />
-<strong><em>This use case requires the expertise of multiple resources with a long lead time.</em></strong>   </li>
-<li>Kubernetes: using a YAML declarative manifest, the below will create two Services to access a container running a web service, then create an ingress rule for two custom URLs, and generating at creation time the TLS certificate via Let's Encrypt for the NGINX Ingress Controller. Note that at this stage, trying to access the URL on port 80 will trigger an automatic redirect to the TLS endpoint. <br />
-<strong><em>The below can be handled by the Application Team without the need to wait on the Ops expertise reducing the lead time to the entire software supply chain.</em></strong></li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="nn">---</span>
-<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo1</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">ports</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
-<span class="w">    </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5678</span>
-<span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo1</span>
-<span class="nn">---</span>
-<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo2</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">ports</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
-<span class="w">    </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5678</span>
-<span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo2</span>
-<span class="nn">---</span>
-<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">networking.k8s.io/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ingress</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo-ingress</span>
-<span class="w">  </span><span class="nt">annotations</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">cert-manager.io/cluster-issuer</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;letsencrypt&quot;</span>
-<span class="w">    </span><span class="nt">kubernetes.io/ingress.class</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;nginx&quot;</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">tls</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo1.example.com</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo2.example.com</span>
-<span class="w">    </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo-tls</span>
-<span class="w">  </span><span class="nt">rules</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo1.example.com</span>
-<span class="w">      </span><span class="nt">http</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">paths</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Prefix</span>
-<span class="w">            </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/&quot;</span>
-<span class="w">            </span><span class="nt">backend</span><span class="p">:</span>
-<span class="w">              </span><span class="nt">service</span><span class="p">:</span>
-<span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo1</span>
-<span class="w">                </span><span class="nt">port</span><span class="p">:</span>
-<span class="w">                  </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo2.example.com</span>
-<span class="w">      </span><span class="nt">http</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">paths</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Prefix</span>
-<span class="w">            </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/&quot;</span>
-<span class="w">            </span><span class="nt">backend</span><span class="p">:</span>
-<span class="w">              </span><span class="nt">service</span><span class="p">:</span>
-<span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo2</span>
-<span class="w">                </span><span class="nt">port</span><span class="p">:</span>
-<span class="w">                  </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="c1"># connecting to network </span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">MFRC522</span><span class="p">(</span><span class="n">spi_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">sck</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">miso</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">mosi</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">cs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">rst</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">previousCard</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">cardReader</span><span class="p">():</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span> 
+        <span class="n">reader</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+        <span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="n">tag_type</span><span class="p">)</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">reader</span><span class="o">.</span><span class="n">REQIDL</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">uid</span> <span class="o">==</span> <span class="n">previousCard</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">stat</span> <span class="o">==</span> <span class="n">reader</span><span class="o">.</span><span class="n">OK</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="n">uid</span><span class="p">)</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">SelectTagSN</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">stat</span> <span class="o">==</span> <span class="n">reader</span><span class="o">.</span><span class="n">OK</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Card detected </span><span class="si">{}</span><span class="s2">  uid=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">uid</span><span class="p">),</span><span class="s2">&quot;little&quot;</span><span class="p">,</span><span class="kc">False</span><span class="p">))</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span><span class="n">reader</span><span class="o">.</span><span class="n">tohexstring</span><span class="p">(</span><span class="n">uid</span><span class="p">)))</span>
+                <span class="n">defaultKey</span> <span class="o">=</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">]</span>
+                <span class="n">reader</span><span class="o">.</span><span class="n">MFRC522_DumpClassic1K</span><span class="p">(</span><span class="n">uid</span><span class="p">,</span> <span class="n">Start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">End</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">keyA</span><span class="o">=</span><span class="n">defaultKey</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done&quot;</span><span class="p">)</span>
+                <span class="n">previousCard</span> <span class="o">=</span> <span class="n">uid</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">previousCard</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">utime</span><span class="o">.</span><span class="n">sleep_ms</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> 
 </code></pre></div>
-<p><a href="https://en.wikipedia.org/wiki/Kubernetes">Kubernetes on Wikipedia</a>  </p>
-<h2 id="gitops">GitOps</h2>
-<p>GitOps is an umbrella practice composed of Culture (Dev &amp; Ops working together), Infrastructure-as-Code, and Automation - mainly, if not only, used with Kubernetes.<br />
-GitOps is usually depending on an automation tool, like ArgoCD or FluxCD, accessing Git repositories with either or both infrastructure and application YAML configuration manifests.<br />
-The automation tool will track the configuration state in both the Git repositories and the Kubernetes clusters. If one shows a difference of configuration, a out-of-sync or drift will be notified with the ability to:  </p>
-<ul>
-<li>sync the Kubernetes cluster with the new configuration definition with the Git repository.</li>
-<li>rollback the Kubernetes cluster state with the known one from the Git repository.  </li>
-</ul>
-<p><a href="https://en.wikipedia.org/wiki/DevOps#GitOps">GitOps on Wikipedia</a>  </p>
 
   
     
@@ -1160,7 +980,7 @@ The automation tool will track the configuration state in both the Git repositor
         <span class="md-icon" title="Last update">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
         </span>
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 30, 2022</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 2, 2023</span>
       </span>
     
     
@@ -1168,7 +988,7 @@ The automation tool will track the configuration state in both the Git repositor
         <span class="md-icon" title="Created">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
         </span>
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 26, 2022</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 2, 2023</span>
       </span>
     
     
@@ -1181,7 +1001,7 @@ The automation tool will track the configuration state in both the Git repositor
         </span>
         <nav>
           
-            <a href="mailto:romdalf@minime.lan">romdalf</a>
+            <a href="mailto:55788733+romdalf@users.noreply.github.com">Rom Adams</a>
         </nav>
       </span>
     

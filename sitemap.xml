@@ -61,6 +61,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://beezy.dev/pancake/nfc/</loc>
+         <lastmod>2023-04-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://beezy.dev/pancake/ops/</loc>
          <lastmod>2023-04-02</lastmod>
          <changefreq>daily</changefreq>
