@@ -87,11 +87,13 @@ markdown_extensions:
 nav:
   - Projects: 
     - index.md
-    - Echo CA:
-      - echo-ca/index.md
+    #- Echo CA:
+    #  - echo-ca/index.md
     - pancake: 
       - pancake/index.md  
       - Build: pancake/rover.md 
+      - Extensions:
+        - Ground Detection: pancake/nfc.md
       - Deploy:
         - Requirements: pancake/bom.md
         - Hardware: pancake/hardware.md 
