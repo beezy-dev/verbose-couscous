@@ -1034,7 +1034,191 @@ This phase will introduce a first software iteration to remotely control the rob
 <p>While this is the two official ways of developing on a Raspberry Pico, other compiled languages like Rust could also be leverage to build a firmware. Check the video from <a href="https://www.youtube.com/watch?v=Yi0WRF5WPFw">Low Level Learning</a>.</p>
 <h2 id="software">Software</h2>
 <p>The phase 1 source code is available <a href="https://github.com/beezy-dev/project-pancake/blob/main/code/phase01/main.py">here</a>.</p>
-<div class="highlight"><pre><span></span><code>
+<div class="highlight"><pre><span></span><code><span class="c1"># Copyright 2022 Rom Adams (https://github.com/romdalf) at Red Hat Inc. </span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#      http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="kn">import</span> <span class="nn">utime</span>  
+<span class="kn">import</span> <span class="nn">ujson</span>
+<span class="kn">import</span> <span class="nn">network</span>
+<span class="kn">import</span> <span class="nn">ubinascii</span>
+<span class="kn">import</span> <span class="nn">machine</span>
+<span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Pin</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="c1"># getting a ISO8601 timestamp format</span>
+<span class="k">def</span> <span class="nf">timestamp</span><span class="p">():</span>
+    <span class="n">current_time</span> <span class="o">=</span> <span class="n">utime</span><span class="o">.</span><span class="n">localtime</span><span class="p">()</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:04d}</span><span class="s1">-</span><span class="si">{:02d}</span><span class="s1">-</span><span class="si">{:02d}</span><span class="s1">T</span><span class="si">{:02d}</span><span class="s1">:</span><span class="si">{:02d}</span><span class="s1">:</span><span class="si">{:02d}</span><span class="s1">Z&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">current_time</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">current_time</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">current_time</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+        <span class="n">current_time</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">current_time</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">current_time</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">time</span>
+
+<span class="c1"># print device and software info</span>
+<span class="n">wlan</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">WLAN</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">STA_IF</span><span class="p">)</span>
+<span class="n">wlan</span><span class="o">.</span><span class="n">active</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mac</span> <span class="o">=</span> <span class="n">ubinascii</span><span class="o">.</span><span class="n">hexlify</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">WLAN</span><span class="p">()</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="s1">&#39;mac&#39;</span><span class="p">),</span><span class="s1">&#39;:&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">timestamp</span><span class="p">()</span><span class="si">}</span><span class="s2"> - WRCR: </span><span class="si">{</span><span class="n">mac</span><span class="si">}</span><span class="s2"> v0.1 DEV RELEASE&quot;</span><span class="p">)</span>
+
+<span class="c1"># network connection ####################################################</span>
+<span class="n">networkName</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="n">networkPassword</span><span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+<span class="c1"># connecting to network </span>
+<span class="k">def</span> <span class="nf">connecting</span><span class="p">():</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">wlan</span><span class="o">.</span><span class="n">isconnected</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">timestamp</span><span class="p">()</span><span class="si">}</span><span class="s2"> - WLAN connecting to network...&quot;</span><span class="p">)</span>
+        <span class="n">wlan</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">networkName</span><span class="p">,</span> <span class="n">networkPassword</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">timestamp</span><span class="p">()</span><span class="si">}</span><span class="s2"> - WLAN waiting for connection...&quot;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">wlan</span><span class="o">.</span><span class="n">isconnected</span><span class="p">():</span>
+            <span class="k">pass</span> 
+    <span class="n">ip</span> <span class="o">=</span> <span class="n">wlan</span><span class="o">.</span><span class="n">ifconfig</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">timestamp</span><span class="p">()</span><span class="si">}</span><span class="s2"> - WLAN connected on </span><span class="si">{</span><span class="n">networkName</span><span class="si">}</span><span class="s2"> with IP </span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ip</span>
+
+<span class="c1"># motor setup</span>
+<span class="n">motorOneFW</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span>
+<span class="n">motorOneBW</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span>
+<span class="n">motorTwoFW</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span>
+<span class="n">motorTwoBW</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span>
+
+<span class="c1"># define movements</span>
+<span class="k">def</span> <span class="nf">moveStop</span><span class="p">():</span>
+    <span class="n">motorOneFW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">motorOneBW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">motorTwoFW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">motorTwoBW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">moveForward</span><span class="p">():</span>
+    <span class="n">motorOneFW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">motorOneBW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">motorTwoFW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">motorTwoBW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">utime</span><span class="o">.</span><span class="n">sleep_ms</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span>
+    <span class="n">moveStop</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">moveBackward</span><span class="p">():</span>
+    <span class="n">motorOneFW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">motorOneBW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">motorTwoFW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">motorTwoBW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">utime</span><span class="o">.</span><span class="n">sleep_ms</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span>
+    <span class="n">moveStop</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">moveLeft</span><span class="p">():</span>
+    <span class="n">motorOneFW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">motorOneBW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">motorTwoFW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">motorTwoBW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">utime</span><span class="o">.</span><span class="n">sleep_ms</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span>
+    <span class="n">moveStop</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">moveRight</span><span class="p">():</span>
+    <span class="n">motorOneFW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">motorOneBW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">motorTwoFW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">motorTwoBW</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">utime</span><span class="o">.</span><span class="n">sleep_ms</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span>
+    <span class="n">moveStop</span><span class="p">()</span>
+
+<span class="c1"># create a network socket</span>
+<span class="n">socketPort</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="k">def</span> <span class="nf">networkSocket</span><span class="p">(</span><span class="n">ip</span><span class="p">):</span>
+    <span class="n">address</span> <span class="o">=</span> <span class="p">(</span><span class="n">ip</span><span class="p">,</span> <span class="n">socketPort</span><span class="p">)</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">timestamp</span><span class="p">()</span><span class="si">}</span><span class="s2"> - Try to start a Network Socket...&quot;</span><span class="p">)</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+        <span class="n">old</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">getsockopt</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SO_REUSEADDR</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">timestamp</span><span class="p">()</span><span class="si">}</span><span class="s2"> - Socket state </span><span class="si">{</span><span class="n">old</span><span class="si">}</span><span class="s2"> already in use!&quot;</span><span class="p">)</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">setsockopt</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SOL_SOCKET</span><span class="p">,</span><span class="n">socket</span><span class="o">.</span><span class="n">SO_REUSEADDR</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">getsockopt</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SO_REUSEADDR</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">timestamp</span><span class="p">()</span><span class="si">}</span><span class="s2"> -Socket state </span><span class="si">{</span><span class="n">new</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">timestamp</span><span class="p">()</span><span class="si">}</span><span class="s2"> - Socket started on </span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2"> on port </span><span class="si">{</span><span class="n">socketPort</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">connection</span>
+
+<span class="k">def</span> <span class="nf">webControl</span><span class="p">():</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            &lt;!DOCTYPE html&gt;</span>
+<span class="s2">            &lt;html&gt;</span>
+<span class="s2">            &lt;head&gt;</span>
+<span class="s2">            &lt;title&gt;WRCR&lt;/title&gt;</span>
+<span class="s2">            &lt;/head&gt;</span>
+<span class="s2">            &lt;center&gt;&lt;b&gt;</span>
+<span class="s2">            &lt;form action=&quot;./forward&quot;&gt;</span>
+<span class="s2">            &lt;input type=&quot;submit&quot; value=&quot;Forward&quot; style=&quot;height:120px; width:120px&quot; /&gt;</span>
+<span class="s2">            &lt;/form&gt;</span>
+<span class="s2">            &lt;table&gt;&lt;tr&gt;</span>
+<span class="s2">            &lt;td&gt;&lt;form action=&quot;./left&quot;&gt;</span>
+<span class="s2">            &lt;input type=&quot;submit&quot; value=&quot;Left&quot; style=&quot;height:120px; width:120px&quot; /&gt;</span>
+<span class="s2">            &lt;/form&gt;&lt;/td&gt;</span>
+<span class="s2">            &lt;td&gt;&lt;form action=&quot;./stop&quot;&gt;</span>
+<span class="s2">            &lt;input type=&quot;submit&quot; value=&quot;Stop&quot; style=&quot;height:120px; width:120px&quot; /&gt;</span>
+<span class="s2">            &lt;/form&gt;&lt;/td&gt;</span>
+<span class="s2">            &lt;td&gt;&lt;form action=&quot;./right&quot;&gt;</span>
+<span class="s2">            &lt;input type=&quot;submit&quot; value=&quot;Right&quot; style=&quot;height:120px; width:120px&quot; /&gt;</span>
+<span class="s2">            &lt;/form&gt;&lt;/td&gt;</span>
+<span class="s2">            &lt;/tr&gt;&lt;/table&gt;</span>
+<span class="s2">            &lt;form action=&quot;./backward&quot;&gt;</span>
+<span class="s2">            &lt;input type=&quot;submit&quot; value=&quot;Backward&quot; style=&quot;height:120px; width:120px&quot; /&gt;</span>
+<span class="s2">            &lt;/form&gt;</span>
+<span class="s2">            &lt;/body&gt;</span>
+<span class="s2">            &lt;/html&gt;</span>
+<span class="s2">            &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">webServer</span><span class="p">(</span><span class="n">connection</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">timestamp</span><span class="p">()</span><span class="si">}</span><span class="s2"> - webServer started with webControl as Index&quot;</span><span class="p">)</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="s2">&quot;LED&quot;</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span>
+        <span class="n">status</span><span class="o">.</span><span class="n">toggle</span><span class="p">()</span>
+        <span class="n">client</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">accept</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">request</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">timestamp</span><span class="p">()</span><span class="si">}</span><span class="s2"> - webServer failed due to IndexError!&quot;</span><span class="p">)</span>
+            <span class="k">pass</span>
+        <span class="k">if</span> <span class="n">request</span> <span class="o">==</span> <span class="s1">&#39;/forward?&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">timestamp</span><span class="p">()</span><span class="si">}</span><span class="s2"> - webControl called for moveForward&quot;</span><span class="p">)</span>
+            <span class="n">moveForward</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">request</span> <span class="o">==</span> <span class="s1">&#39;/backward?&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">timestamp</span><span class="p">()</span><span class="si">}</span><span class="s2"> - webControl called for moveBackward&quot;</span><span class="p">)</span>
+            <span class="n">moveBackward</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">request</span> <span class="o">==</span> <span class="s1">&#39;/right?&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">timestamp</span><span class="p">()</span><span class="si">}</span><span class="s2"> - webControl called for moveRight&quot;</span><span class="p">)</span>
+            <span class="n">moveRight</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">request</span> <span class="o">==</span> <span class="s1">&#39;/left?&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">timestamp</span><span class="p">()</span><span class="si">}</span><span class="s2"> - webControl called for moveLeft&quot;</span><span class="p">)</span>
+            <span class="n">moveLeft</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">request</span> <span class="o">==</span> <span class="s1">&#39;/stop?&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">timestamp</span><span class="p">()</span><span class="si">}</span><span class="s2"> - webControl called for moveStop&quot;</span><span class="p">)</span>
+            <span class="n">moveStop</span><span class="p">()</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="n">webControl</span><span class="p">()</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">ip</span> <span class="o">=</span> <span class="n">connecting</span><span class="p">()</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">networkSocket</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+    <span class="n">webServer</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+    <span class="n">machine</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 </code></pre></div>
 
   
