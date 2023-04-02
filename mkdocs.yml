@@ -92,6 +92,8 @@ nav:
     - pancake: 
       - pancake/index.md  
       - Build: pancake/rover.md 
+      - Extensions:
+        - Ground Detection: pancake/nfc.md
       - Deploy:
         - Requirements: pancake/bom.md
         - Hardware: pancake/hardware.md 
