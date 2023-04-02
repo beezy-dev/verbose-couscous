@@ -298,6 +298,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
@@ -345,60 +351,6 @@
           <ul class="md-nav__list" data-md-scrollfix>
             
               
-            
-              
-                
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2_2" >
-        
-          <label class="md-nav__link" for="__nav_1_2_2" id="__nav_1_2_2_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    
-  
-    Build
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_2_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_1_2_2">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Build
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -504,14 +456,6 @@
 
               
             
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
               
                 
   
@@ -530,9 +474,9 @@
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2_6" >
         
-          <label class="md-nav__link" for="__nav_1_2_3" id="__nav_1_2_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_1_2_6" id="__nav_1_2_6_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -549,8 +493,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_2_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_1_2_3">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -875,6 +819,18 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#phase-0" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -884,8 +840,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#phase-1" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -895,8 +851,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#phase-2" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -906,8 +862,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#phase-3" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -915,6 +871,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -988,7 +949,8 @@
 <li>refactoring in phases a monolithic application into microservices </li>
 <li>deploying containers on a Kubernetes container platform</li>
 </ul>
-<h2 id="phase-0">Phase 0</h2>
+<h2 id="milestones">Milestones</h2>
+<h3 id="phase-0">Phase 0</h3>
 <p>Discover the Internet of Things (IoT) objects and the basics of electronic to build the robot.</p>
 <p>The hardware is composed of: <br />
 - a Raspberry Pico Wireless 
@@ -996,32 +958,38 @@
 - a L298N motor controller with 2 DC engines
 - a 4-battery holder pack
 - a NC522 NFC interface (optional)</p>
-<h2 id="phase-1">Phase 1</h2>
+<h3 id="phase-1">Phase 1</h3>
 <p>Discover the basics of software architecture on a microcontroller compared to a single-board computer or standard computer.<br />
 This phase will introduce a first software iteration to remotely control the robot from a simple web page.  </p>
-<p>The code provides the following features: <br />
-- connection to a pre-defined wireless network
-- serve a web page to drive the rover (forward, backward, left, right, stop)
-- detecting minerals of interests (optional)</p>
+<p>The code provides the following features:   </p>
+<ul>
+<li>connection to a pre-defined wireless network</li>
+<li>serve a web page to drive the rover (forward, backward, left, right, stop)</li>
+<li>detecting minerals of interests (optional)</li>
+</ul>
 <p>This first phase will provide an usable robot and exposing a series of flaws.</p>
-<h2 id="phase-2">Phase 2</h2>
+<h3 id="phase-2">Phase 2</h3>
 <p>Discover the basics of edge gateway from a hardware and software perspective.  </p>
-<p>Phase 2 is addressing these 2 key elements by: <br />
-- refactoring the application into microservices
-- containerizing the microservices
-- leveraging the concept of Edge gateway</p>
-<h2 id="phase-3">Phase 3</h2>
+<p>Phase 2 is addressing these 2 key elements by:   </p>
+<ul>
+<li>refactoring the application into microservices</li>
+<li>containerizing the microservices</li>
+<li>leveraging the concept of Edge gateway</li>
+</ul>
+<h3 id="phase-3">Phase 3</h3>
 <p>Discover the basics of IoT fleet management and Edge-as-Service. </p>
-<p>Phase 3 is addressing the followings:<br />
-- securing the Edge connectivity using cloud native solutions
-- applying GitOps principle to deploy and maintain the rover solution
-- leveraging a hybrid cloud deployment for increased resilience </p>
+<p>Phase 3 is addressing the followings:   </p>
+<ul>
+<li>securing the Edge connectivity using cloud native solutions</li>
+<li>applying GitOps principle to deploy and maintain the rover solution</li>
+<li>leveraging a hybrid cloud deployment for increased resilience </li>
+</ul>
 <h2 id="bill-of-material-bom">Bill of Material (BoM)</h2>
 <h3 id="software">Software</h3>
 <ul>
 <li>a computer with <a href="https://thonny.org/">Thonny</a> installed </li>
 <li>a text editor like <a href="https://www.sublimetext.com/">Sublime</a> or <a href="https://vscodium.com/">vscodium</a> </li>
-<li>Internet </li>
+<li>Internet Access</li>
 </ul>
 <h3 id="hardware">Hardware</h3>
 <p>The below table shows a set of required and optional components. The optional components are to extend the learning and experience of the robot.  </p>
