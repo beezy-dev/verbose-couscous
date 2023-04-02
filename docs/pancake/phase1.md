@@ -46,6 +46,6 @@ While this is the two official ways of developing on a Raspberry Pico, other com
 The phase 1 source code is available [here](https://github.com/beezy-dev/project-pancake/blob/main/code/phase01/main.py).
 
 ```python
---*<-- "https://raw.githubusercontent.com/beezy-dev/project-pancake/main/code/phase01/main.py"
+--8<-- "https://raw.githubusercontent.com/beezy-dev/project-pancake/main/code/phase01/main.py"
 ``` 
 
