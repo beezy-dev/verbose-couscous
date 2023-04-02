@@ -12,7 +12,8 @@ During this process, we will be demonstrating:
 - refactoring in phases a monolithic application into microservices 
 - deploying containers on a Kubernetes container platform
 
-## Phase 0 
+## Milestones
+### Phase 0 
 Discover the Internet of Things (IoT) objects and the basics of electronic to build the robot.
 
 The hardware is composed of:   
@@ -22,29 +23,32 @@ The hardware is composed of:
 - a 4-battery holder pack
 - a NC522 NFC interface (optional)
 
-## Phase 1
+### Phase 1
 Discover the basics of software architecture on a microcontroller compared to a single-board computer or standard computer.  
 This phase will introduce a first software iteration to remotely control the robot from a simple web page.  
 
 The code provides the following features:   
+
 - connection to a pre-defined wireless network
 - serve a web page to drive the rover (forward, backward, left, right, stop)
 - detecting minerals of interests (optional)
 
 This first phase will provide an usable robot and exposing a series of flaws.
 
-## Phase 2
+### Phase 2
 Discover the basics of edge gateway from a hardware and software perspective.  
 
 Phase 2 is addressing these 2 key elements by:   
+
 - refactoring the application into microservices
 - containerizing the microservices
 - leveraging the concept of Edge gateway
 
-## Phase 3
+### Phase 3
 Discover the basics of IoT fleet management and Edge-as-Service. 
 
-Phase 3 is addressing the followings:  
+Phase 3 is addressing the followings:   
+
 - securing the Edge connectivity using cloud native solutions
 - applying GitOps principle to deploy and maintain the rover solution
 - leveraging a hybrid cloud deployment for increased resilience 
@@ -54,7 +58,7 @@ Phase 3 is addressing the followings:
 ### Software
 - a computer with [Thonny](https://thonny.org/) installed 
 - a text editor like [Sublime](https://www.sublimetext.com/) or [vscodium](https://vscodium.com/) 
-- Internet 
+- Internet Access
 
 ### Hardware
 The below table shows a set of required and optional components. The optional components are to extend the learning and experience of the robot.  
