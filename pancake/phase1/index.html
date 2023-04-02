@@ -966,10 +966,12 @@ This phase will introduce a first software iteration to remotely control the rob
 <p>This first phase will provide an usable robot and exposing a series of flaws.</p>
 <h2 id="workspace">Workspace</h2>
 <h2 id="architecture">Architecture</h2>
-<p>The below table shows the hardware difference between: <br />
-- a microcontroller like the Raspberry Pico Wireless
-- a single board computer like the Raspberry Pi 4B 
-- a standard computer specification overview </p>
+<p>The below table shows the hardware difference between:  </p>
+<ul>
+<li>a microcontroller like the Raspberry Pico Wireless</li>
+<li>a single board computer like the Raspberry Pi 4B </li>
+<li>a standard computer specification overview </li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -1000,9 +1002,9 @@ This phase will introduce a first software iteration to remotely control the rob
 </tr>
 <tr>
 <td>Power</td>
-<td>90mA (no wifi) up to 260-370mA (wifi)</td>
-<td>540mA (2.7W) to 1280mA (6.4W)</td>
-<td></td>
+<td>from 90 (no wifi) up to 260-370mA (wifi)</td>
+<td>540 to 1280mA</td>
+<td>from 1400 to +4500mA</td>
 </tr>
 <tr>
 <td>Autonomy on 4AA</td>
@@ -1010,8 +1012,26 @@ This phase will introduce a first software iteration to remotely control the rob
 <td>max 2 hours</td>
 <td>n/a</td>
 </tr>
+<tr>
+<td>Operating System</td>
+<td>none</td>
+<td>Linux or Windows for ARM</td>
+<td>Linux, BSD, Windows</td>
+</tr>
 </tbody>
 </table>
+<p>Each solution has its own target:</p>
+<ul>
+<li>a microcontroller is perfect for embedded systems on battery </li>
+<li>a single board controller targets kiosk or edge computer solutions </li>
+<li>a standard computer provides the horse power for multitasking with productivity or even gaming</li>
+</ul>
+<p>Last is the operating system consideration. While a SBC or a computer would have an operating system and compatible software to address the user needs, a microcontroller doesn't have per say an operating system. The Raspberry Pico has the following options:</p>
+<ul>
+<li>a MicroPython firmware capable of interpreting Python code (See <a href="https://projects.raspberrypi.org/en/projects/getting-started-with-the-pico/0">Pico Getting Started</a>)</li>
+<li>a Pico SDK to develop in C/C++/ASM and build the firmware (See <a href="https://github.com/raspberrypi/pico-sdk">Pico SDK</a>)</li>
+</ul>
+<p>While this is the two official ways of developing on a Raspberry Pico, other compiled languages like Rust could also be leverage to build a firmware. Check the video from <a href="https://www.youtube.com/watch?v=Yi0WRF5WPFw">Low Level Learning</a>.</p>
 <h2 id="software">Software</h2>
 <p>The phase 1 source code is available <a href="https://github.com/beezy-dev/project-pancake/blob/main/code/phase01/main.py">here</a>.</p>
 
