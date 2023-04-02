@@ -1,4 +1,4 @@
-## Phase 1
+# Phase 1
 Discover the basics of software architecture on a microcontroller compared to a single-board computer or standard computer.  
 This phase will introduce a first software iteration to remotely control the robot from a simple web page.  
 
@@ -44,6 +44,8 @@ While this is the two official ways of developing on a Raspberry Pico, other com
 ## Software
 
 The phase 1 source code is available [here](https://github.com/beezy-dev/project-pancake/blob/main/code/phase01/main.py).
+
+By loading the below code, the microcontroller will connect to a local wireless network (to be configured) and provide a web server and basic HTML page to control the robot' s movement (forward, backward, left and right). 
 
 ```python
 # Copyright 2022 Rom Adams (https://github.com/romdalf) at Red Hat Inc. 
@@ -232,4 +234,7 @@ try:
 except KeyboardInterrupt:
     machine.reset()
 ``` 
+
+## Limitations
+
 
