@@ -13,12 +13,19 @@ This first phase will provide an usable robot and exposing a series of flaws.
 
 
 ## Architecture 
+The below table shows the hardware difference between:   
+- a microcontroller like the Raspberry Pico Wireless
+- a single board computer like the Raspberry Pi 4B 
+- a standard computer specification overview 
 
-| Summary | Microcontroller          | Single Board Computer   | Computer           |
-|---------|--------------------------|=======================--|--------------------|
-| CPU     | 1 to 150 Mhz 1 or 2 core | up to 1Ghz / multi core | up 5Ghz / 24+ core |
-| RAM     | 256 KB                   | up to 8GB               | up 64 GB           |
-| Disk    | 2 MB                     | SD card (up to 2TB)     | HDD (multi TB)     |
+
+| Summary |  Pico W    | Raspberry Pi 4B               | Computer           |
+|---------|------------|-------------------------------|--------------------|
+| CPU     |  2x133Mhz  | 4x1.8Ghz ARMv8                | up 5Ghz / 24+ core |
+| RAM     |  256KB     | from 1GB to 8GB               | up 64 GB           |
+| Disk    |  2MB       | SD card (up to 2TB)           | HDD (multi TB)     |
+| Power   |  90mA (no wifi) up to 260-370mA (wifi) | 540mA (2.7W) to 1280mA (6.4W) | 
+| Autonomy on 4AA | between 20 to 50 hours | max 2 hours | n/a |
 
 
 ## Software

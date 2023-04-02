@@ -91,15 +91,13 @@ nav:
     #  - echo-ca/index.md
     - pancake: 
       - pancake/index.md  
-      - Build: pancake/rover.md 
+      - Build: 
+        - Phase 0: pancake/phase0.md
+        - Phase 1: pancake/phase1.md
+        - Phase 2: pancake/phase2.md
+        - Phase 3: pancake/phase3.md
       - Extensions:
         - Ground Detection: pancake/nfc.md
-      - Deploy:
-        - Requirements: pancake/bom.md
-        - Hardware: pancake/hardware.md 
-        - Software: pancake/software.md
-        - Operating: pancake/ops.md 
-      - Development: pancake/devenv.md
     - shiny-octo-spoon: 
       - shiny-octo-spoon/index.md
     - verbose-couscous:
