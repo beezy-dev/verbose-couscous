@@ -47,6 +47,19 @@ The phase 1 source code is available [here](https://github.com/beezy-dev/project
 
 By loading the below code, the microcontroller will connect to a local wireless network (to be configured) and provide a web server and basic HTML page to control the robot' s movement (forward, backward, left and right). 
 
+What does the code in a linear fashion:
+
+- loads the necessary modules/libraries 
+- define a timestamp function using the ISO8601 specs
+- get the MAC and build version (currently static)
+- establish a wireless connection with a given SSID and password 
+- define the motors' PINs and movement 
+- create a network socket on port 80 and bind it to the IP leased by DHCP
+- define a webControl function to link the motors' movement with web form buttons 
+- define a webServer function handling the buttons' actions towards the motors' movement
+- define a continuous loop on the required functions with catching a keyboard exception (for debugging)
+
+
 ```python
 # Copyright 2022 Rom Adams (https://github.com/romdalf) at Red Hat Inc. 
 #
@@ -236,5 +249,10 @@ except KeyboardInterrupt:
 ``` 
 
 ## Limitations
+While this first software phase allows to discover the basics of microcontroller's usage and development via MicroPython along with making it alive, there are some limitations to this approach: 
 
+- agile development; the entire software stack is deployed on the device itself and can only be modified by reattaching the device to a workstation and upload the code. While it might not be an issue when showcasing the robot within a closed by location, when the robot are deployed kilometers away, this will become a real device management issue. 
+- security; anyone scouting for web page resources could takeover the robot's control and also potential discover the network details providing compromised credentials to the network. 
+- scalability; this software stack is fine when prototyping and showcasing the capabilities of the robot but will not be scalable if there is dozen or hundreds of robots to control. 
+- observability; this software stack can only provide debugging capabilities when connected to a workstation. 
 
