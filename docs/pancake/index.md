@@ -1,7 +1,7 @@
 # Project Pancake 
 
 ## Overview 
-The scope of project *Pancake* is to demonstrate an iterative design approach from both a software and hardware perspective while discovering the flaws at each iterations.   
+The scope of project *Pancake* is to build an unmanned ground vehicule or UGV, discover the basic of electronics and edge devices from both a software and hardware perspective, andwork through an iterative design based on flaws discovered at each iteration.   
 
 During this process, we will be demonstrating:
 
@@ -14,7 +14,7 @@ During this process, we will be demonstrating:
 
 ## Milestones
 ### Phase 0 
-Discover the Internet of Things (IoT) objects and the basics of electronic to build the robot.
+Discover the Internet of Things (IoT) objects and the basics of electronic to build the UGV.
 
 The hardware is composed of:   
 - a Raspberry Pico Wireless 
@@ -25,7 +25,7 @@ The hardware is composed of:
 
 ### Phase 1
 Discover the basics of software architecture on a microcontroller compared to a single-board computer or standard computer.  
-This phase will introduce a first software iteration to remotely control the robot from a simple web page.  
+This phase will introduce a first software iteration to remotely control the UGV from a simple web page.  
 
 The code provides the following features:   
 
@@ -33,7 +33,7 @@ The code provides the following features:
 - serve a web page to drive the rover (forward, backward, left, right, stop)
 - detecting minerals of interests (optional)
 
-This first phase will provide an usable robot and exposing a series of flaws.
+This first phase will provide an usable UGV and exposing a series of flaws.
 
 ### Phase 2
 Discover the basics of edge gateway from a hardware and software perspective.  

@@ -1,4 +1,4 @@
-# build the robot
+# build the UGV
 
 ## Requirements
 

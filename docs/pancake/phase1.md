@@ -1,13 +1,13 @@
 # Phase 1
 Discover the basics of software architecture on a microcontroller compared to a single-board computer or standard computer.  
-This phase will introduce a first software iteration to remotely control the robot from a simple web page.  
+This phase will introduce a first software iteration to remotely control the UGV from a simple web page.  
 
 The code provides the following features:   
 - connection to a pre-defined wireless network
 - serve a web page to drive the rover (forward, backward, left, right, stop)
 - detecting minerals of interests (optional)
 
-This first phase will provide an usable robot and exposing a series of flaws.
+This first phase will provide an usable UGV and exposing a series of flaws.
 
 ## Workspace 
 
@@ -45,7 +45,7 @@ While this is the two official ways of developing on a Raspberry Pico, other com
 
 The phase 1 source code is available [here](https://github.com/beezy-dev/project-pancake/blob/main/code/phase01/main.py).
 
-By loading the below code, the microcontroller will connect to a local wireless network (to be configured) and provide a web server and basic HTML page to control the robot' s movement (forward, backward, left and right). 
+By loading the below code, the microcontroller will connect to a local wireless network (to be configured) and provide a web server and basic HTML page to control the UGV' s movement (forward, backward, left and right). 
 
 What does the code in a linear fashion:
 
@@ -251,8 +251,8 @@ except KeyboardInterrupt:
 ## Limitations
 While this first software phase allows to discover the basics of microcontroller's usage and development via MicroPython along with making it alive, there are some limitations to this approach: 
 
-- agile development; the entire software stack is deployed on the device itself and can only be modified by reattaching the device to a workstation and upload the code. While it might not be an issue when showcasing the robot within a closed by location, when the robot are deployed kilometers away, this will become a real device management issue. 
-- security; anyone scouting for web page resources could takeover the robot's control and also potential discover the network details providing compromised credentials to the network. 
-- scalability; this software stack is fine when prototyping and showcasing the capabilities of the robot but will not be scalable if there is dozen or hundreds of robots to control. 
+- agile development; the entire software stack is deployed on the device itself and can only be modified by reattaching the device to a workstation and upload the code. While it might not be an issue when showcasing the UGV within a closed by location, when the UGV are deployed kilometers away, this will become a real device management issue. 
+- security; anyone scouting for web page resources could takeover the UGV's control and also potential discover the network details providing compromised credentials to the network. 
+- scalability; this software stack is fine when prototyping and showcasing the capabilities of the UGV but will not be scalable if there is dozen or hundreds of UGVs to control. 
 - observability; this software stack can only provide debugging capabilities when connected to a workstation. 
 
