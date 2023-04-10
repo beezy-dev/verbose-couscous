@@ -367,6 +367,23 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase 0
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -382,6 +399,47 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -811,6 +869,36 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -829,6 +917,25 @@
 
 
 <h1 id="build-the-robot">build the robot</h1>
+<h2 id="requirements">Requirements</h2>
+<p>Review the hardware requirements available <a href="https://beezy.dev/pancake/#hardware">here</a>.</p>
+<p>The Raspberry Pi PICO might come with pre-soldered pin header. If not, two options:  <br />
+- solder the pin header 
+- use alligator clip test cable if you don't want to solder</p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>Don't solder the cables directly to the Pi PICO board, use Dupont type cables allowing you to easily change the pin setup without any difficulties. </p>
+</details>
+<h2 id="diagram">Diagram</h2>
+<p>The below diagram shows the basic wiring without the optional components. </p>
+<p>Even if the GPxx are displayed with specific numbers, these could be reassign to any GPxx. This will however require to adapt the code with the new pin numbers. </p>
+<details class="warning" open="open">
+<summary>Warning</summary>
+<p>Make sure to properly distribute the power from the battery back towards the L298N module as the pack provides more than 5V.<br />
+The L298N module is capable of handling up to 12v as an input and distribute a 5v output that would power the Raspberry Pi PICO. <br />
+Feeding more than 5v to the Raspberry Pi PICO could burn it!</p>
+</details>
+<p><img alt="RC522" src="../../images/pancake-basic-wiring.png" /></p>
 
   
     
