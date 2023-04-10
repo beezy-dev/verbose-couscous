@@ -1,8 +1,8 @@
 # Phase 1: Minimal Viable Product
-Discover the basics of software architecture on a microcontroller compared to a single-board computer or standard computer.  
-This phase will introduce a first software iteration to remotely control the UGV from a simple web page.  
+Discover the basics of software architecture on a microcontroller compared to a single-board computer or standard computer. This phase will introduce a first software iteration to remotely control the UGV from a simple web page.  
 
-The code provides the following features:   
+The code provides the following features:    
+
 - connection to a pre-defined wireless network
 - serve a web page to drive the rover (forward, backward, left, right, stop)
 - detecting minerals of interests (optional)
