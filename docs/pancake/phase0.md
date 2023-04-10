@@ -1,4 +1,4 @@
-# Phase 0: build the UGV
+# Phase 0 - Build a UGV
 
 ## Requirements
 

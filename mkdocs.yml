@@ -17,7 +17,6 @@ theme:
   favicon: images/beezydev-website-favicon-color.png
   features:
     - navigation.indexes
-    - navigation.path
     - content.code.annotate
     - navigation.top
   icon:

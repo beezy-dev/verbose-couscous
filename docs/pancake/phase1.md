@@ -1,4 +1,4 @@
-# Phase 1: Minimal Viable Product
+# Phase 1 - Code a UGV
 Discover the basics of software architecture on a microcontroller compared to a single-board computer or standard computer. This phase will introduce a first software iteration to remotely control the UGV from a simple web page.  
 
 The code provides the following features:    
