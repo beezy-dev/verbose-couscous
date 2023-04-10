@@ -17,6 +17,7 @@ theme:
   favicon: images/beezydev-website-favicon-color.png
   features:
     - navigation.indexes
+    - navigation.path
     - content.code.annotate
     - navigation.top
   icon:
@@ -66,7 +67,7 @@ extra:
       link: https://www.youtube.com/@beezydev 
   generator: true
 copyright: > 
-  Apache-2.0 License. - 
+  Apache-2.0 License - 
   <a href="#__consent">Change cookie settings</a>
 repo_url: https://github.com/beezy-dev/verbose-couscous 
 repo_name: beezy-dev/verbose-couscous
