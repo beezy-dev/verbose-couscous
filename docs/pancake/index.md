@@ -1,4 +1,4 @@
-# Project Pancake 
+# Project Pancake - Unmanned Ground Vehicule
 
 ## Overview 
 The scope of project *Pancake* is to build an unmanned ground vehicule or UGV, discover the basic of electronics and edge devices from both a software and hardware perspective, andwork through an iterative design based on flaws discovered at each iteration.   
@@ -13,7 +13,7 @@ During this process, we will be demonstrating:
 - deploying containers on a Kubernetes container platform
 
 ## Milestones
-### Phase 0 
+### Phase 0: build the UGV
 Discover the Internet of Things (IoT) objects and the basics of electronic to build the UGV.
 
 The hardware is composed of:    
@@ -24,7 +24,7 @@ The hardware is composed of:
 - a 4-battery holder pack
 - a NC522 NFC interface (optional)
 
-### Phase 1
+### Phase 1: Minimal Viable Product
 Discover the basics of software architecture on a microcontroller compared to a single-board computer or standard computer. This phase will introduce a first software iteration to remotely control the UGV from a simple web page.  
 
 The code provides the following features:   
