@@ -1,4 +1,4 @@
-# Project Pancake - Unmanned Ground vehicle
+# Project Pancake - Unmanned Ground Vehicle (UGV)
 
 ## Overview 
 The scope of project *Pancake* is to build an unmanned ground vehicle or UGV, discover the basic of electronics and edge devices from both a software and hardware perspective, andwork through an iterative design based on flaws discovered at each iteration.   

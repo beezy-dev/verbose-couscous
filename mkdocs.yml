@@ -50,6 +50,9 @@ extra_css:
   - stylesheets/extra.css
 extra:
   consent:
+    actions:
+      - accept
+      - reject
     title: Cookie consent
     description: >- 
       We use cookies to recognize your repeated visits and preferences, as well
@@ -62,7 +65,9 @@ extra:
     - icon: fontawesome/brands/youtube
       link: https://www.youtube.com/@beezydev 
   generator: true
-copyright: Apache-2.0 License. 
+copyright: > 
+  Apache-2.0 License. - 
+  <a href="#__consent">Change cookie settings</a>
 repo_url: https://github.com/beezy-dev/verbose-couscous 
 repo_name: beezy-dev/verbose-couscous
 edit_uri: edit/main/docs/
