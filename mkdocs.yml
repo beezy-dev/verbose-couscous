@@ -96,8 +96,8 @@ nav:
     #  - echo-ca/index.md
     - pancake: 
       - pancake/index.md  
-      - Phase 0: pancake/phase0.md
-      - Phase 1: pancake/phase1.md
+      - Phase 0 - Build a UGV: pancake/phase0.md
+      - Phase 1 - Code a UGV: pancake/phase1.md
       - Phase 2: pancake/phase2.md
       - Phase 3: pancake/phase3.md
       - Extensions:
