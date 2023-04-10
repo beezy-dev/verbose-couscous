@@ -90,25 +90,25 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 
 nav:
-  - Projects: 
+  - projects: 
     - index.md
     #- Echo CA:
     #  - echo-ca/index.md
     - pancake: 
       - pancake/index.md  
-      - Phase 0 - Build a UGV: pancake/phase0.md
-      - Phase 1 - Code a UGV: pancake/phase1.md
-      - Phase 2: pancake/phase2.md
-      - Phase 3: pancake/phase3.md
-      - Extensions:
-        - Ground Detection: pancake/nfc.md
+      - phase 0 - Build a UGV: pancake/phase0.md
+      - phase 1 - Code a UGV: pancake/phase1.md
+      - phase 2: pancake/phase2.md
+      - phase 3: pancake/phase3.md
+      - extensions:
+        - ground detection: pancake/nfc.md
     - shiny-octo-spoon: 
       - shiny-octo-spoon/index.md
     - verbose-couscous:
       - verbose-couscous/index.md
   # - Articles:
   #   - Secrets in Kubernetes: community/k8s-secrets.md
-  - Contributing: contribute.md
-  - Reference: community.md
-  - Terminology: pancake/concepts.md
-  - Support: support.md
+  - contributing: contribute.md
+  - reference: community.md
+  - terminology: pancake/concepts.md
+  - support: support.md
