@@ -69,7 +69,8 @@ The below table shows a set of required and optional components. The optional co
 | 1   | KeeYees L298N Motor Kit with Jump Wires   | $4    | 
 | 1   | HiLetGo 4xAA or 9V Battery Clip           | $2    | 
 | 1   | USB to micro USB cable 1-meter            | $3    | 
-|     | TOTAL                                     | $19   |
+| 1   | Paper box / food container                | $2    |
+|     | TOTAL                                     | $21   |
 
 | QTY | Optional Article                          | Price |
 |-----|------------------------------------------ |-------|
