@@ -16,7 +16,8 @@ During this process, we will be demonstrating:
 ### Phase 0 
 Discover the Internet of Things (IoT) objects and the basics of electronic to build the UGV.
 
-The hardware is composed of:   
+The hardware is composed of:    
+
 - a Raspberry Pico Wireless 
 - a breakout board for easy prototyping (optional)
 - a L298N motor controller with 2 DC engines
@@ -24,8 +25,7 @@ The hardware is composed of:
 - a NC522 NFC interface (optional)
 
 ### Phase 1
-Discover the basics of software architecture on a microcontroller compared to a single-board computer or standard computer.  
-This phase will introduce a first software iteration to remotely control the UGV from a simple web page.  
+Discover the basics of software architecture on a microcontroller compared to a single-board computer or standard computer. This phase will introduce a first software iteration to remotely control the UGV from a simple web page.  
 
 The code provides the following features:   
 
