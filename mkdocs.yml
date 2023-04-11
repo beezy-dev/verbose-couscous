@@ -94,7 +94,7 @@ nav:
     - index.md
     #- Echo CA:
     #  - echo-ca/index.md
-    - pancake: 
+    - Unmanned Ground Vehicle: 
       - pancake/index.md  
       - phase 0 - Build a UGV: pancake/phase0.md
       - phase 1 - Code a UGV: pancake/phase1.md
@@ -102,7 +102,7 @@ nav:
       - phase 3: pancake/phase3.md
       - extensions:
         - ground detection: pancake/nfc.md
-    - shiny-octo-spoon: 
+    - multi-cloud networking: 
       - shiny-octo-spoon/index.md
     - verbose-couscous:
       - verbose-couscous/index.md

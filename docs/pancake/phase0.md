@@ -19,7 +19,8 @@ The below diagram shows the basic wiring without the optional components.
 Even if the GPxx are displayed with specific numbers, these could be reassign to any GPxx. This will however require to adapt the code with the new pin numbers. 
 
 ???+ warning
-    Feeding more than 5v to the Raspberry Pi PICO could burn it!  
+    **Feeding more than 5v to the Raspberry Pi PICO could burn it!**   
+     
     To avoid this, make sure to properly distribute the power from the battery pack directly to the L298N. The module is capable to handle up to 12v as an input and distribute back a 5v output that would power the Raspberry Pi PICO.   
     
 
