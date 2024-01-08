@@ -1,5 +1,6 @@
+# about
 
-# about this site
+## about this site
 
 This GitHub page aims to document discussions, contents, and presentations related to containers and Red Hat OpenShift.
 
@@ -12,7 +13,7 @@ At the current stage, the following content is available:
 * testing; benchmarking, functional and non-functional testing, ...
 * side projects; how to take all the above and apply it to an edge device
 
-## about romdalf aka Rom
+## about romdalf aka Rom Adams (né Vandepoel)
 
 Rom Adams (né Romuald Vandepoel) is an open-source strategy and C-Suite advisor with over 20 years of experience in the IT industry. He is a cloud-native expert who helps customer and partner organizations modernize and transform their data center strategies with enterprise open-source solutions. He is also a facilitator, advocate, and contributor to open-source projects, advising companies and lawmakers on their open-source and sustainability strategies.
 
