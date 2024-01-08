@@ -56,6 +56,36 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://beezy.dev/kubernetes/</loc>
+         <lastmod>2024-01-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://beezy.dev/kubernetes/agent/</loc>
+         <lastmod>2024-01-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://beezy.dev/kubernetes/kind/</loc>
+         <lastmod>2024-01-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://beezy.dev/kubernetes/local/</loc>
+         <lastmod>2024-01-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://beezy.dev/kubernetes/microshift/</loc>
+         <lastmod>2024-01-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://beezy.dev/kubernetes/podman/</loc>
+         <lastmod>2024-01-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://beezy.dev/networking/</loc>
          <lastmod>2024-01-08</lastmod>
          <changefreq>daily</changefreq>
@@ -67,26 +97,6 @@
     </url>
     <url>
          <loc>https://beezy.dev/networking/multicluster/</loc>
-         <lastmod>2024-01-08</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://beezy.dev/openshift/</loc>
-         <lastmod>2024-01-08</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://beezy.dev/openshift/agent/</loc>
-         <lastmod>2024-01-08</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://beezy.dev/openshift/local/</loc>
-         <lastmod>2024-01-08</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://beezy.dev/openshift/microshift/</loc>
          <lastmod>2024-01-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
