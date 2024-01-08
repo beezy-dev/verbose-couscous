@@ -112,6 +112,7 @@ nav:
     - contributing: contribute.md
     - reference: community.md
     - support: support.md
+  - concepts: concepts.md
   - openShift:
     - openshift/index.md
     - OpenShift Local: openshift/local.md
@@ -119,24 +120,21 @@ nav:
     - Microshift: openshift/microshift.md
   - application:
     - application/index.md
-    - Projects:
+    - project and resources:
       - Namespace: application/namespace.md
       - Quota: application/quota.md
-    - Deployments:
+    - deployment types:
       - Source to Image: application/s2i.md
       - Helm Charts: application/helm.md
-    - Security:
-      - Network Policy: application/isolation.md
-    - Testing:
-      - Intro: application/testing.md
   - networking:
     - networking/index.md
-    - Multicluster Interconnect: networking/multicluster.md
+    - network Policy: networking/isolation.md
+    - multicluster Interconnect: networking/multicluster.md
   - testing:
     - testing/index.md
-    - Benchmarking: testing/benchmarking.md
-  - projects:
-    - Unmanned Ground Vehicle: 
+    - benchmarking: testing/benchmarking.md
+  - side projects:
+    - nnmanned ground vehicle: 
       - pancake/index.md  
       - phase 0 - Build a UGV: pancake/phase0.md
       - phase 1 - Code a UGV: pancake/phase1.md
@@ -144,4 +142,3 @@ nav:
       - phase 3: pancake/phase3.md
       - extensions:
         - ground detection: pancake/nfc.md
-  - terminology: pancake/concepts.md
