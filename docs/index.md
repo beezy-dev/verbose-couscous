@@ -1,5 +1,7 @@
 # about
 
+A work in continuous progress!
+
 ## about this site
 
 This GitHub page aims to document discussions, contents, and presentations related to containers and Red Hat OpenShift.
