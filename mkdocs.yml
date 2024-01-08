@@ -107,8 +107,11 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 
 nav:
-  - projects: 
+  - about: 
     - index.md
+    - contributing: contribute.md
+    - reference: community.md
+    - support: support.md
     #- Echo CA:
     #  - echo-ca/index.md
     - Unmanned Ground Vehicle: 
@@ -125,7 +128,4 @@ nav:
       - verbose-couscous/index.md
   # - Articles:
   #   - Secrets in Kubernetes: community/k8s-secrets.md
-  - contributing: contribute.md
-  - reference: community.md
   - terminology: pancake/concepts.md
-  - support: support.md
