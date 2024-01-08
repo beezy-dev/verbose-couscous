@@ -113,11 +113,13 @@ nav:
     - reference: community.md
     - support: support.md
   - concepts: concepts.md
-  - openshift:
-    - openshift/index.md
-    - openshift local: openshift/local.md
-    - agent install: openshift/agent.md
-    - microshift: openshift/microshift.md
+  - kubernetes:
+    - kubernetes/index.md
+    - podman: kubernetes/podman.md
+    - kind: kubernetes/kind.md
+    - microshift: kubernetes/microshift.md
+    - openshift local: kubernetes/local.md
+    - agent install: kubernetes/agent.md
   - application:
     - application/index.md
     - project and resources:
