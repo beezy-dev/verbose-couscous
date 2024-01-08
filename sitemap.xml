@@ -11,6 +11,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://beezy.dev/concepts/</loc>
+         <lastmod>2024-01-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://beezy.dev/contribute/</loc>
          <lastmod>2024-01-08</lastmod>
          <changefreq>daily</changefreq>
@@ -31,11 +36,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://beezy.dev/application/isolation/</loc>
-         <lastmod>2024-01-08</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://beezy.dev/application/namespace/</loc>
          <lastmod>2024-01-08</lastmod>
          <changefreq>daily</changefreq>
@@ -51,17 +51,17 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://beezy.dev/application/testing/</loc>
-         <lastmod>2024-01-08</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://beezy.dev/community/k8s-secrets/</loc>
          <lastmod>2024-01-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/networking/</loc>
+         <lastmod>2024-01-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://beezy.dev/networking/isolation/</loc>
          <lastmod>2024-01-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -102,11 +102,6 @@
     </url>
     <url>
          <loc>https://beezy.dev/pancake/bom/</loc>
-         <lastmod>2024-01-08</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://beezy.dev/pancake/concepts/</loc>
          <lastmod>2024-01-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
