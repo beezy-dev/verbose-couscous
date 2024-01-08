@@ -2103,7 +2103,7 @@ Robert E. / Chris J.
 <p>Kubernetes is all about providing a high level of abstraction to reduce the application lifecycle dependency on the "from what the entire infrastructure stack is composed of, how it is configured and maintained". Interesting enough, the DevOps movement tries to build bridges to ease the collaboration between the Dev and Ops teams while Kubernetes provides an easy path to a self-service experience for Application teams with a fully decorrelation with the underlying platform.</p>
 <p>The absraction does not reduce the importance of architecturing, building and maintaining a
 platform within the industry and policy required practices to improve reslience and decrease the risks of cybersecurity breach. Considering the latter, the journey to secure an container platform is overwheelming. The below mindmap helps to define at a high level the different components requiring attention. Here is an example of such mindmap, work in progress and not a definite/static diagram:</p>
-<p><img alt="kubernetes security mindmap" src="../images/mermaid-diagram-2022-12-28-131205.svg" /></p>
+<p><img alt="kubernetes security mindmap" src="../../images/mermaid-diagram-2022-12-28-131205.svg" /></p>
 <!-- 
 This is the mermaid.js manifest for the mindmap diagram
  ```mermaid
@@ -2182,7 +2182,7 @@ However, the manifest is <strong>unsafe</strong>; the data field values can be d
 <h3 id="case-study">Case Study</h3>
 <h3 id="securing-kubernetes-secrets">Securing Kubernetes Secrets</h3>
 <p>Let's zoom in on the mindmap focusing on Kubernetes CRUD operations to define the potential attack surface and build an iterative mitigation path.</p>
-<p><img alt="" src="../images/mermaid-diagram-2022-12-29-104705.svg" /></p>
+<p><img alt="" src="../../images/mermaid-diagram-2022-12-29-104705.svg" /></p>
 <!-- 
 This is the mermaid.js manifest for the mindmap diagram
  ```mermaid
@@ -2236,7 +2236,7 @@ Leverage the Kubernetes <code>EncryptionConfiguration</code> to handle data fiel
 <p class="admonition-title">Bug</p>
 <p>A request for enhancement to the Kubernetes project might be required to provide encryption for every API object definition. </p>
 </div>
-<p><img alt="etcd mitigation" src="../images/etcd-mitigations.png" /></p>
+<p><img alt="etcd mitigation" src="../../images/etcd-mitigations.png" /></p>
 <h4 id="manifest">Manifest</h4>
 <h5 id="overview_1">Overview</h5>
 <p>One would consider to simply use the <code>kubectl</code> command to create the secret and it would be fine if the workstation is hardened to avoid memory and console footprints. This would reduce the autonomy and velocity of an agile development leveraging a container platform as it will require a manual request to the credential owner to inject the secret with the platform before any deployment activities.   </p>
