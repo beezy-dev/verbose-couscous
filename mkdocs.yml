@@ -113,19 +113,19 @@ nav:
     - reference: community.md
     - support: support.md
   - concepts: concepts.md
-  - openShift:
+  - openshift:
     - openshift/index.md
-    - OpenShift Local: openshift/local.md
-    - Agend install: openshift/agent.md
-    - Microshift: openshift/microshift.md
+    - openshift local: openshift/local.md
+    - agent install: openshift/agent.md
+    - microshift: openshift/microshift.md
   - application:
     - application/index.md
     - project and resources:
-      - Namespace: application/namespace.md
-      - Quota: application/quota.md
+      - namespace: application/namespace.md
+      - quota: application/quota.md
     - deployment types:
-      - Source to Image: application/s2i.md
-      - Helm Charts: application/helm.md
+      - source to image: application/s2i.md
+      - helm charts: application/helm.md
   - networking:
     - networking/index.md
     - network Policy: networking/isolation.md
