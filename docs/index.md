@@ -1,7 +1,3 @@
----
-hide:
-  - toc
----
 
 # about this site
 
@@ -16,35 +12,21 @@ At the current stage, the following content is available:
 * testing; benchmarking, functional and non-functional testing, ...
 * side projects; how to take all the above and apply it to an edge device
 
-# about romdalf aka Rom
-
-
-## Who's Rom 👋 
+## about romdalf aka Rom
 
 Rom Adams (né Romuald Vandepoel) is an open-source strategy and C-Suite advisor with over 20 years of experience in the IT industry. He is a cloud-native expert who helps customer and partner organizations modernize and transform their data center strategies with enterprise open-source solutions. He is also a facilitator, advocate, and contributor to open-source projects, advising companies and lawmakers on their open-source and sustainability strategies.
 
 Previously, he was a Principal Architect at Ondat, a cloud-native storage company acquired by Akamai, where he designed products and implemented hybrid cloud solutions for enterprise customers. He also held various roles at Tyco, NetApp, and Red Hat, gaining certifications and becoming a subject matter expert in storage and hybrid cloud infrastructure. He has participated as a moderator and speaker for several events and publications, sharing his insights and best practices on culture, process, and technology adoption. Rom is passionate about driving transformation and innovation with open-source and cloud-native technologies.
 
-<p align="center">
-  <a href="https://www.linkedin.com/in/romdalf/">
-    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /> 
-  </a> 
-  <a href="https://twitter.com/romdalf">
-    <img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white"   />
-  </a>
-</p>
-  
-## Contribution Stats 🔭
+### Portfolio of contributions, articles and webinars
 
-<p align="center">
-  <a href="https://github.com/anuraghazra/github-readme-stats"> 
-    <img src="https://github-readme-stats.vercel.app/api?username=romdalf&theme=vision-friendly-dark" /> 
-  </a>
-</p>
+#### Book 
+|Title|Published on|Date|
+|-----|------------|----|
+|Kubernetes Secrets Handbook: A practical guide to designing, implementing, and operating production-grade Kubernetes Secrets management|[Packt Publishing](https://www.packtpub.com/product/kubernetes-secrets-handbook/) or [Amazon](https://www.amazon.com/stores/Rom-Adams/author/B0CRP7BQ44)|02/2024|
 
-## Portfolio of contributions, articles and webinars
 
-### Contributor and author
+#### Articles - Contributor and author
 |Title|Published on|Date|
 |-----|------------|----|
 |Digital Wallonia, a proposal for a digital plan (in French)|[Belgian Walloon Regional Government](https://content.digitalwallonia.be/post/20180322085717/Plan-du-Num%C3%A9rique_Rapport-du-Conseil-du-Num%C3%A9rique_VF.pdf)|09/2015|
@@ -57,7 +39,8 @@ Previously, he was a Principal Architect at Ondat, a cloud-native storage compan
 |Deploying cloud native persistent storage in the age of containers|[TheNewStack.io](https://thenewstack.io/deploying-cloud-native-persistent-storage-in-the-age-of-containers/)|05/2021|
 |Can Kubernetes help solve automation challneges?|[opensource.com](https://opensource.com/article/22/10/kubernetes-solve-automation-challenges)|10/2022 |
 
-### Live Presentations
+
+#### Live Presentations
 |Title|Venue|Date|Location|
 |-----|----|----|--------|
 |Open Source to Enterprise Open Source|[Open 22](https://kangaroot.net/events/open22)|03/2022|Antwerpen|
@@ -77,7 +60,7 @@ Previously, he was a Principal Architect at Ondat, a cloud-native storage compan
 |CIONET as Subject Matter Expert: No code - No Cloud! | [CIONET](https://www.cionet.com/en-be/be/events/nocodenocloud) | 12/2023 | La Hulpe |
 
 
-### Webinars
+#### Webinars
 |Title|Venue|Date|
 |-----|----|----|
 |From remote with love|[Red Hat EMEA Forum](https://www.redhat.com/en/forums/emea/benelux-track)|11/2020|
