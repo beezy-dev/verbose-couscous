@@ -112,8 +112,30 @@ nav:
     - contributing: contribute.md
     - reference: community.md
     - support: support.md
-    #- Echo CA:
-    #  - echo-ca/index.md
+  - openShift:
+    - openshift/index.md
+    - OpenShift Local: openshift/local.md
+    - Agend install: openshift/agent.md
+    - Microshift: openshift/microshift.md
+  - application:
+    - application/index.md
+    - Projects:
+      - Namespace: application/namespace.md
+      - Quota: application/quota.md
+    - Deployments:
+      - Source to Image: application/s2i.md
+      - Helm Charts: application/helm.md
+    - Security:
+      - Network Policy: application/isolation.md
+    - Testing:
+      - Intro: application/testing.md
+  - networking:
+    - networking/index.md
+    - Multicluster Interconnect: networking/multicluster.md
+  - testing:
+    - testing/index.md
+    - Benchmarking: testing/benchmarking.md
+  - projects:
     - Unmanned Ground Vehicle: 
       - pancake/index.md  
       - phase 0 - Build a UGV: pancake/phase0.md
@@ -122,10 +144,4 @@ nav:
       - phase 3: pancake/phase3.md
       - extensions:
         - ground detection: pancake/nfc.md
-    - multi-cloud networking: 
-      - shiny-octo-spoon/index.md
-    - verbose-couscous:
-      - verbose-couscous/index.md
-  # - Articles:
-  #   - Secrets in Kubernetes: community/k8s-secrets.md
   - terminology: pancake/concepts.md

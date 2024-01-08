@@ -1,4 +1,0 @@
-
-# EchoCD
-
-Echo... Echooo... Echoooooo!
