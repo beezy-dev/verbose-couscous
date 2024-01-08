@@ -12,13 +12,18 @@ plugins:
 
 theme:
   font:
-    text: Prosto One Regular
+    text: Red Hat Text
     code: Red Hat Mono
   favicon: images/beezydev-website-favicon-color.png
   features:
-    - navigation.indexes
     - content.code.annotate
     - navigation.top
+    - navigation.footer
+    - navigation.indexes
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - content.code.copy
+    - content.code.select
   icon:
     logo: fontawesome/solid/code-merge
     repo: fontawesome/brands/github
@@ -46,8 +51,8 @@ theme:
       toggle:
         icon: material/weather-night
         name: Switch to system preference
-extra_css: 
-  - stylesheets/extra.css
+# extra_css: 
+#   - stylesheets/extra.css
 extra:
   consent:
     actions:
@@ -64,6 +69,10 @@ extra:
       link: https://github.com/beezy-dev/verbose-couscous
     - icon: fontawesome/brands/youtube
       link: https://www.youtube.com/@beezydev 
+    - icon: fontawesome/brands/x-twitter
+      link: https://twitter.com/romdalf 
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/romdalf/
   generator: true
 copyright: > 
   Apache-2.0 License - 
@@ -83,6 +92,14 @@ markdown_extensions:
   - md_in_html
   - pymdownx.snippets:
       base_path: 'docs/'
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true  
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
