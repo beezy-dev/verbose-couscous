@@ -8,12 +8,26 @@ This GitHub page aims to document discussions, contents, and presentations relat
 
 At the current stage, the following content is available:
 
-* generic concepts
-* openshift; different flavors and installations
-* applications; from namespace to helm charts to resources management
+* generic concepts about edge, containers, kubernetes, ... 
+* kubernetes:
+  * podman (todo)
+  * kind (todo)
+  * microshift (todo)
+  * openshift local (todo)
+  * openshift (todo)
+* applications
+  * project and resources management
+  * deployment types
+    * source to image
+    * helm charts
 * networking; workload isolation, multicluster networking, ...
+  * network policy
+  * multicluster application interconnect
 * testing; benchmarking, functional and non-functional testing, ...
-* side projects; how to take all the above and apply it to an edge device
+  * functional testing (todo)
+  * non-functional testing (todo)
+  * benchmarking 
+* side project; how to take all the above and apply it to an edge device
 
 ## about romdalf aka Rom Adams (né Vandepoel)
 

@@ -1,4 +1,4 @@
-# Testing
+# testing
 
 This section provides a series of article about:   
 * the benchmarking of applications.

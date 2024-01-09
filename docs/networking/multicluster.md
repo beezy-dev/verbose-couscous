@@ -1,4 +1,5 @@
-# Multicluster Application Interconnect
+
+# multicluster application interconnect
 
 ## a hybrid cloud story
 
@@ -27,7 +28,7 @@ However, since OpenShift is a certified Kubernetes distribution, the overall wal
 
 ![skupper hello world 0](../images/multicluster-mono.drawio.png)
 
-### start OpenShift Local
+### start openshift local
 run:
 ```bash title="start OpenShift Local"
 ➜  ~ crc start

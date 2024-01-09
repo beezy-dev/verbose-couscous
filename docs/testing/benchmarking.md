@@ -1,4 +1,4 @@
-# Benchmarking languages and framework
+# benchmarking languages and framework
 
 Working with customers and partners on application modernization projects sparks discussions about governance. This system of rules and practices should influence the choice of language and related framework. However, from a governance and a bias perspective, I highlight the risks of randomly selecting these without performing relevant test case benchmarking. 
 
@@ -6,7 +6,7 @@ Regarding bias, Application teams have their favorite language and framework in 
 
 Let's take this [article](https://medium.com/deno-the-complete-reference/quarkus-java-vs-gin-go-hello-world-performance-0a2ec6d92078) as a reference. While the overall content provides a sufficient overview for an introduction, it does not help to perform a similar benchmarking within our environment, which will most likely significantly differ from the author. Let's address this missing part as a companion to the article. 
 
-## The article benchmark
+## the article benchmark
 From a setup perspective, the author defines the following:  
 
 - The hardware is based on a MacBook Pro M2 with 16GB of RAM
@@ -16,7 +16,7 @@ From a setup perspective, the author defines the following:
 
 These are a good start; however, the Go code calls from [Gin](https://github.com/gin-gonic/gin), a Go HTTP framework for which we don't have any version reference. The same goes for Bombardier.
 
-### Code
+### code
 The below code is the as-is output from the article. These are the traditional ```hello world``` examples to showcase languages and easily compare them. Even with years of development experience, anyone needed more to run the code from an unknown language and benchmark it.
 
 The code is also available within this repository within ```docs/sources/hello-world-article``` in the following subdirectories:   
@@ -25,7 +25,7 @@ The code is also available within this repository within ```docs/sources/hello-w
 - ```hello-world-quarkus``` the ready to use Quarkus code
 
 
-#### Go/Gin   
+#### go/gin   
 
 ```go title="The Go code from the article"
 --8<-- "sources/hello-world-article/hello-world-go/main.go"
@@ -122,7 +122,7 @@ Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-
 
 
 
-#### Quarkus   
+#### quarkus   
 
 ```java title="The Java/Quarkus code from the article"
 --8<-- "sources/hello-world-article/hello-world-quarkus/src/main/java/org/acme/HelloWorldApplication.java"
@@ -383,7 +383,7 @@ __  ____  __  _____   ___  __ ____  ______
 2023-12-25 11:22:35,502 INFO  [io.quarkus] (main) Installed features: [cdi, resteasy-reactive, smallrye-context-propagation, vertx]
 ```
 
-### Benchmarks
+### benchmarks
 
 Based on the article, we don't have the overall process to perform the benchmarks. However, there is some specific parameters that are shared:
 
@@ -535,7 +535,7 @@ Here are the output of each Quarkus benchmark sessions for reference:
     Throughput:    14.13MB/s
     ```
 
-### Conclusion 
+### conclusion 
 
 Putting aside the code, even with identical parameters, the benchmark's results are significantly influenced by the uniqueness of each environment. The only constant is the methodology to perform these benchmarks. 
 
@@ -547,7 +547,7 @@ And yet, the above is still missing crucial details:
 - How would running the web service running natively or as a container impact the results?
 - Is the code representing a minimal viable product? 
 
-## Alternative approach
+## alternative approach
 
 
 

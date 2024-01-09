@@ -1,5 +1,5 @@
 
-# Keep your Secrets secret!
+# keep your secrets secret!
 
 <!-- ## Foreword by 
 
@@ -144,7 +144,7 @@ In other words, these two options refer to:
     - the Kubernetes API server has an encryption at rest configuration API object  ```EncryptionConfiguration``` to configure [encryption providers](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/). This approach streamlines the process as every CRUD operations depends on the API server which will handle the encryption/decryption requests.  
 - from a deployment perspective, etcd will consume available storage from the master node(s), storage that could be encrypted using different options, one being dm-crypt.  
   
-##### Mitigation
+##### mitigation
 
 While the CLI tooling approach might address the unsecure manifest and ease GitOps practice, it would be a rather significant implementation. Reducing the implementation complexity by using the existing ```EncryptionConfiguration``` would ease the consumption of secrets but leave the Ops with an unsecure manifest. 
 
@@ -163,9 +163,9 @@ While encrypting the data at the disk/file system level will protect any CRUD op
 
 ![etcd mitigation](../images/etcd-mitigations.png)
 
-#### Manifest
+#### manifest
 
-##### Overview
+##### overview
 
 One would consider to simply use the ```kubectl``` command to create the secret and it would be fine if the workstation is hardened to avoid memory and console footprints. This would reduce the autonomy and velocity of an agile development leveraging a container platform as it will require a manual request to the credential owner to inject the secret with the platform before any deployment activities.   
 

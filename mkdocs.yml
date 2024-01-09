@@ -119,7 +119,7 @@ nav:
     - kind: kubernetes/kind.md
     - microshift: kubernetes/microshift.md
     - openshift local: kubernetes/local.md
-    - agent install: kubernetes/agent.md
+    - openshift: kubernetes/openshift.md
   - application:
     - application/index.md
     - project and resources:
@@ -130,17 +130,19 @@ nav:
       - helm charts: application/helm.md
   - networking:
     - networking/index.md
-    - network Policy: networking/isolation.md
-    - multicluster Interconnect: networking/multicluster.md
+    - network policy: networking/isolation.md
+    - multicluster interconnect: networking/multicluster.md
   - testing:
     - testing/index.md
+    - functional testing: testing/functional.md
+    - non-functional testing: testing/non-functional.md
     - benchmarking: testing/benchmarking.md
-  - side projects:
-    - nnmanned ground vehicle: 
-      - pancake/index.md  
-      - phase 0 - Build a UGV: pancake/phase0.md
-      - phase 1 - Code a UGV: pancake/phase1.md
-      - phase 2: pancake/phase2.md
-      - phase 3: pancake/phase3.md
+  - side project:
+    - unmanned ground vehicle: 
+      - ugv/index.md  
+      - phase 0 - Build a UGV: ugv/phase0.md
+      - phase 1 - Code a UGV: ugv/phase1.md
+      - phase 2: ugv/phase2.md
+      - phase 3: ugv/phase3.md
       - extensions:
-        - ground detection: pancake/nfc.md
+        - ground detection: ugv/nfc.md
