@@ -14,18 +14,18 @@
         <link rel="prev" href="../networking/multicluster/">
       
       
-        <link rel="next" href="benchmarking/">
+        <link rel="next" href="functional/">
       
       
         
       
       
       <link rel="icon" href="../images/beezydev-website-favicon-color.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3+insiders-4.49.1">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3+insiders-4.49.2">
     
     
       
-        <title>Testing - beezy.dev</title>
+        <title>testing - beezy.dev</title>
       
     
     
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Testing
+              testing
             
           </span>
         </div>
@@ -313,12 +313,12 @@
     
     
       <li class="md-tabs__item">
-        <a href="../pancake/" class="md-tabs__link">
+        <a href="../ugv/" class="md-tabs__link">
           
   
     
   
-  side projects
+  side project
 
         </a>
       </li>
@@ -757,13 +757,13 @@
   
   
     <li class="md-nav__item">
-      <a href="../kubernetes/agent/" class="md-nav__link">
+      <a href="../kubernetes/openshift/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     
   
-    agent install
+    openshift
   
 
     
@@ -1174,7 +1174,7 @@
   <span class="md-ellipsis">
     
   
-    network Policy
+    network policy
   
 
     
@@ -1201,7 +1201,7 @@
   <span class="md-ellipsis">
     
   
-    multicluster Interconnect
+    multicluster interconnect
   
 
     
@@ -1235,6 +1235,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -1290,6 +1294,60 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="functional/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    
+  
+    functional testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="non-functional/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    
+  
+    non-functional testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
               
             
               
@@ -1358,7 +1416,7 @@
   <span class="md-ellipsis">
     
   
-    side projects
+    side project
   
 
     
@@ -1374,7 +1432,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    side projects
+    side project
   
 
           </label>
@@ -1417,13 +1475,13 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../pancake/" class="md-nav__link ">
+            <a href="../ugv/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
     
   
-    nnmanned ground vehicle
+    unmanned ground vehicle
   
 
     
@@ -1445,7 +1503,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    nnmanned ground vehicle
+    unmanned ground vehicle
   
 
           </label>
@@ -1460,7 +1518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pancake/phase0/" class="md-nav__link">
+      <a href="../ugv/phase0/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1487,7 +1545,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pancake/phase1/" class="md-nav__link">
+      <a href="../ugv/phase1/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1514,7 +1572,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pancake/phase2/" class="md-nav__link">
+      <a href="../ugv/phase2/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1541,7 +1599,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pancake/phase3/" class="md-nav__link">
+      <a href="../ugv/phase3/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1619,7 +1677,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pancake/nfc/" class="md-nav__link">
+      <a href="../ugv/nfc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1700,7 +1758,7 @@
   
 
 
-<h1 id="testing">Testing</h1>
+<h1 id="testing">testing</h1>
 <p>This section provides a series of article about: <br />
 * the benchmarking of applications.
 * the functional testing will focus on the application itself, this will consume a certain amount of compute resources and can be forecasted.
@@ -1727,7 +1785,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 8, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 9, 2024</span>
   </span>
 
     
@@ -1787,7 +1845,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../networking/multicluster/" class="md-footer__link md-footer__link--prev" aria-label="Previous: multicluster Interconnect">
+          <a href="../networking/multicluster/" class="md-footer__link md-footer__link--prev" aria-label="Previous: multicluster interconnect">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -1797,20 +1855,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                multicluster Interconnect
+                multicluster interconnect
               </div>
             </div>
           </a>
         
         
           
-          <a href="benchmarking/" class="md-footer__link md-footer__link--next" aria-label="Next: benchmarking">
+          <a href="functional/" class="md-footer__link md-footer__link--next" aria-label="Next: functional testing">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                benchmarking
+                functional testing
               </div>
             </div>
             <div class="md-footer__button md-icon">
