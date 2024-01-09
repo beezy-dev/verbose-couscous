@@ -10,23 +10,23 @@ At the current stage, the following content is available:
 
 * generic concepts about edge, containers, kubernetes, ... 
 * kubernetes:
-  * podman (todo)
-  * kind (todo)
-  * microshift (todo)
-  * openshift local (todo)
-  * openshift (todo)
+    * podman (todo)
+    * kind (todo)
+    * microshift (todo)
+    * openshift local (todo)
+    * openshift (todo)
 * applications
-  * project and resources management
-  * deployment types
-    * source to image
-    * helm charts
+    * project and resources management
+    * deployment types
+        * source to image
+        * helm charts
 * networking; workload isolation, multicluster networking, ...
-  * network policy
-  * multicluster application interconnect
+    * network policy
+    * multicluster application interconnect
 * testing; benchmarking, functional and non-functional testing, ...
-  * functional testing (todo)
-  * non-functional testing (todo)
-  * benchmarking 
+    * functional testing (todo)
+    * non-functional testing (todo)
+    * benchmarking 
 * side project; how to take all the above and apply it to an edge device
 
 ## about romdalf aka Rom Adams (né Vandepoel)
