@@ -6,22 +6,12 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://beezy.dev/community/</loc>
-         <lastmod>2024-01-09</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://beezy.dev/concepts/</loc>
          <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/contribute/</loc>
-         <lastmod>2024-01-09</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://beezy.dev/support/</loc>
          <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -107,6 +97,11 @@
     </url>
     <url>
          <loc>https://beezy.dev/sources/hello-world-quarkus/</loc>
+         <lastmod>2024-01-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://beezy.dev/sustainability/</loc>
          <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
