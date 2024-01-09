@@ -110,8 +110,6 @@ nav:
   - about: 
     - index.md
     - contributing: contribute.md
-    - reference: community.md
-    - support: support.md
   - concepts: concepts.md
   - kubernetes:
     - kubernetes/index.md
