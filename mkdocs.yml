@@ -137,7 +137,7 @@ nav:
     - benchmarking: testing/benchmarking.md
   - side project:
     - kleidi:
-      - kledi/index.md
+      - kleidi/index.md
     - unmanned ground vehicle: 
       - ugv/index.md  
       - phase 0 - Build a UGV: ugv/phase0.md
