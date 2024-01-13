@@ -24,7 +24,48 @@ The only viable option for a productio-grade environment is through the usage of
 
 The ```kleidí``` project will based its efforts on the Kubernetes kmsv2 architecture. 
 
-## kleidí business requirements
+## kubernetes kmsv2  
+
+Like with networking, storage, cloud providers, and more, Kubernetes provides a high level abstraction to simplify the integration with third party components, and the kmsv2 provider plugin follows the same principle.   
+
+The Kubernetes API Server has been improved over time to include the ability to [encrypt data at rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/). Different ways can be used to do so with:
+
+* the ```identity``` mode leveraging the standard base64 encoding -> full exposure 
+* the ```aescbc``` or ```aesgcm``` or ```secretbox``` modes with an encryption key -> the key is accessible from the control plane
+* the ```kmsv2``` mode leveraging an external KMS server like ```HashiCorp Vault```, ```Azure Key Vault```, ... -> the most secured approach for production-grade needs
+
+### kmsv2 workflow
+
+```mermaid
+sequenceDiagram
+participant User or App
+box Control Plane
+participant etcd
+participant kube-apiserver
+participant EncryptionConfiguration
+participant KMS Plugin
+end
+participant KMS Server
+autonumber
+  User or App->>kube-apiserver: create Secrets
+  kube-apiserver->>EncryptionConfiguration: which provider?
+  EncryptionConfiguration->>kube-apiserver: KMSv2
+  opt if no existing DEK
+    kube-apiserver->>kube-apiserver: generate a DEK
+    kube-apiserver->>KMS Plugin: encrypt DEK with KMS KEK
+    KMS Plugin->>KMS Server: encrypt DEK
+    KMS Server->>KMS Server: encrypt DEK with KEK
+    KMS Plugin->>kube-apiserver: return encrypted DEK
+    kube-apiserver->>etcd: store encrypted DEK
+  end
+  kube-apiserver->>kube-apiserver: encrypt Secret with DEK
+  kube-apiserver->>etcd: store encrypted Secret
+  kube-apiserver->>User or App: Secret created
+```
+
+## kleidí design
+
+### requirements
 
 * written in Go
 * security first
@@ -36,12 +77,6 @@ The ```kleidí``` project will based its efforts on the Kubernetes kmsv2 archite
 * audit logs 
 * Helm Charts and Operator deployment model
 
-
-### kmsv2 architecture 
-
-Like with networking, storage, cloud providers, and more, Kubernetes provides a high level abstraction to simplify the integration with third party components, and the kmsv2 provider plugin follows the same principle.   
-
-The Kubernetes API Server has been improved to include the 
 
 
 ### kleidí architecture 
