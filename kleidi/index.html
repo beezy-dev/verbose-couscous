@@ -1772,22 +1772,50 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#kleidi-business-requirements" class="md-nav__link">
+  <a href="#kubernetes-kmsv2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        kleidí business requirements
+        kubernetes kmsv2
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="kleidí business requirements">
+    <nav class="md-nav" aria-label="kubernetes kmsv2">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kmsv2-architecture" class="md-nav__link">
+  <a href="#kmsv2-workflow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        kmsv2 architecture
+        kmsv2 workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kleidi-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        kleidí design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="kleidí design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        requirements
       
     </span>
   </a>
@@ -1860,7 +1888,41 @@
 <p>For more details about the security exposure, mitigation path, and production-grade solutions, this handbook I co-authored is a perfect referrence: <a href="https://www.packtpub.com/product/kubernetes-secrets-handbook/">Kubernetes Secrets Handbook</a>.</p>
 <p>The only viable option for a productio-grade environment is through the usage of the KMS provider plugin. With the releave of Kubernetes <code>1.29</code>, the kmsv2 is marked stable and documented in the article <a href="https://kubernetes.io/docs/tasks/administer-cluster/kms-provider/">KMS provider for data encryption</a>. </p>
 <p>The <code>kleidí</code> project will based its efforts on the Kubernetes kmsv2 architecture. </p>
-<h2 id="kleidi-business-requirements">kleidí business requirements</h2>
+<h2 id="kubernetes-kmsv2">kubernetes kmsv2</h2>
+<p>Like with networking, storage, cloud providers, and more, Kubernetes provides a high level abstraction to simplify the integration with third party components, and the kmsv2 provider plugin follows the same principle.   </p>
+<p>The Kubernetes API Server has been improved over time to include the ability to <a href="https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/">encrypt data at rest</a>. Different ways can be used to do so with:</p>
+<ul>
+<li>the <code>identity</code> mode leveraging the standard base64 encoding -&gt; full exposure </li>
+<li>the <code>aescbc</code> or <code>aesgcm</code> or <code>secretbox</code> modes with an encryption key -&gt; the key is accessible from the control plane</li>
+<li>the <code>kmsv2</code> mode leveraging an external KMS server like <code>HashiCorp Vault</code>, <code>Azure Key Vault</code>, ... -&gt; the most secured approach for production-grade needs</li>
+</ul>
+<h3 id="kmsv2-workflow">kmsv2 workflow</h3>
+<pre class="mermaid"><code>sequenceDiagram
+participant User or App
+box Control Plane
+participant etcd
+participant kube-apiserver
+participant EncryptionConfiguration
+participant KMS Plugin
+end
+participant KMS Server
+autonumber
+  User or App-&gt;&gt;kube-apiserver: create Secrets
+  kube-apiserver-&gt;&gt;EncryptionConfiguration: which provider?
+  EncryptionConfiguration-&gt;&gt;kube-apiserver: KMSv2
+  opt if no existing DEK
+    kube-apiserver-&gt;&gt;kube-apiserver: generate a DEK
+    kube-apiserver-&gt;&gt;KMS Plugin: encrypt DEK with KMS KEK
+    KMS Plugin-&gt;&gt;KMS Server: encrypt DEK
+    KMS Server-&gt;&gt;KMS Server: encrypt DEK with KEK
+    KMS Plugin-&gt;&gt;kube-apiserver: return encrypted DEK
+    kube-apiserver-&gt;&gt;etcd: store encrypted DEK
+  end
+  kube-apiserver-&gt;&gt;kube-apiserver: encrypt Secret with DEK
+  kube-apiserver-&gt;&gt;etcd: store encrypted Secret
+  kube-apiserver-&gt;&gt;User or App: Secret created</code></pre>
+<h2 id="kleidi-design">kleidí design</h2>
+<h3 id="requirements">requirements</h3>
 <ul>
 <li>written in Go</li>
 <li>security first</li>
@@ -1874,9 +1936,6 @@
 <li>audit logs </li>
 <li>Helm Charts and Operator deployment model</li>
 </ul>
-<h3 id="kmsv2-architecture">kmsv2 architecture</h3>
-<p>Like with networking, storage, cloud providers, and more, Kubernetes provides a high level abstraction to simplify the integration with third party components, and the kmsv2 provider plugin follows the same principle.   </p>
-<p>The Kubernetes API Server has been improved to include the </p>
 <h3 id="kleidi-architecture">kleidí architecture</h3>
 <h2 id="prototyping">prototyping</h2>
 
