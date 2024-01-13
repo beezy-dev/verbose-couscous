@@ -136,7 +136,7 @@ nav:
     - non-functional testing: testing/non-functional.md
     - benchmarking: testing/benchmarking.md
   - side project:
-    - kleidi:
+    - kleidí:
       - kleidi/index.md
     - unmanned ground vehicle: 
       - ugv/index.md  
