@@ -4,6 +4,7 @@ From the Greek ```κλειδί```, kleidí or key, this project aims to:
 
 * provide an universal Key Management Services (KMS) provider plugin for Kubernetes
 * learn how to develop a containerized software interacting with the Kubernetes API server 
+* leverage AI code generation (including the prompt request within the documentation)
 * consider a risk-based approach to design, development, and implementation
 
 <figure markdown>
