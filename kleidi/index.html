@@ -1784,10 +1784,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kmsv2-workflow" class="md-nav__link">
+  <a href="#standard-secrets-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        kmsv2 workflow
+        standard Secrets overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-kmsv2-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        the kmsv2 overview
       
     </span>
   </a>
@@ -1849,6 +1860,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#helm-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        helm charts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-kleidi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        deploy kleidí
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="deploy kleidí">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        from source
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-helm-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        from helm charts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1892,11 +1953,29 @@
 <p>Like with networking, storage, cloud providers, and more, Kubernetes provides a high level abstraction to simplify the integration with third party components, and the kmsv2 provider plugin follows the same principle.   </p>
 <p>The Kubernetes API Server has been improved over time to include the ability to <a href="https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/">encrypt data at rest</a>. Different ways can be used to do so with:</p>
 <ul>
-<li>the <code>identity</code> mode leveraging the standard base64 encoding -&gt; full exposure </li>
+<li>the default <code>identity</code> mode leveraging the standard base64 encoding -&gt; full exposure </li>
 <li>the <code>aescbc</code> or <code>aesgcm</code> or <code>secretbox</code> modes with an encryption key -&gt; the key is accessible from the control plane</li>
 <li>the <code>kmsv2</code> mode leveraging an external KMS server like <code>HashiCorp Vault</code>, <code>Azure Key Vault</code>, ... -&gt; the most secured approach for production-grade needs</li>
 </ul>
-<h3 id="kmsv2-workflow">kmsv2 workflow</h3>
+<h3 id="standard-secrets-overview">standard <code>Secrets</code> overview</h3>
+<p>When creating a <code>Secrets</code> object with the default mode, <code>identity</code>, the user or application interacts with the Kubernetes API server. From a workflow perspective, we can resume this with the following steps:</p>
+<ol>
+<li>user or application sends a create operation to the Kubernetes API server</li>
+<li>assuming there is no existing objects, the Kubernetes API server will store the secrets in <code>etcd</code></li>
+<li>the Kubernetes API server (hopefully) returns a creation success status</li>
+</ol>
+<pre class="mermaid"><code>sequenceDiagram
+participant User or App
+box Control Plane
+participant etcd
+participant kube-apiserver
+end
+autonumber
+  User or App-&gt;&gt;kube-apiserver: create Secret
+  Note right of User or App: base64 encoded data
+  kube-apiserver-&gt;&gt;etcd: store Secret
+  kube-apiserver-&gt;&gt;User or App: Secret created</code></pre>
+<h3 id="the-kmsv2-overview">the <code>kmsv2</code> overview</h3>
 <pre class="mermaid"><code>sequenceDiagram
 participant User or App
 box Control Plane
@@ -1910,7 +1989,7 @@ autonumber
   User or App-&gt;&gt;kube-apiserver: create Secrets
   kube-apiserver-&gt;&gt;EncryptionConfiguration: which provider?
   EncryptionConfiguration-&gt;&gt;kube-apiserver: KMSv2
-  opt if no existing DEK
+  alt if no existing DEK
     kube-apiserver-&gt;&gt;kube-apiserver: generate a DEK
     kube-apiserver-&gt;&gt;KMS Plugin: encrypt DEK with KMS KEK
     KMS Plugin-&gt;&gt;KMS Server: encrypt DEK
@@ -1938,6 +2017,13 @@ autonumber
 </ul>
 <h3 id="kleidi-architecture">kleidí architecture</h3>
 <h2 id="prototyping">prototyping</h2>
+<h2 id="helm-charts">helm charts</h2>
+<h2 id="deploy-kleidi">deploy kleidí</h2>
+<h3 id="from-source">from source</h3>
+<p>To clone <code>kleidí</code>'s repository:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/beezy-dev/kleidi.git
+</span></code></pre></div>
+<h3 id="from-helm-charts">from helm charts</h3>
 
 
 
