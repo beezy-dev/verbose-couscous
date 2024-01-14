@@ -29,11 +29,34 @@ Like with networking, storage, cloud providers, and more, Kubernetes provides a 
 
 The Kubernetes API Server has been improved over time to include the ability to [encrypt data at rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/). Different ways can be used to do so with:
 
-* the ```identity``` mode leveraging the standard base64 encoding -> full exposure 
+* the default ```identity``` mode leveraging the standard base64 encoding -> full exposure 
 * the ```aescbc``` or ```aesgcm``` or ```secretbox``` modes with an encryption key -> the key is accessible from the control plane
 * the ```kmsv2``` mode leveraging an external KMS server like ```HashiCorp Vault```, ```Azure Key Vault```, ... -> the most secured approach for production-grade needs
 
-### kmsv2 workflow
+### standard ```Secrets``` overview
+
+When creating a ```Secrets``` object with the default mode, ```identity```, the user or application interacts with the Kubernetes API server. From a workflow perspective, we can resume this with the following steps:
+
+1. user or application sends a create operation to the Kubernetes API server
+2. assuming there is no existing objects, the Kubernetes API server will store the secrets in ```etcd```
+3. the Kubernetes API server (hopefully) returns a creation success status
+
+```mermaid
+sequenceDiagram
+participant User or App
+box Control Plane
+participant etcd
+participant kube-apiserver
+end
+autonumber
+  User or App->>kube-apiserver: create Secret
+  Note right of User or App: base64 encoded data
+  kube-apiserver->>etcd: store Secret
+  kube-apiserver->>User or App: Secret created
+```
+
+
+### the ```kmsv2``` overview
 
 ```mermaid
 sequenceDiagram
@@ -49,7 +72,7 @@ autonumber
   User or App->>kube-apiserver: create Secrets
   kube-apiserver->>EncryptionConfiguration: which provider?
   EncryptionConfiguration->>kube-apiserver: KMSv2
-  opt if no existing DEK
+  alt if no existing DEK
     kube-apiserver->>kube-apiserver: generate a DEK
     kube-apiserver->>KMS Plugin: encrypt DEK with KMS KEK
     KMS Plugin->>KMS Server: encrypt DEK
@@ -83,6 +106,21 @@ autonumber
 
 ## prototyping
 
+
+## helm charts
+
+
+## deploy kleidí
+
+### from source
+
+To clone ```kleidí```'s repository:
+
+```bash
+git clone https://github.com/beezy-dev/kleidi.git
+```
+
+### from helm charts
 
 
 
