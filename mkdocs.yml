@@ -126,6 +126,7 @@ nav:
     - deployment types:
       - source to image: application/s2i.md
       - helm charts: application/helm.md
+    - application onboarding: application/saep.md
   - networking:
     - networking/index.md
     - network policy: networking/isolation.md
