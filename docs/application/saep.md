@@ -52,7 +52,7 @@ flowchart LR
 ```
 
 ```mermaid
-flowchat LR
+flowchart LR
   cots --> application
   extDev --> application
   intDev --> application
