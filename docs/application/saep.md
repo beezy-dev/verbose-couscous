@@ -64,8 +64,8 @@ flowchart TD
   build -->|"push SBOM if succcess"| privateGitRepo
   build -->|"push signed image if succcess"| ContainerImageRegistry
   build -->|"push build logs if failed" | privateGitRepo
-  build -->|"helm charts"| preFlightCheck
   build -->|"no helm charts"| break
+  build -->|"helm charts"| preFlightCheck
   preFlightCheck --> |"register helm charts and deploy"| provOCPinCCP
   provOCPinCCP --> deployApplication
   preFlightCheck --> |"push preFlightCheck logs if failed"| privateGitRepo
