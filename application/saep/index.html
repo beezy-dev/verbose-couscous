@@ -1959,8 +1959,8 @@
   application --&gt; sourceCode
   sourceCode --&gt;|"no: fetch"| ContainerImageRegistry
   sourceCode --&gt;|"yes: clone"| privateGitRepo
-  privateGitRepo --&gt; provOCPinCCP
-  provOCPinCCP --&gt; build
+  privateGitRepo --&gt; prov1nOCP
+  prov1nOCP --&gt; build
   build --&gt;|"push SBOM if succcess"| privateGitRepo
   build --&gt;|"push signed image if succcess"| ContainerImageRegistry
   build --&gt;|"push build logs if failed" | privateGitRepo
