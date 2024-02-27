@@ -39,4 +39,20 @@ is there documentation?
 * no
 
 
+'''mermaid
+flowchart LR
+  apporigin[""]
 
+
+```mermaid
+flowchart LR
+  apporigin["Application Origin"]
+  cots["Commercial off The Shelf"]
+  external["Third-Party Development"]
+  internal["Internal Development"]
+  deploytype["Deployment Type"]
+  apporigin --> cots
+  apporigin --> external
+  apporigin --> internal
+  cots --> deploytype 
+```
