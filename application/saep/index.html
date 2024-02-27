@@ -1947,15 +1947,32 @@
 flowchart LR
   apporigin[""]</p>
 <pre class="mermaid"><code>flowchart LR
-  apporigin["Application Origin"]
+  sourcecode["Is there source code"]
   cots["Commercial off The Shelf"]
   external["Third-Party Development"]
   internal["Internal Development"]
   deploytype["Deployment Type"]
-  apporigin --&gt; cots
-  apporigin --&gt; external
-  apporigin --&gt; internal
-  cots --&gt; deploytype </code></pre>
+  cots --&gt; sourcecode
+  external --&gt; sourcecode
+  internal --&gt; sourcecode
+</code></pre>
+<pre class="mermaid"><code>flowchat LR
+  cots --&gt; application
+  extDev --&gt; application
+  intDev --&gt; application
+  application --&gt; sourceCode
+  sourceCode --&gt;|"no: fetch"| ContainerImageRegistry
+  sourceCode --&gt;|"yes: clone"| privateGitRepo
+  privateGitRepo --&gt; provOCPinCCP
+  provOCPinCCP --&gt; build
+  build --&gt;|"push SBOM if succcess"| privateGitRepo
+  build --&gt;|"push signed image if succcess"| ContainerImageRegistry
+  build --&gt;|"push build logs if failed" | privateGitRepo
+  build --&gt;|"helm charts"| preFlightCheck
+  build --&gt;|"no helm charts"| break
+  preFlightCheck --&gt; |"register helm charts and deploy"| provOCPinCCP
+  provOCPinCCP --&gt; deployApplication
+  preFlightCheck --&gt; |"push preFlightCheck logs if failed"| privateGitRepo</code></pre>
 
 
 
