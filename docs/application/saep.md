@@ -39,11 +39,6 @@ is there documentation?
 * no
 
 
-'''mermaid
-flowchart LR
-  apporigin[""]
-
-
 ```mermaid
 flowchart LR
   sourcecode["Is there source code"]
@@ -53,8 +48,7 @@ flowchart LR
   deploytype["Deployment Type"]
   cots --> sourcecode
   external --> sourcecode
-  internal --> sourcecode
-   
+  internal --> sourcecode 
 ```
 
 ```mermaid
