@@ -1964,8 +1964,8 @@
   build --&gt;|"push SBOM if succcess"| privateGitRepo
   build --&gt;|"push signed image if succcess"| ContainerImageRegistry
   build --&gt;|"push build logs if failed" | privateGitRepo
-  build --&gt;|"helm charts"| preFlightCheck
   build --&gt;|"no helm charts"| break
+  build --&gt;|"helm charts"| preFlightCheck
   preFlightCheck --&gt; |"register helm charts and deploy"| provOCPinCCP
   provOCPinCCP --&gt; deployApplication
   preFlightCheck --&gt; |"push preFlightCheck logs if failed"| privateGitRepo</code></pre>
