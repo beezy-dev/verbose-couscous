@@ -46,13 +46,33 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-  apporigin["Application Origin"]
+  sourcecode["Is there source code"]
   cots["Commercial off The Shelf"]
   external["Third-Party Development"]
   internal["Internal Development"]
   deploytype["Deployment Type"]
-  apporigin --> cots
-  apporigin --> external
-  apporigin --> internal
-  cots --> deploytype 
+  cots --> sourcecode
+  external --> sourcecode
+  internal --> sourcecode
+   
+```
+
+```mermaid
+flowchat LR
+  cots --> application
+  extDev --> application
+  intDev --> application
+  application --> sourceCode
+  sourceCode -->|"no: fetch"| ContainerImageRegistry
+  sourceCode -->|"yes: clone"| privateGitRepo
+  privateGitRepo --> provOCPinCCP
+  provOCPinCCP --> build
+  build -->|"push SBOM if succcess"| privateGitRepo
+  build -->|"push signed image if succcess"| ContainerImageRegistry
+  build -->|"push build logs if failed" | privateGitRepo
+  build -->|"helm charts"| preFlightCheck
+  build -->|"no helm charts"| break
+  preFlightCheck --> |"register helm charts and deploy"| provOCPinCCP
+  provOCPinCCP --> deployApplication
+  preFlightCheck --> |"push preFlightCheck logs if failed"| privateGitRepo
 ```
