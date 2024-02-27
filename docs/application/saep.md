@@ -59,8 +59,8 @@ flowchart TD
   application --> sourceCode
   sourceCode -->|"no: fetch"| ContainerImageRegistry
   sourceCode -->|"yes: clone"| privateGitRepo
-  privateGitRepo --> provOCPinCCP
-  provOCPinCCP --> build
+  privateGitRepo --> prov1nOCP
+  prov1nOCP --> build
   build -->|"push SBOM if succcess"| privateGitRepo
   build -->|"push signed image if succcess"| ContainerImageRegistry
   build -->|"push build logs if failed" | privateGitRepo
