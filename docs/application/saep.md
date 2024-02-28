@@ -38,37 +38,46 @@ is there documentation?
 * yes 
 * no
 
-
 ```mermaid
-flowchart LR
-  sourcecode["Is there source code"]
-  cots["Commercial off The Shelf"]
-  external["Third-Party Development"]
-  internal["Internal Development"]
-  deploytype["Deployment Type"]
-  cots --> sourcecode
-  external --> sourcecode
-  internal --> sourcecode 
+sequenceDiagram
+box Vendors
+participant Third-Party
+participant Application
+end
+box CCP Git Runners
+participant Cloud Artifactory
+participant Cloud Git
+participant Cloud Registry
+participant Build
+end
+box CCP OCP
+participant Helm Charts
+participant OCP
+participant CI-CD
+participant Testing
+end
+  Third-Party->>Application: cots or external dev
+  alt if cots
+    Application->>Cloud Artifactory: push binary
+  end
+  alt if external development
+    Application->>Cloud Git: push source code
+  end
+  Cloud Git->>Build: triggered pipeline job
+  alt if failed built job
+    Build->>Cloud Git: push built logs and break
+  end
+  Build->>Cloud Git: push built logs
+  Build->>Cloud Registry: push signed container image
+  Build->>Helm Charts: pre-flight checks
+  alt if pre-flight checks fail
+    Helm Charts->>Cloud Git: push failed logs and break
+  end
+  Pre-flights->>OCP: add Helm Charts to Catalogue
+  OCP->>CI-CD: trigger deploy pipeline job
+  alt if deploy fails
+    CI-CD->>Git Cloud: push failed logs and break
+  end
+  CI-CD->>Testing: trigger f and nf testing
 ```
 
-```mermaid
-flowchart TD
-  cots --> application
-  extDev --> application
-  intDev --> application
-  application --> sourceCode
-  sourceCode -->|"no: fetch"| ContainerImageRegistry
-  sourceCode -->|"yes: clone"| privateGitRepo
-  privateGitRepo --> prov1nOCP
-  prov1nOCP --> build
-  build -->|"push signed image if succcess"| ContainerImageRegistry
-  build -->|"push build logs if failed" | privateGitRepo
-  build --> helmCharts
-  helmCharts --> preFlightCheck
-  preFlightCheck --> |"register helm charts and deploy"| provOCPinCCP
-  provOCPinCCP --> deployApplication
-  preFlightCheck --> |"push preFlightCheck logs if failed"| privateGitRepo
-  build -->|"helm charts"| preFlightCheck
-  build -->|"push SBOM if succcess"| privateGitRepo
-  helmCharts -->|"no helm charts"| break
-```
