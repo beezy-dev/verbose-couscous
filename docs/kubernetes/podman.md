@@ -1,19 +1,14 @@
 # podman
 
-This article showcases the usage of podman to run services that I am using on a daily basis. These services are available as hosted web solutions which I don't want to leverage as I am using them to create content for my customers. Privacy first!
+This article showcases how I use Podman to run services that I use daily. These services are available as hosted web solutions, which I want to avoid leveraging as I use them to create content for my customers. Privacy first! These services can be self-hosted on a remote machine accessible via the Cloudflare Wrap method or just running on your laptop on the go. 
 
-Note that this can be self-hosted on a remote machine accessible via the CloudFlare Wrap method or running on your laptop on the go. 
+Why Podman? It is 100% open source, no daemon, rootless, available from your Linux package system, Kubernetes friendly, and compatible with all the legacy builts made using Docker. 
+It requires about 20 minutes of usage to fully comprehend the reason for switching from Docker to Podman. There is also an excellent [Podman Desktop](https://podman-desktop.io/) option.
 
-## volumes
-
-As per the nature of containers, a local storage is required to store the data related to the related services. There are multiple ways to address this needs:   
-* creating your own folder tree
-* leveraging volumes
-
-We will do the later to let podman deal with most of the behind the scene work with Linux. 
+Let's explore Podman via some examples.
 
 ## draw.io 
-[draw.io](https://github.com/jgraph/docker-drawio) is one of my favorite tool that allows to quickly sketch some diagrams and architecture during a meeting or a call and it's open source!  
+[draw.io](https://github.com/jgraph/docker-drawio) is one of my favorite tools. It allows me to quickly sketch diagrams and architecture during a meeting or a call, and it's open source!  
 
 ### deploy
 Pull the image:
@@ -68,14 +63,14 @@ CONTAINER ID  IMAGE                           COMMAND          CREATED        ST
 4bd81e7ab739  docker.io/jgraph/drawio:latest  catalina.sh run  9 seconds ago  Up 9 seconds  0.0.0.0:8080->8080/tcp, 0.0.0.0:8443->8443/tcp  draw.io
 ```
 
-Note: if you don't see the container in the list, try ```podman ps -a```. If the container is present, it means that it fails to start. In that case, run the container without the ```--detach``` flag to grab the error message. 
+Note: If you don't see the container in the list, try ```podman ps —a``. If the container is present, it means that it fails to start. In that case, run the container without the ```--detach``` flag to grab the error message. 
 
-At this stage, you can open the url 127.0.0.1:8080 or <your_ip>:8080 to start a draw.io session. 
+At this stage, you can open the URL 127.0.0.1:8080 or <your_ip>:8080 to start a draw.io session. 
 
-### systemd
-Interesting enough, the start/stop of containers can be associated with systemd and user login. If you wish to have this service to start at user login, you can do the followings:
+### systemd 
+Interestingly, the start/stop of containers can be associated with ```systemctl``` and user login. If you wish to have this service start at user login, you can do the following:
 
-Generate the systemd files:
+Generate the ```systemctl``` files:
 ```
 podman generate systemd --name draw.io --files --start-timeout=180 --stop-timeout=180
 ```
@@ -120,7 +115,7 @@ Created symlink /home/romdalf/.config/systemd/user/container-draw.io.service →
 Created symlink /home/romdalf/.config/systemd/user/default.target.wants/container-draw.io.service → /home/romdalf/container-draw.io.service.
 ```
 
-Note: to keep things tidy, you can create a directory called ```podman-services``` and copy all your service files in there. 
+Note: To keep things tidy, you can create a directory called ```podman-services``` and copy all your service files in. 
 
 Stop your running container:
 ```
@@ -155,11 +150,18 @@ romdalf@alps:~$ systemctl --user status container-draw.io.service
              └─47019 /usr/bin/conmon --api-version 1 -c 25123dda8fe30ea9d1f141b6a0fb542b258b0048d76270b731a422fe0bba8457 -u 25123dda8fe30ea9d1f141b6a0fb542b258b0048d76270b731a422fe0bba8457 -r />
 ```
 
-Now, when you will login or logout, your container will start or stop.
+When you log in or out, your container will start or stop.
 
 Note: If you are using a workstation that stays up and running, you can change this behavior with the following command:
 ```
 loginctl enable-linger <username>
 ```
-Then the logout procedure will not stop your container.
+Then, the logout procedure will not stop your container.
 
+## volumes
+
+As per the nature of containers, local storage is required to store the data related to the related services. There are multiple ways to address these needs:   
+* creating your folder tree
+* leveraging volumes
+
+We will do the latter to let Podman deal with most behind-the-scenes work with Linux. 
