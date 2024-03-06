@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../images/beezydev-website-favicon-color.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.11+insiders-4.53.0">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13+insiders-4.53.1">
     
     
       
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#podman-todo" class="md-skip">
+        <a href="#podman" class="md-skip">
           Skip to content
         </a>
       
@@ -601,6 +601,23 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    
+  
+    podman
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -616,6 +633,75 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#volumes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        volumes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drawio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        draw.io
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="draw.io">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        deploy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        systemd
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1785,6 +1871,64 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#volumes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        volumes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drawio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        draw.io
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="draw.io">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        deploy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        systemd
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1803,7 +1947,137 @@
   
 
 
-<h1 id="podman-todo">podman - TODO</h1>
+<h1 id="podman">podman</h1>
+<p>This article showcases the usage of podman to run services that I am using on a daily basis. These services are available as hosted web solutions which I don't want to leverage as I am using them to create content for my customers. Privacy first!</p>
+<p>Note that this can be self-hosted on a remote machine accessible via the CloudFlare Wrap method or running on your laptop on the go. </p>
+<h2 id="volumes">volumes</h2>
+<p>As per the nature of containers, a local storage is required to store the data related to the related services. There are multiple ways to address this needs: <br />
+* creating your own folder tree
+* leveraging volumes</p>
+<p>We will do the later to let podman deal with most of the behind the scene work with Linux. </p>
+<h2 id="drawio">draw.io</h2>
+<p><a href="https://github.com/jgraph/docker-drawio">draw.io</a> is one of my favorite tool that allows to quickly sketch some diagrams and architecture during a meeting or a call and it's open source!  </p>
+<h3 id="deploy">deploy</h3>
+<p>Pull the image:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>podman pull jgraph/drawio
+</span></code></pre></div></p>
+<p>Output:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>romdalf@alps:~$ podman pull jgraph/drawio
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>✔ docker.io/jgraph/drawio:latest
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Trying to pull docker.io/jgraph/drawio:latest...
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Getting image source signatures
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>Copying blob d66d6a6a3687 done   | 
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>Copying blob 327a048589de done   | 
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>Copying blob f0c59d8a84db done   | 
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>Copying blob 5e3f591e1537 done   | 
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>Copying blob f0374c36aa38 done   | 
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>Copying blob dc4b0bb2324f done   | 
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>Copying blob 0b8d46dcb3f0 done   | 
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>Copying blob 3ef4bb1257ac done   | 
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>Copying blob 5b7fd70fc1f9 done   | 
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>Copying blob e08731b65eba done   | 
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>Copying blob 00bc11350f97 done   | 
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>Copying blob eddb9a5976b9 done   | 
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>Copying blob 79280d37efa5 done   | 
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>Copying blob 4f4fb700ef54 done   | 
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>Copying blob 2414c1f7a801 done   | 
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>Copying blob 4f4fb700ef54 skipped: already exists  
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>Copying config eea29c1753 done   | 
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>Writing manifest to image destination
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>eea29c1753d33ebeb6890f4bab463916d500923baa1eb8cc99434ebbfd793b4c
+</span></code></pre></div></p>
+<p>Start the container:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>podman run --name draw.io --detach --rm --publish 8080:8080 --publish 8443:8443 jgraph/drawio:latest
+</span></code></pre></div>
+Output:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>romdalf@alps:~$ podman run --name draw.io --detach --publish 8080:8080 --publish 8443:8443 jgraph/drawio:latest
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>4bd81e7ab7396fab19608748dcc225138c6fe77ca1ca8f2773ed8e98b5fb8cf0
+</span></code></pre></div>
+Check the status:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>podman ps
+</span></code></pre></div>
+Output:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>romdalf@alps:~$ podman ps
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>CONTAINER ID  IMAGE                           COMMAND          CREATED        STATUS        PORTS                                           NAMES
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>4bd81e7ab739  docker.io/jgraph/drawio:latest  catalina.sh run  9 seconds ago  Up 9 seconds  0.0.0.0:8080-&gt;8080/tcp, 0.0.0.0:8443-&gt;8443/tcp  draw.io
+</span></code></pre></div></p>
+<p>Note: if you don't see the container in the list, try <code>podman ps -a</code>. If the container is present, it means that it fails to start. In that case, run the container without the <code>--detach</code> flag to grab the error message. </p>
+<p>At this stage, you can open the url 127.0.0.1:8080 or <your_ip>:8080 to start a draw.io session. </p>
+<h3 id="systemd">systemd</h3>
+<p>Interesting enough, the start/stop of containers can be associated with systemd and user login. If you wish to have this service to start at user login, you can do the followings:</p>
+<p>Generate the systemd files:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>podman generate systemd --name draw.io --files --start-timeout=180 --stop-timeout=180
+</span></code></pre></div>
+A service file, <code>/home/romdalf/container-draw.io.service</code> in this case, will be created within the current folder with the following content:
+<div class="language-ini highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># container-draw.io.service</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># autogenerated by Podman 4.9.3</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># Wed Mar  6 16:36:32 CET 2024</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="k">[Unit]</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="na">Description</span><span class="o">=</span><span class="s">Podman container-draw.io.service</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="na">Documentation</span><span class="o">=</span><span class="s">man:podman-generate-systemd(1)</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="na">Wants</span><span class="o">=</span><span class="s">network-online.target</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="na">After</span><span class="o">=</span><span class="s">network-online.target</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="na">RequiresMountsFor</span><span class="o">=</span><span class="s">/run/user/1000/containers</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="k">[Service]</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="na">Environment</span><span class="o">=</span><span class="s">PODMAN_SYSTEMD_UNIT=%n</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="na">Restart</span><span class="o">=</span><span class="s">on-failure</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="na">TimeoutStartSec</span><span class="o">=</span><span class="s">180</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="na">TimeoutStopSec</span><span class="o">=</span><span class="s">240</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/bin/podman start draw.io</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="na">ExecStop</span><span class="o">=</span><span class="s">/usr/bin/podman stop  </span>\
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">        </span><span class="s">-t 180 draw.io</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="na">ExecStopPost</span><span class="o">=</span><span class="s">/usr/bin/podman stop  </span>\
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">        </span><span class="s">-t 180 draw.io</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="na">PIDFile</span><span class="o">=</span><span class="s">/run/user/1000/containers/overlay-containers/25123dda8fe30ea9d1f141b6a0fb542b258b0048d76270b731a422fe0bba8457/userdata/conmon.pid</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="na">Type</span><span class="o">=</span><span class="s">forking</span>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="k">[Install]</span>
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="na">WantedBy</span><span class="o">=</span><span class="s">default.target</span>
+</span></code></pre></div></p>
+<p>Enable the user level systemd with:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>systemctl --user enable ./container-draw.io.service
+</span></code></pre></div>
+Output:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>romdalf@alps:~$ systemctl --user enable ./container-draw.io.service
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>Created symlink /home/romdalf/.config/systemd/user/container-draw.io.service → /home/romdalf/container-draw.io.service.
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>Created symlink /home/romdalf/.config/systemd/user/default.target.wants/container-draw.io.service → /home/romdalf/container-draw.io.service.
+</span></code></pre></div></p>
+<p>Note: to keep things tidy, you can create a directory called <code>podman-services</code> and copy all your service files in there. </p>
+<p>Stop your running container:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>podman stop draw.io
+</span></code></pre></div>
+Start it with systemd:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>systemctl --user start container-draw.io.service
+</span></code></pre></div>
+Check if the container is started with systemd:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>systemctl --user status container-draw.io.service
+</span></code></pre></div>
+Output:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>romdalf@alps:~$ systemctl --user status container-draw.io.service 
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>● container-draw.io.service - Podman container-draw.io.service
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>     Loaded: loaded (/home/romdalf/.config/systemd/user/container-draw.io.service; enabled; preset: disabled)
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    Drop-In: /usr/lib/systemd/user/service.d
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>             └─10-timeout-abort.conf
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>     Active: active (running) since Wed 2024-03-06 16:38:28 CET; 11min ago
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>       Docs: man:podman-generate-systemd(1)
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>    Process: 46983 ExecStart=/usr/bin/podman start draw.io (code=exited, status=0/SUCCESS)
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>   Main PID: 47019 (conmon)
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>      Tasks: 16 (limit: 34698)
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>     Memory: 5.2M
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>        CPU: 126ms
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>     CGroup: /user.slice/user-1000.slice/user@1000.service/app.slice/container-draw.io.service
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>             ├─46998 /usr/bin/slirp4netns --disable-host-loopback --mtu=65520 --enable-sandbox --enable-seccomp --enable-ipv6 -c -r 3 -e 4 --netns-type=path /run/user/1000/netns/netns-2f821640-&gt;
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>             ├─47000 rootlessport
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>             ├─47006 rootlessport-child
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>             └─47019 /usr/bin/conmon --api-version 1 -c 25123dda8fe30ea9d1f141b6a0fb542b258b0048d76270b731a422fe0bba8457 -u 25123dda8fe30ea9d1f141b6a0fb542b258b0048d76270b731a422fe0bba8457 -r /&gt;
+</span></code></pre></div></p>
+<p>Now, when you will login or logout, your container will start or stop.</p>
+<p>Note: If you are using a workstation that stays up and running, you can change this behavior with the following command:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>loginctl enable-linger &lt;username&gt;
+</span></code></pre></div>
+Then the logout procedure will not stop your container.</p>
 
 
 
@@ -1826,7 +2100,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 9, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 6, 2024</span>
   </span>
 
     
@@ -1851,11 +2125,34 @@
     </span>
     <nav>
       
-        <a href="mailto:rom@beezy.dev">romdalf</a>
+        <a href="mailto:55788733+romdalf@users.noreply.github.com">Rom Adams</a>
     </nav>
   </span>
 
     
+    
+      
+  <span class="md-source-file__fact">
+    
+      
+  <span class="md-icon" title="Contributors">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
+  </span>
+  <span>GitHub</span>
+
+    
+    <nav>
+      
+        <a href="https://github.com/romdalf" class="md-author" title="@romdalf">
+          
+          <img src="https://avatars.githubusercontent.com/u/55788733?v=4&size=72" alt="romdalf">
+        </a>
+      
+      
+      
+    </nav>
+  </span>
+
     
   </aside>
 
@@ -2056,7 +2353,7 @@
     <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "navigation.top", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.tabs.sticky", "content.code.copy", "content.code.select"], "search": "../../assets/javascripts/workers/search.1e90e0fb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.82b033e4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.cd25cebc.min.js"></script>
       
     
   </body>
