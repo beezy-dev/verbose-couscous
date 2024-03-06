@@ -111,7 +111,7 @@ nav:
     - index.md
     - contributing: contribute.md
   - concepts: concepts.md
-  - kubernetes:
+  - containers:
     - kubernetes/index.md
     - podman: kubernetes/podman.md
     - kind: kubernetes/kind.md
