@@ -56,6 +56,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://beezy.dev/kleidi/deploy/</loc>
+         <lastmod>2024-04-10</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://beezy.dev/kubernetes/</loc>
          <lastmod>2024-04-10</lastmod>
          <changefreq>daily</changefreq>
