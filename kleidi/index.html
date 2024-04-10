@@ -1965,11 +1965,9 @@
 <h1 id="kleidi">kleidí</h1>
 <p><img align="right" src="https://beezy.dev/images/DALL-E-kleid%C3%AD_comic_strip.png" width="25%"></p>
 <p>Initially, <a href="https://github.com/romdalf">romdalf</a> founded <a href="https://trousseau.io">Trousseau</a> in 2019 and released a production-grade KMSv1 provider plugin during his tenure at Ondat.  </p>
-<p>With the Kubernetes project moving to KMSv2 stable at 1.29 and KMSv1 being deprecated since 1.27, a decision needed to be made regarding rewriting the plugin, leading to the creation of kleidi.</p>
+<p>With the Kubernetes project moving to KMSv2 stable with version 1.29 and KMSv1 being deprecated since 1.27, a decision needed to be made regarding rewriting the plugin, leading to the creation of kleidi.</p>
 <p>The origin is Greek, and the meaning is "key". (Source: <a href="https://en.wiktionary.org/wiki/%CE%BA%CE%BB%CE%B5%CE%B9%CE%B4%CE%AF">Wikipedia</a>)</p>
 <p>The project repository is available here: <a href="https://github.com/beezy-dev/kleidi">kleidi</a></p>
-<p><br clear="left"/>
-<br clear="left"/></p>
 <h2 id="implementation">implementation</h2>
 <p>kleidi has bootstrapped a code base from the <a href="https://github.com/kubernetes/kms/tree/master/internal/plugins/_mock">Kunernetes mock KMS plugin</a>. This provides a PKCS#11 interface for a local software HSM like <a href="https://www.opendnssec.org/softhsm/">SoftHSM</a>.</p>
 <p>Based on a gRPC architecture requirement from the Kubernetes project, kleidi lives close to the API server on the master node(s). <br />
