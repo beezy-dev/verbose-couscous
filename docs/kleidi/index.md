@@ -10,8 +10,6 @@ The origin is Greek, and the meaning is "key". (Source: [Wikipedia](https://en.w
 
 The project repository is available here: [kleidi](https://github.com/beezy-dev/kleidi)
 
-<br clear="left"/>
-<br clear="left"/>
 
 ## implementation
 kleidi has bootstrapped a code base from the [Kunernetes mock KMS plugin](https://github.com/kubernetes/kms/tree/master/internal/plugins/_mock). This provides a PKCS#11 interface for a local software HSM like [SoftHSM](https://www.opendnssec.org/softhsm/).
