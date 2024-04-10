@@ -48,16 +48,16 @@ Any prior release marked KMSv2 as non-stable. Here is the extract from the [Kube
 * *If you selected KMS API v2, you should use Kubernetes v1.29 (if you are running a different version of Kubernetes that also supports the v2 KMS API, switch to the documentation for that version of Kubernetes).*
 * *If you selected KMS API v1 to support clusters before version v1.27 or if you have a legacy KMS plugin that only supports KMS v1, any supported Kubernetes version will work. This API is deprecated as of Kubernetes v1.28. Kubernetes does not recommend the use of this API.*
 
-## kleidi R&D
+### kleidi future state
 Considering the security exposures described in this document, an in-platform solution leveraging the (v)TPM chipset has been designed and tested:
 * production-grade SoftHSM implementation. 
 * HashiCorp Vault Community Edition/openbao integration.
 * (v)TPM integration (see R&D)
 
 
-# Why a KMS provider plugin for Kubernetes? 
+## Why a KMS provider plugin for Kubernetes? 
 
-## Physical/Virtual machine world
+### Physical/Virtual machine world
 The entire IT organization is segmented into knowledge domains such as networking, storage, computing, and applications in the legacy world. 
 When an application team asks for a virtual machine:
 * The VMware Team has its credentials, which the Linux team cannot access.
@@ -66,14 +66,14 @@ When an application team asks for a virtual machine:
 This quick overview can be enriched with all other layers like storage, backup, networking, monitoring, etc.
 None will cross-share their credentials.
 
-## Container platform world
+### Container platform world
 Within Kubernetes, the states and configurations of every component, from computing to networking to applications and more, are stored within the ```etcd``` key-value datastore. 
 
 Even if cloud-native applications can interact directly with a KMS provider like Vault, application and platform credentials are still stored within the cluster. This might also include the token to connect with the KMS provider.
 
 All data fields are encoded in base64 but not encrypted. 
 
-## context
+### kubernetes context
 ```Secrets``` objects in Kubernetes are stored in ```etcd``` with their data field encoded in base64 which is readable by everyone. While applications could see their Secrets being stored externally, the ones used by the platform itself can not be offloaded to avoid a platform collapse in case of network partitioning. 
 
 Also, most third-party solutions addressing Secret management have a fallback mechanism to the standard Kubernetes Secret objects. This means that the security exposure will sooner or later be addressed. The Kubernetes project offers options to [encrypt data at rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/), mitigating to some degree this security exposure.   
@@ -82,7 +82,7 @@ This handbook, which I co-authored, is a perfect reference for more details abou
 
 The only viable option for a production-grade environment is to use the KMS provider plugin. With the release of Kubernetes ```1.29```, the kmsv2 is marked stable and documented in the article [KMS provider for data encryption](https://kubernetes.io/docs/tasks/administer-cluster/kms-provider/). 
 
-## standard ```Secrets``` overview
+### standard ```Secrets``` overview
 
 When creating a ```Secrets``` object with the default mode, ```identity```, the user or application interacts with the Kubernetes API server. From a workflow perspective, we can resume this with the following steps:
 
@@ -104,7 +104,7 @@ autonumber
   kube-apiserver->>User or App: Secret created
 ```
 
-## kubernetes kmsv2  
+### kubernetes kmsv2  
 
 Like networking, storage, cloud providers, and more, Kubernetes provides a high-level abstraction to simplify integration with third-party components, and the kmsv2 provider plugin follows the same principle.   
 
