@@ -112,6 +112,7 @@ nav:
     - contributing: contribute.md
   - kleidí:
     - kleidi/index.md
+    - deploy: kleidi/deploy.md
   - concepts: concepts.md
   - containers:
     - kubernetes/index.md
