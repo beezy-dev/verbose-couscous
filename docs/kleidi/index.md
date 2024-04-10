@@ -15,14 +15,9 @@ The project repository is available here: [kleidi](https://github.com/beezy-dev/
 kleidi has bootstrapped a code base from the [Kunernetes mock KMS plugin](https://github.com/kubernetes/kms/tree/master/internal/plugins/_mock). This provides a PKCS#11 interface for a local software HSM like [SoftHSM](https://www.opendnssec.org/softhsm/).
 
 Based on a gRPC architecture requirement from the Kubernetes project, kleidi lives close to the API server on the master node(s).   
-kleidi depends on a custom ```initContainer``` to streamline the bootstrap of both SoftHSM and PCKS#11 interface using two volumes:   
-* ```/opt/kleidi/``` to store the ```config.json``` 
-* ```/var/lib(64)/softhsm/``` to set up the HSM token 
+kleidi depends on a custom ```initContainer``` to bootstrap both SoftHSM, when using this option, and PCKS#11 interface.
 
-With successful ```initContainer```, the ```kleidi-kms-plugin``` container starts and accesses three volumes:   
-* ```/opt/kleidi/``` to access the ```config.json``` 
-* ```/var/lib(64)/softhsm/``` to access the token 
-* ```/tmp/kleidi``` to create the gRPC socket 
+With successful ```initContainer```, the ```kleidi-kms-plugin``` container starts to create a gRPC socket for the Kubernetes API server to use. 
 
 ### requirements
 * KMSv2 support tested with Kubernetes 1.29 and onwards. 
