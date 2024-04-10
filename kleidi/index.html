@@ -1799,65 +1799,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#context" class="md-nav__link">
+  <a href="#implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        context
+        implementation
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#kubernetes-kmsv2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        kubernetes kmsv2
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="kubernetes kmsv2">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#standard-secrets-overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        standard Secrets overview
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-kmsv2-overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        the kmsv2 overview
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#kleidi-design" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        kleidí design
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="kleidí design">
+    <nav class="md-nav" aria-label="implementation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1872,10 +1822,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#kleidi-architecture" class="md-nav__link">
+  <a href="#kleidi-current-state" class="md-nav__link">
     <span class="md-ellipsis">
       
-        kleidí architecture
+        kleidi current state
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-129-or-later" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why 1.29 or later?
       
     </span>
   </a>
@@ -1888,63 +1849,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prototyping" class="md-nav__link">
+  <a href="#kleidi-rd" class="md-nav__link">
     <span class="md-ellipsis">
       
-        prototyping
+        kleidi R&amp;D
       
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#helm-charts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        helm charts
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#deploy-kleidi" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        deploy kleidí
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="deploy kleidí">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#from-source" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        from source
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#from-helm-charts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        from helm charts
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1969,33 +1880,68 @@
 
 
 <h1 id="kleidi">kleidí</h1>
-<p>Kleidí, from the Greek <code>`κλειδί</code>, means key, the key to secure Kubernetes Secrets with a Kubernetes KMS provider plugin.</p>
+<p><img align="right" src="https://beezy.dev/images/DALL-E-kleid%C3%AD_comic_strip.png" width="25%"></p>
+<p>Initially, <a href="https://github.com/romdalf">romdalf</a> founded <a href="https://trousseau.io">Trousseau</a> in 2019 and released a production-grade KMSv1 provider plugin during his tenure at Ondat.  </p>
+<p>With the Kubernetes project moving to KMSv2 stable at 1.29 and KMSv1 being deprecated since 1.27, a decision needed to be made regarding rewriting the plugin, leading to the creation of kleidi.</p>
+<p>The origin is Greek, and the meaning is "key". (Source: <a href="https://en.wiktionary.org/wiki/%CE%BA%CE%BB%CE%B5%CE%B9%CE%B4%CE%AF">Wikipedia</a>)</p>
+<p>The project repository is available here: <a href="https://github.com/beezy-dev/kleidi">kleidi</a></p>
+<p><br clear="left"/>
+<br clear="left"/></p>
+<h2 id="implementation">implementation</h2>
+<p>kleidi has bootstrapped a code base from the <a href="https://github.com/kubernetes/kms/tree/master/internal/plugins/_mock">Kunernetes mock KMS plugin</a>. This provides a PKCS#11 interface for a local software HSM like <a href="https://www.opendnssec.org/softhsm/">SoftHSM</a>.</p>
+<p>Based on a gRPC architecture requirement from the Kubernetes project, kleidi lives close to the API server on the master node(s). <br />
+kleidi depends on a custom <code>initContainer</code> to streamline the bootstrap of both SoftHSM and PCKS#11 interface using two volumes: <br />
+* <code>/opt/kleidi/</code> to store the <code>config.json</code> 
+* <code>/var/lib(64)/softhsm/</code> to set up the HSM token </p>
+<p>With successful <code>initContainer</code>, the <code>kleidi-kms-plugin</code> container starts and accesses three volumes: <br />
+* <code>/opt/kleidi/</code> to access the <code>config.json</code> 
+* <code>/var/lib(64)/softhsm/</code> to access the token 
+* <code>/tmp/kleidi</code> to create the gRPC socket </p>
+<h3 id="requirements">requirements</h3>
+<ul>
+<li>KMSv2 support tested with Kubernetes 1.29 and onwards. </li>
+<li>PCKS#11 interface to (Soft)HSM.</li>
+<li>DaemonSet deployment.</li>
+<li>Logging subsystem. </li>
+<li>Plugin configuration.</li>
+<li>HashiCorp Vault and TPM package module placeholders.</li>
+</ul>
+<h3 id="kleidi-current-state">kleidi current state</h3>
+<ul>
+<li>KMSv2 with Kubernetes 1.29 and onwards.</li>
+<li>PKCS#11 interface to <a href="https://www.opendnssec.org/softhsm/">SoftHSM</a> deployed on the control plane nodes.   </li>
+</ul>
+<p><strong><em>This version is a PoC and should never be used in production-grade environments.</em></strong></p>
+<h3 id="why-129-or-later">Why 1.29 or later?</h3>
+<p><strong><em>Stability!</em></strong>   </p>
+<p>Any prior release marked KMSv2 as non-stable. Here is the extract from the <a href="https://kubernetes.io/docs/tasks/administer-cluster/kms-provider/#before-you-begin">Kubernetes documentation</a>:<br />
+<em>The version of Kubernetes that you need depends on which KMS API version you have selected. Kubernetes recommends using KMS v2.</em> <br />
+<em> </em>If you selected KMS API v2, you should use Kubernetes v1.29 (if you are running a different version of Kubernetes that also supports the v2 KMS API, switch to the documentation for that version of Kubernetes).<em>
+* </em>If you selected KMS API v1 to support clusters before version v1.27 or if you have a legacy KMS plugin that only supports KMS v1, any supported Kubernetes version will work. This API is deprecated as of Kubernetes v1.28. Kubernetes does not recommend the use of this API.*</p>
+<h2 id="kleidi-rd">kleidi R&amp;D</h2>
+<p>Considering the security exposures described in this document, an in-platform solution leveraging the (v)TPM chipset has been designed and tested:
+* production-grade SoftHSM implementation. 
+* HashiCorp Vault Community Edition/openbao integration.
+* (v)TPM integration (see R&amp;D)</p>
+<h1 id="why-a-kms-provider-plugin-for-kubernetes">Why a KMS provider plugin for Kubernetes?</h1>
+<h2 id="physicalvirtual-machine-world">Physical/Virtual machine world</h2>
+<p>The entire IT organization is segmented into knowledge domains such as networking, storage, computing, and applications in the legacy world. 
+When an application team asks for a virtual machine:
+* The VMware Team has its credentials, which the Linux team cannot access.
+* The Linux team will configure, maintain, and support the operating system and not share their credentials with any other team. 
+* The application team will deploy their application, which might be connected to a database; the DBA will provide credentials. <br />
+This quick overview can be enriched with all other layers like storage, backup, networking, monitoring, etc.
+None will cross-share their credentials.</p>
+<h2 id="container-platform-world">Container platform world</h2>
+<p>Within Kubernetes, the states and configurations of every component, from computing to networking to applications and more, are stored within the <code>etcd</code> key-value datastore. </p>
+<p>Even if cloud-native applications can interact directly with a KMS provider like Vault, application and platform credentials are still stored within the cluster. This might also include the token to connect with the KMS provider.</p>
+<p>All data fields are encoded in base64 but not encrypted. </p>
 <h2 id="context">context</h2>
-<p><code>Secrets</code> objects in Kubernetes are stored in <code>etcd</code> with their data field encoded in base64 which is readable by everyone. While applications could see their Secrets being stored externally, the ones used by the platform itself can not be offloaded to avoid a collapse of the platform in case of network partitioning. </p>
-<p>Also, most of the third party solutions attempting to address the Secrets management have a fallback mechanism to the standard Kubernetes Secrets objects. This means that the security exposure is sooner or later to be addressed The Kubernetes project offers options to <a href="https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/">encrypt data at rest</a> mitigating to some degrees this security exposure.   </p>
-<p>For more details about the security exposure, mitigation path, and production-grade solutions, this handbook I co-authored is a perfect referrence: <a href="https://www.packtpub.com/product/kubernetes-secrets-handbook/">Kubernetes Secrets Handbook</a>.</p>
-<p>The only viable option for a productio-grade environment is through the usage of the KMS provider plugin. With the releave of Kubernetes <code>1.29</code>, the kmsv2 is marked stable and documented in the article <a href="https://kubernetes.io/docs/tasks/administer-cluster/kms-provider/">KMS provider for data encryption</a>. </p>
-<p>The <code>kleidí</code> project will based its efforts on the Kubernetes kmsv2 architecture: </p>
-<ul>
-<li>provide an universal Key Management Services (KMS) provider plugin for Kubernetes</li>
-<li>learn how to develop a containerized software interacting with the Kubernetes API server </li>
-<li>leverage AI code generation (including the prompt request within the documentation)</li>
-<li>consider a risk-based approach to design, development, and implementation</li>
-</ul>
-<figure>
-<p><img alt="kleidí" src="../images/DALL-E-kleid%C3%AD_comic_strip.png" width="512" />
-  </p>
-<figcaption>kleidí Comic Strip generated by DALL-E</figcaption>
-</figure>
-<h2 id="kubernetes-kmsv2">kubernetes kmsv2</h2>
-<p>Like with networking, storage, cloud providers, and more, Kubernetes provides a high level abstraction to simplify the integration with third party components, and the kmsv2 provider plugin follows the same principle.   </p>
-<p>The Kubernetes API Server has been improved over time to include the ability to <a href="https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/">encrypt data at rest</a>. Different ways can be used to do so with:</p>
-<ul>
-<li>the default <code>identity</code> mode leveraging the standard base64 encoding -&gt; full exposure </li>
-<li>the <code>aescbc</code> or <code>aesgcm</code> or <code>secretbox</code> modes with an encryption key -&gt; the key is accessible from the control plane</li>
-<li>the <code>kmsv2</code> mode leveraging an external KMS server like <code>HashiCorp Vault</code>, <code>Azure Key Vault</code>, ... -&gt; the most secured approach for production-grade needs</li>
-</ul>
-<h3 id="standard-secrets-overview">standard <code>Secrets</code> overview</h3>
+<p><code>Secrets</code> objects in Kubernetes are stored in <code>etcd</code> with their data field encoded in base64 which is readable by everyone. While applications could see their Secrets being stored externally, the ones used by the platform itself can not be offloaded to avoid a platform collapse in case of network partitioning. </p>
+<p>Also, most third-party solutions addressing Secret management have a fallback mechanism to the standard Kubernetes Secret objects. This means that the security exposure will sooner or later be addressed. The Kubernetes project offers options to <a href="https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/">encrypt data at rest</a>, mitigating to some degree this security exposure.   </p>
+<p>This handbook, which I co-authored, is a perfect reference for more details about the security exposure, mitigation path, and production-grade solutions: <a href="https://www.packtpub.com/product/kubernetes-secrets-handbook/">Kubernetes Secrets Handbook</a>.</p>
+<p>The only viable option for a production-grade environment is to use the KMS provider plugin. With the release of Kubernetes <code>1.29</code>, the kmsv2 is marked stable and documented in the article <a href="https://kubernetes.io/docs/tasks/administer-cluster/kms-provider/">KMS provider for data encryption</a>. </p>
+<h2 id="standard-secrets-overview">standard <code>Secrets</code> overview</h2>
 <p>When creating a <code>Secrets</code> object with the default mode, <code>identity</code>, the user or application interacts with the Kubernetes API server. From a workflow perspective, we can resume this with the following steps:</p>
 <ol>
 <li>user or application sends a create operation to the Kubernetes API server</li>
@@ -2013,7 +1959,14 @@ autonumber
   Note right of User or App: base64 encoded data
   kube-apiserver-&gt;&gt;etcd: store Secret
   kube-apiserver-&gt;&gt;User or App: Secret created</code></pre>
-<h3 id="the-kmsv2-overview">the <code>kmsv2</code> overview</h3>
+<h2 id="kubernetes-kmsv2">kubernetes kmsv2</h2>
+<p>Like networking, storage, cloud providers, and more, Kubernetes provides a high-level abstraction to simplify integration with third-party components, and the kmsv2 provider plugin follows the same principle.   </p>
+<p>The Kubernetes API Server has been improved to include the ability to <a href="https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/">encrypt data at rest</a>. Different ways can be used to do so:</p>
+<ul>
+<li>the default <code>identity</code> mode leveraging the standard base64 encoding -&gt; full exposure </li>
+<li>the <code>aescbc</code> or <code>aesgcm</code> or <code>secretbox</code> modes with an encryption key -&gt; the key is accessible from the control plane</li>
+<li>the <code>kms</code> mode leveraging an external KMS server like <code>HashiCorp Vault</code>, <code>Azure Key Vault</code>, ... -&gt; the most secured approach for production-grade needs</li>
+</ul>
 <pre class="mermaid"><code>sequenceDiagram
 participant User or App
 box Control Plane
@@ -2038,30 +1991,58 @@ autonumber
   kube-apiserver-&gt;&gt;kube-apiserver: encrypt Secret with DEK
   kube-apiserver-&gt;&gt;etcd: store encrypted Secret
   kube-apiserver-&gt;&gt;User or App: Secret created</code></pre>
-<h2 id="kleidi-design">kleidí design</h2>
-<h3 id="requirements">requirements</h3>
+<h2 id="security-exposures">Security exposures</h2>
+<p>The following diagram takes a 10,000-feet overview to explore the security exposures leading to a potential secret leaking/spilling: </p>
 <ul>
-<li>written in Go</li>
-<li>security first</li>
-<li>rootless; might be difficult considering the GRPC nature</li>
-<li>modular to ease the onboarding of new KMS 3rd party<ul>
-<li>a dummy encryption module using GPG or similar encryption technique</li>
-<li>leverage a (virtual) Trust Platform Module as a first module</li>
+<li>The secret comes from an external source and needs to be injected.  </li>
+<li>The base64 encoded secret will be ingested via the API server. </li>
+<li>If a Kubernetes KMS provider plugin exists, the API server encrypts the data field using an envelope encryption scheme. </li>
+<li>The secret and encrypted data filed will be stored within the <code>etcd</code> key-value datastore. </li>
+<li>The <code>etcd</code> key-value datastore file is saved on a local volume on the control plane node filesystem. </li>
 </ul>
-</li>
-<li>metrics </li>
-<li>audit logs </li>
-<li>Helm Charts and Operator deployment model</li>
-</ul>
-<h3 id="kleidi-architecture">kleidí architecture</h3>
-<h2 id="prototyping">prototyping</h2>
-<h2 id="helm-charts">helm charts</h2>
-<h2 id="deploy-kleidi">deploy kleidí</h2>
-<h3 id="from-source">from source</h3>
-<p>To clone <code>kleidí</code>'s repository:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/beezy-dev/kleidi.git
-</span></code></pre></div>
-<h3 id="from-helm-charts">from helm charts</h3>
+<p>What are the exposures:</p>
+<table>
+<thead>
+<tr>
+<th>Exposure</th>
+<th>Risk</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The secret comes from an external source. It requires a base64-encoded payload.</td>
+<td>This transformation is a first-level exposure of the data field at file and console levels.</td>
+<td>Work an injection mechanism from the password manager or KMS</td>
+</tr>
+<tr>
+<td>A common mistake is committing the secret YAML definition to a Git repository.</td>
+<td>The credentials are exposed for life and will need to be rotated.</td>
+<td>Don't include any YAML manifest with sensitive data in a Git repository even for testing purposes. Using a tool like SOPS can help prevent such scenario</td>
+</tr>
+<tr>
+<td>If no KMS provider plugin exists.</td>
+<td>The API server stores the base64-encoded secret within the <code>etcd</code> key-value datastore.</td>
+<td>Application secrets might benefit from an external KMS. Platform secrets will require a data encryption at rest option provided by Kubernetes.</td>
+</tr>
+<tr>
+<td>If a KMS provider plugin exists.</td>
+<td>The encryption Key or credentials to access the KMS or HSM are exposed in clear text.</td>
+<td>Set up a mTLS authentication if possible.</td>
+</tr>
+<tr>
+<td>The <code>etcd</code> key-value datastore is stored on the control plane filesystem.</td>
+<td>The datastore file can be accessed if the node is compromised.</td>
+<td>Encrypting the filesystem helps secure the datastore file from being read, except if the node has been compromised with root access.</td>
+</tr>
+<tr>
+<td>The API server is the Kubernetes heart and soul.</td>
+<td>If the appropriate RBAC or the API server is compromised, all protective measures will be useless since the API server will decrypt all sensitive data fields.</td>
+<td>RBAC and masking the API server if possible</td>
+</tr>
+</tbody>
+</table>
+<p>Thanks to Red Hat colleagues Francois Duthilleul and Frederic Herrmann for spending time analyzing the gaps.</p>
 
 
 
@@ -2084,7 +2065,7 @@ autonumber
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 14, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 10, 2024</span>
   </span>
 
     
@@ -2104,16 +2085,40 @@ autonumber
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.536 5.536 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13v-1.75M0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20H0m24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9V20Z"/></svg>
       
     </span>
     <nav>
       
+        <a href="mailto:55788733+romdalf@users.noreply.github.com">Rom Adams</a>, 
         <a href="mailto:rom@beezy.dev">romdalf</a>
     </nav>
   </span>
 
     
+    
+      
+  <span class="md-source-file__fact">
+    
+      
+  <span class="md-icon" title="Contributors">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
+  </span>
+  <span>GitHub</span>
+
+    
+    <nav>
+      
+        <a href="https://github.com/romdalf" class="md-author" title="@romdalf">
+          
+          <img src="https://avatars.githubusercontent.com/u/55788733?v=4&size=72" alt="romdalf">
+        </a>
+      
+      
+      
+    </nav>
+  </span>
+
     
   </aside>
 
