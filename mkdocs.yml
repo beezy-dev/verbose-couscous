@@ -110,6 +110,8 @@ nav:
   - about: 
     - index.md
     - contributing: contribute.md
+  - kleidí:
+    - kleidi/index.md
   - concepts: concepts.md
   - containers:
     - kubernetes/index.md
@@ -137,8 +139,6 @@ nav:
     - non-functional testing: testing/non-functional.md
     - benchmarking: testing/benchmarking.md
   - side project:
-    - kleidí:
-      - kleidi/index.md
     - unmanned ground vehicle: 
       - ugv/index.md  
       - phase 0 - Build a UGV: ugv/phase0.md
