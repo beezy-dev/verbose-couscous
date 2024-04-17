@@ -21,6 +21,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://beezy.dev/application/envreload/</loc>
+         <lastmod>2024-04-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://beezy.dev/application/helm/</loc>
          <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
