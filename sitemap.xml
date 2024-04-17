@@ -2,207 +2,207 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://beezy.dev/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/concepts/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/contribute/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/application/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/application/helm/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/application/namespace/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/application/quota/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/application/s2i/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/application/saep/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/community/k8s-secrets/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/kleidi/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/kleidi/deploy/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/kubernetes/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/kubernetes/kind/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/kubernetes/local/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/kubernetes/microshift/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/kubernetes/openshift/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/kubernetes/podman/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/networking/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/networking/isolation/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/networking/multicluster/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/sources/hello-world-article/hello-world-quarkus/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/sources/hello-world-quarkus/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/sustainability/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/testing/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/testing/benchmarking/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/testing/functional/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/testing/non-functional/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/ugv/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/ugv/architecture/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/ugv/bom/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/ugv/devenv/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/ugv/hardware/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/ugv/nfc/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/ugv/ops/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/ugv/phase0/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/ugv/phase1/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/ugv/phase2/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/ugv/phase3/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/ugv/rover/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://beezy.dev/ugv/software/</loc>
-         <lastmod>2024-04-10</lastmod>
+         <lastmod>2024-04-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
