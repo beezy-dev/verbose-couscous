@@ -1164,25 +1164,14 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#redeploy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        redeploy
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="redeploy">
+    <nav class="md-nav" aria-label="context">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-application-concept" class="md-nav__link">
+  <a href="#the-application" class="md-nav__link">
     <span class="md-ellipsis">
       
-        the application concept
+        the application
       
     </span>
   </a>
@@ -1236,6 +1225,34 @@
         
           <li class="md-nav__item">
   <a href="#example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redeploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        redeploy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="redeploy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         example
@@ -2013,25 +2030,14 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#redeploy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        redeploy
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="redeploy">
+    <nav class="md-nav" aria-label="context">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-application-concept" class="md-nav__link">
+  <a href="#the-application" class="md-nav__link">
     <span class="md-ellipsis">
       
-        the application concept
+        the application
       
     </span>
   </a>
@@ -2099,6 +2105,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#redeploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        redeploy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="redeploy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2121,18 +2155,16 @@
 
 <h1 id="reload-restart-or-redeploy">reload, restart or redeploy</h1>
 <h2 id="context">context</h2>
-<p>Containerized application deployment, handled manually or via a GitOps practice, is composed of multiple Kubernetes objects like namespace, pods, configmaps, secrets, services, and more. Most of these are static, immutable, and other can be updated during the application lifecycle. </p>
-<p>These object defintion update, manually applied or via a GitOps resync, can have a direct impact on the application behavior while other don't. Examples:
-- changing a service or route for a pod will not impact the application but its access from external sources.
-- changing a secret to access a data backend will impact the application from functioning up to potential crash, or worst providing outdated outpus when leveraging caching mechanism.  </p>
-<p>How can we address this?</p>
-<h2 id="redeploy">redeploy</h2>
-<p>This is the easiest path. When ever an object definition is change, a redeployment of the application happens. However this is a slow and delicate process with high dependencies on cross-functional teams to execute the appropriate change management to reduce business disruption. </p>
-<p>In other words, such approach is the <strong>legacy approach</strong> with limited benefits for a cloud-native pattern. </p>
-<h3 id="the-application-concept">the application concept</h3>
-<p>The <code>hello-path-go</code> code mockup a web service with a third-party credential loop validation. If the flag value of <code>my-secret</code> is:
-- different than 4321 then it fails and retry after 10 secondes.
-- 4321 then it "validates" the credentials and start the webservice. </p>
+<p>Containerized application deployed on Kubernetes, manually or via GitOps, is composed of multiple objects from namespace, deployment, configmaps, secrets, services, and more. Most are static while other will be updated during the application lifecycle. </p>
+<p>Most of these object defintions are static while others will be updated with no to significant impact on the application, e.g.:
+- changing a service impacts the access but not the application.
+- changing a data backend secret impacts the application with crashing, providing corrupted and/or outdated response.<br />
+- changing a namespace or a deployment will require a redeployment of the application, meaning full disruption. </p>
+<p>How can we address these use cases?</p>
+<h3 id="the-application">the application</h3>
+<p>The <code>hello-path-go</code> code mockup a web service with a third-party credential loop validation. If the flag value of <code>my-secret</code> is: <br />
+* different than 4321 then it fails and retry after 10 secondes.
+* 4321 then it "validates" the credentials and start the webservice. </p>
 <p>Here is the code: </p>
 <div class="language-Golang highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
@@ -2200,6 +2232,8 @@
 <h3 id="example">example</h3>
 <h2 id="reload">reload</h2>
 <h3 id="example_1">example</h3>
+<h2 id="redeploy">redeploy</h2>
+<h3 id="example_2">example</h3>
 
 
 
