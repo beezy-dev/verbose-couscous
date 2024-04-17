@@ -24,6 +24,21 @@ Here is the code:
 --8<-- "sources/hello-path-go/main.go"
 ```
 
+Output of the code with an incorrect ```my-secret``` value:
+```
+romdalf@minime ~/dev/opensource/beezy-dev/verbose-couscous (main*) $ go run docs/sources/hello-path-go/main.go --my-secret 1234
+[GO] 2024/04/17 20:37:55 Creating a hello path web service with logger
+[GO] 2024/04/17 20:37:55 Connection to remote service: nok. Check my-secret parameter.
+[GO] 2024/04/17 20:37:55 Note: my-secret value is 1234 while expecting 4321
+```
+
+Output of the code with a correct ```my-secret``` value: 
+```
+romdalf@minime ~/dev/opensource/beezy-dev/verbose-couscous (main*) $ go run docs/sources/hello-path-go/main.go --my-secret 4321
+[GO] 2024/04/17 20:38:17 Creating a hello path web service with logger
+[GO] 2024/04/17 20:38:17 Connection to remote service: ok
+[GO] 2024/04/17 20:38:17 Web service accessible at 0.0.0.0:8080
+``` 
 
 ## restart
 
