@@ -127,6 +127,7 @@ nav:
       - namespace: application/namespace.md
       - quota: application/quota.md
     - deployment types:
+      - reloading conundrum: application/enreload.md
       - source to image: application/s2i.md
       - helm charts: application/helm.md
     - application onboarding: application/saep.md
