@@ -2156,15 +2156,19 @@
 <h1 id="reload-restart-or-redeploy">reload, restart or redeploy</h1>
 <h2 id="context">context</h2>
 <p>Containerized application deployed on Kubernetes, manually or via GitOps, is composed of multiple objects from namespace, deployment, configmaps, secrets, services, and more. Most are static while other will be updated during the application lifecycle. </p>
-<p>Most of these object defintions are static while others will be updated with no to significant impact on the application, e.g.:
-- changing a service impacts the access but not the application.
-- changing a data backend secret impacts the application with crashing, providing corrupted and/or outdated response.<br />
-- changing a namespace or a deployment will require a redeployment of the application, meaning full disruption. </p>
+<p>Most of these object defintions are static while others will be updated with no to significant impact on the application, e.g.:   </p>
+<ul>
+<li>changing a service impacts the access but not the application.</li>
+<li>changing a data backend secret impacts the application with crashing, providing corrupted and/or outdated response.  </li>
+<li>changing a namespace or a deployment will require a redeployment of the application, meaning full disruption. </li>
+</ul>
 <p>How can we address these use cases?</p>
 <h3 id="the-application">the application</h3>
-<p>The <code>hello-path-go</code> code mockup a web service with a third-party credential loop validation. If the flag value of <code>my-secret</code> is: <br />
-* different than 4321 then it fails and retry after 10 secondes.
-* 4321 then it "validates" the credentials and start the webservice. </p>
+<p>The <code>hello-path-go</code> code mockup a web service with a third-party credential loop validation. If the flag value of <code>my-secret</code> is:   </p>
+<ul>
+<li>different than 4321 then it fails and retry after 10 secondes.  </li>
+<li>4321 then it "validates" the credentials and start the webservice.  </li>
+</ul>
 <p>Here is the code: </p>
 <div class="language-Golang highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
