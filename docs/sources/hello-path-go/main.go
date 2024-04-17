@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
 func main() {
@@ -47,6 +48,11 @@ func main() {
 	hplog.Println("Creating a hello path web service with logger")
 	hplog.Println("Web service accessible at ", *listenAddr)
 
+	for *mySecret != "4321" {
+		hplog.Println("Failed to connect to remote service: check my-secret parameter.")
+		hplog.Println("Note: my-secret value is", *mySecret, "while expecting 4321")
+		time.Sleep(10 * time.Second)
+	}
 	// Start the service and listen on the given port
 	if err := http.ListenAndServe(*listenAddr, nil); err != nil {
 		// Log error messages

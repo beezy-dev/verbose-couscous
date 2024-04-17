@@ -14,9 +14,11 @@ This is the easiest path. When ever an object definition is change, a redeployme
 
 In other words, such approach is the **legacy approach** with limited benefits for a cloud-native pattern. 
 
-### example
+### the application concept
 
-The code from ```hello-path-go``` will be illustrated on how to handle a secret at the application start, reload, redeploy when there is a change at the object level. 
+The ```hello-path-go``` code mockup a web service with a third-party credential loop validation. If the flag value of ```my-secret``` is:
+- different than 4321 then it fails and retry after 10 secondes.
+- 4321 then it "validates" the credentials and start the webservice. 
 
 Here is the code: 
 
