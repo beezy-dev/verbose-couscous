@@ -1213,10 +1213,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#no-arg-deployment" class="md-nav__link">
+  <a href="#no-arg" class="md-nav__link">
     <span class="md-ellipsis">
       
-        no arg deployment
+        no arg
       
     </span>
   </a>
@@ -1224,10 +1224,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#deployment-with-explicit-mysecret" class="md-nav__link">
+  <a href="#mysecret-arg" class="md-nav__link">
     <span class="md-ellipsis">
       
-        deployment with explicit mysecret
+        mysecret arg
       
     </span>
   </a>
@@ -2106,10 +2106,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#no-arg-deployment" class="md-nav__link">
+  <a href="#no-arg" class="md-nav__link">
     <span class="md-ellipsis">
       
-        no arg deployment
+        no arg
       
     </span>
   </a>
@@ -2117,10 +2117,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#deployment-with-explicit-mysecret" class="md-nav__link">
+  <a href="#mysecret-arg" class="md-nav__link">
     <span class="md-ellipsis">
       
-        deployment with explicit mysecret
+        mysecret arg
       
     </span>
   </a>
@@ -2360,7 +2360,7 @@
 <p>The image is hosted here <code>https://github.com/beezy-dev/verbose-couscous/pkgs/container/hello-path-go</code>
 The image tag is <code>ghcr.io/beezy-dev/hello-path-go:v0.1</code> for any deployment type.</p>
 <h3 id="the-deployment">the deployment</h3>
-<h4 id="no-arg-deployment">no arg deployment</h4>
+<h4 id="no-arg">no arg</h4>
 <p>The <code>Deployment</code> manfiest:
 <div class="language-YAML highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
@@ -2418,7 +2418,9 @@ The image tag is <code>ghcr.io/beezy-dev/hello-path-go:v0.1</code> for any deplo
 </span></code></pre></div>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>deployment.apps &quot;hello-path-go-deployment&quot; deleted
 </span></code></pre></div></p>
-<h4 id="deployment-with-explicit-mysecret">deployment with explicit mysecret</h4>
+<h4 id="mysecret-arg">mysecret arg</h4>
+<p>To confirm that our application works, the code includes a flag called <code>mysecret</code> setting the secret as an argument. <br />
+<strong>However, this is a clear security exposure that should never be considered for a production-grade environment.</strong></p>
 <p>The <code>Deployment</code> manifest:
 <div class="language-YAML highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
@@ -2473,7 +2475,8 @@ The image tag is <code>ghcr.io/beezy-dev/hello-path-go:v0.1</code> for any deplo
 </span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>[hello-path-go-main] 2024/04/18 19:19:15 Connection to remote service: ok.
 </span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>[hello-path-go-main] 2024/04/18 19:19:15 Web service accessible at 0.0.0.0:8080
 </span></code></pre></div></p>
-<p>The explicit secret export allow the mockup connection to succeed and start the web service. <strong>However, this is a clear security exposure that should never be considered for a production-grade environment.</strong></p>
+<p>The explicit secret export allow the mockup connection to succeed and start the web service. <br />
+<strong>However, this is a clear security exposure that should never be considered for a production-grade environment.</strong></p>
 <p>Let's delete the <code>Deployment</code>. </p>
 <p><div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>kubectl delete -f docs/sources/hello-path-go/Deployment-mysecret.yam
 </span></code></pre></div>
