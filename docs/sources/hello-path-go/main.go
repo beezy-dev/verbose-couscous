@@ -55,7 +55,7 @@ func main() {
 		hplog.Println("RELOAD: Connection to remote service: nok. Checking every 10 seconds.")
 		for *mySecret != "4321" {
 			hplog.Println("RELOAD(", reloadCount, "): mysecret value is", *mySecret, "while expected value is 4321.")
-			reloadCount += reloadCount
+			reloadCount += 1
 			time.Sleep(10 * time.Second)
 		}
 	}
