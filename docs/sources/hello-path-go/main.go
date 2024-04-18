@@ -67,7 +67,7 @@ func main() {
 
 	// if yes, we start the service.
 	hplog.Println("Connection to remote service: ok.")
-	hplog.Println("Web service accessible at", *listenAddr, ".")
+	hplog.Println("Web service accessible at", *listenAddr)
 
 	// Start the service and listen on the given port.
 	if err := http.ListenAndServe(*listenAddr, nil); err != nil {

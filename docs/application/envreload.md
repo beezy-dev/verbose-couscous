@@ -20,29 +20,40 @@ The ```hello-path-go``` code mockup a web service with a third-party credential 
 
 ### the code 
 
+The sources are available [here](https://github.com/beezy-dev/verbose-couscous/tree/main/docs/sources/hello-path-go).
 ```Golang
 --8<-- "sources/hello-path-go/main.go"
 ```
 
-Output of the code with an incorrect ```my-secret``` value:
+Output of the code with no parameters results in an incorrect ```mysecret``` value: 
 ```
-romdalf@minime ~/dev/opensource/beezy-dev/verbose-couscous (main*) $ go run docs/sources/hello-path-go/main.go --my-secret 1234
-[GO] 2024/04/17 20:37:55 Creating a hello path web service with logger
-[GO] 2024/04/17 20:37:55 Connection to remote service: nok. Check my-secret parameter.
-[GO] 2024/04/17 20:37:55 Note: my-secret value is 1234 while expecting 4321
+romdalf@minime ~/dev/opensource/beezy-dev/verbose-couscous (main) $ go run docs/sources/hello-path-go/main.go                             
+[hello-path-go-main] 2024/04/18 11:16:44 ------------------------------------------------------------
+[hello-path-go-main] 2024/04/18 11:16:44 hello-path-go - a simple web service returning the URL path.
+[hello-path-go-main] 2024/04/18 11:16:44 ------------------------------------------------------------
+[hello-path-go-main] 2024/04/18 11:16:44 Web service initialization...
+[hello-path-go-main] 2024/04/18 11:16:44 Note: mysecret value is 1234 while expected value is 4321.
+[hello-path-go-main] 2024/04/18 11:16:44 FATAL: connection to remote service failed. Check mysecret parameter.
+exit status 1
 ```
 
-Output of the code with a correct ```my-secret``` value: 
+Output of the code with the correct value set for ```my-secret``` results in a working web service **with a security exposure**: 
 ```
-romdalf@minime ~/dev/opensource/beezy-dev/verbose-couscous (main*) $ go run docs/sources/hello-path-go/main.go --my-secret 4321
-[GO] 2024/04/17 20:38:17 Creating a hello path web service with logger
-[GO] 2024/04/17 20:38:17 Connection to remote service: ok
-[GO] 2024/04/17 20:38:17 Web service accessible at 0.0.0.0:8080
+romdalf@minime ~/dev/opensource/beezy-dev/verbose-couscous (main*) $ go run docs/sources/hello-path-go/main.go --mysecret 4321
+[hello-path-go-main] 2024/04/18 11:17:59 ------------------------------------------------------------
+[hello-path-go-main] 2024/04/18 11:17:59 hello-path-go - a simple web service returning the URL path.
+[hello-path-go-main] 2024/04/18 11:17:59 ------------------------------------------------------------
+[hello-path-go-main] 2024/04/18 11:17:59 Web service initialization...
+[hello-path-go-main] 2024/04/18 11:17:59 Connection to remote service: ok.
+[hello-path-go-main] 2024/04/18 11:17:59 Web service accessible at 0.0.0.0:8080
 ``` 
 
 ### the deployment
 
-The initial image has been built based on the above code which is also available [here](https://github.com/beezy-dev/verbose-couscous/tree/main/docs/sources/hello-path-go). 
+The initial image has been built using the following ```Containerfile```
+```INI
+--8<-- "sources/hello-path-go/Containerfile"
+```
 
 
 ## reload, restart, redeploy 
