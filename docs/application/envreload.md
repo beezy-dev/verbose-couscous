@@ -18,7 +18,7 @@ The ```hello-path-go``` code mockup a web service with a third-party credential 
 * different than 4321 then it fails and retry after 10 secondes.  
 * 4321 then it "validates" the credentials and start the webservice.  
 
-Here is the code: 
+### the code: 
 
 ```Golang
 --8<-- "sources/hello-path-go/main.go"
@@ -39,6 +39,12 @@ romdalf@minime ~/dev/opensource/beezy-dev/verbose-couscous (main*) $ go run docs
 [GO] 2024/04/17 20:38:17 Connection to remote service: ok
 [GO] 2024/04/17 20:38:17 Web service accessible at 0.0.0.0:8080
 ``` 
+
+### the deployment
+
+The initial image has been built based on the above code which is also available [here](https://github.com/beezy-dev/verbose-couscous/tree/main/docs/sources/hello-path-go). 
+
+## reload, restart, redeploy 
 
 ### redeploy
 

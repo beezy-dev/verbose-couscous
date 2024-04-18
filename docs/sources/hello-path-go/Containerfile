@@ -1,0 +1,21 @@
+FROM docker.io/library/golang:1.22.0-bullseye AS build
+
+WORKDIR /work
+
+# Copy the source
+COPY ./* /work/
+WORKDIR /work/
+
+RUN CGO_ENABLED=1 GOOS=linux GO111MODULE=on go build -a -installsuffix cgo main.go
+
+FROM quay.io/centos/centos:stream9-minimal
+
+LABEL org.opencontainers.image.source=https://github.com/beezy-dev/kleidi 
+LABEL org.opencontainers.image.title="hello-path-go" 
+LABEL org.opencontainers.image.vendor="beeyz.dev" 
+LABEL org.opencontainers.image.licenses="Apache-2.0" 
+LABEL org.opencontainers.image.documentation="https://beezy.dev/application/envreload/"
+
+COPY --from=build ./work/main ./main
+
+ENTRYPOINT [ "./main" ]
