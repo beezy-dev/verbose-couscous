@@ -77,6 +77,7 @@ The image tag is ```ghcr.io/beezy-dev/hello-path-go:v0.1``` for any deployment t
 
 ### the deployment
 
+#### no arg deployment
 The ```Deployment``` manfiest:
 ```YAML
 --8<-- "sources/hello-path-go/Deployment.yaml"
@@ -118,7 +119,68 @@ kubectl logs pod/hello-path-go-deployment-5c48979c88-fhl4w
 [hello-path-go-main] 2024/04/18 18:52:08 FATAL: connection to remote service failed. Check mysecret parameter.
 ```
 
-The default secret doesn't allow the mockup connection resulting in a crash.
+The default secret doesn't allow the mockup connection resulting in a crash. Let's delete the ```Deployment```. 
+
+```
+kubectl delete -f docs/sources/hello-path-go/Deployment.yaml
+```
+```
+deployment.apps "hello-path-go-deployment" deleted
+```
+
+#### deployment with explicit mysecret
+
+The ```Deployment``` manifest:
+```YAML
+--8<-- "sources/hello-path-go/Deployment-mysecret.yaml"
+```
+
+To deploy ```hello-path-go```:
+```
+kubectl apply -f docs/sources/hello-path-go/Deployment-mysecret.yaml
+```
+
+Checking the ```Deployment``` status:
+```
+kubectl get all 
+```
+```
+NAME                                            READY   STATUS    RESTARTS   AGE
+pod/hello-path-go-deployment-54fdf8687b-hq9lh   1/1     Running   0          13s
+
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   40m
+
+NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/hello-path-go-deployment   1/1     1            1           13s
+
+NAME                                                  DESIRED   CURRENT   READY   AGE
+replicaset.apps/hello-path-go-deployment-54fdf8687b   1         1         1       13s
+```
+
+Checking the logs from the ```Pod```:
+```
+kubectl logs pod/hello-path-go-deployment-54fdf8687b-hq9lh
+```
+``` 
+[hello-path-go-main] 2024/04/18 19:19:15 ------------------------------------------------------------
+[hello-path-go-main] 2024/04/18 19:19:15 hello-path-go - a simple web service returning the URL path.
+[hello-path-go-main] 2024/04/18 19:19:15 ------------------------------------------------------------
+[hello-path-go-main] 2024/04/18 19:19:15 Web service initialization...
+[hello-path-go-main] 2024/04/18 19:19:15 Connection to remote service: ok.
+[hello-path-go-main] 2024/04/18 19:19:15 Web service accessible at 0.0.0.0:8080
+```
+
+The explicit secret export allow the mockup connection to succeed and start the web service. **However, this is a clear security exposure that should never be considered for a production-grade environment.**
+
+Let's delete the ```Deployment```. 
+
+```
+kubectl delete -f docs/sources/hello-path-go/Deployment-mysecret.yam
+```
+```
+deployment.apps "hello-path-go-deployment" deleted
+```
 
 
 ## reload, restart, redeploy 
