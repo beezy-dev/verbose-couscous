@@ -55,7 +55,8 @@ The initial image has been built using ```podman``` with the following ```Contai
 --8<-- "sources/hello-path-go/Containerfile"
 ```
 
-The image is available here: 
+The image is hosted here ```https://github.com/beezy-dev/verbose-couscous/pkgs/container/hello-path-go```
+The image tag is ```ghcr.io/beezy-dev/hello-path-go:v0.1``` for any deployment type.
 
 ### the deployment
 

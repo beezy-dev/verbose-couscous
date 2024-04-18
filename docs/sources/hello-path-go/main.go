@@ -51,9 +51,11 @@ func main() {
 
 	// reloadEnable help to wait for the appropriate secret to be provided.
 	if *reloadEnable != false {
+		reloadCount := 1
 		hplog.Println("RELOAD: Connection to remote service: nok. Checking every 10 seconds.")
 		for *mySecret != "4321" {
-			hplog.Println("RELOAD: mysecret value is", *mySecret, "while expected value is 4321.")
+			hplog.Println("RELOAD(", reloadCount, "): mysecret value is", *mySecret, "while expected value is 4321.")
+			reloadCount += reloadCount
 			time.Sleep(10 * time.Second)
 		}
 	}
