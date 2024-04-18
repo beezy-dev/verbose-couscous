@@ -48,12 +48,18 @@ romdalf@minime ~/dev/opensource/beezy-dev/verbose-couscous (main*) $ go run docs
 [hello-path-go-main] 2024/04/18 11:17:59 Web service accessible at 0.0.0.0:8080
 ``` 
 
-### the deployment
+### the build
 
-The initial image has been built using the following ```Containerfile```
+The initial image has been built using ```podman``` with the following ```Containerfile```:
 ```INI
 --8<-- "sources/hello-path-go/Containerfile"
 ```
+
+The image is available here: 
+
+### the deployment
+
+
 
 
 ## reload, restart, redeploy 
