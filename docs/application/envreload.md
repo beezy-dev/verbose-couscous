@@ -1,7 +1,7 @@
 # reload, restart or redeploy
 
 ## context
-Containerized application deployed on Kubernetes, manually or via GitOps, is composed of multiple objects from namespace, deployment, configmaps, secrets, services, and more. Most are static while other will be updated during the application lifecycle. 
+Containerized application deployed on Kubernetes, manually or via GitOps, is composed of multiple objects from namespace, deployment, configmaps, secrets, services, and more. Most are static while other will be updated during the application lifecycle.   
 
 Most of these object defintions are static while others will be updated with no to significant impact on the application, e.g.:   
 
@@ -11,7 +11,7 @@ Most of these object defintions are static while others will be updated with no 
 
 How can we address these use cases?
 
-### the application
+## the application
 
 The ```hello-path-go``` code mockup a web service with a third-party credential loop validation. If the flag value of ```my-secret``` is:   
 
@@ -40,16 +40,11 @@ romdalf@minime ~/dev/opensource/beezy-dev/verbose-couscous (main*) $ go run docs
 [GO] 2024/04/17 20:38:17 Web service accessible at 0.0.0.0:8080
 ``` 
 
-## restart
+### redeploy
 
-### example
+### restart
 
-## reload
+### reload
 
-### example
-
-## redeploy
-
-### example
 
 
