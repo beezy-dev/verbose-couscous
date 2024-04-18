@@ -60,8 +60,10 @@ The image tag is ```ghcr.io/beezy-dev/hello-path-go:v0.1``` for any deployment t
 
 ### the deployment
 
-
-
+The ```Deployment``` manfiest:
+```YAML
+--8<-- "sources/hello-path-go/Deployment.yaml"
+```
 
 ## reload, restart, redeploy 
 
