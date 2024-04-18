@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-path-go-deployment
+  labels:
+    app: hello-path-go
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-path-go
+  template:
+    metadata:
+      labels:
+        app: hello-path-go
+    spec:
+      containers:
+      - name: hello-path-go
+        image: ghcr.io/beezy-dev/hello-path-go:v0.2
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        # args:
+        #   - --reload=true
+        #   - --mysecret=4321
