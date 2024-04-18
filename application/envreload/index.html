@@ -1190,6 +1190,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#the-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        the build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#the-deployment" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2044,6 +2055,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#the-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        the build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#the-deployment" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2244,8 +2266,8 @@
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>[hello-path-go-main] 2024/04/18 11:17:59 Connection to remote service: ok.
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>[hello-path-go-main] 2024/04/18 11:17:59 Web service accessible at 0.0.0.0:8080
 </span></code></pre></div></p>
-<h3 id="the-deployment">the deployment</h3>
-<p>The initial image has been built using the following <code>Containerfile</code>
+<h3 id="the-build">the build</h3>
+<p>The initial image has been built using <code>podman</code> with the following <code>Containerfile</code>:
 <div class="language-INI highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="na">FROM docker.io/library/golang</span><span class="o">:</span><span class="s">1.22.0-bullseye AS build</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="na">WORKDIR /work</span>
@@ -2268,6 +2290,8 @@
 </span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
 </span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="na">ENTRYPOINT [ &quot;./main&quot; ]</span>
 </span></code></pre></div></p>
+<p>The image is available here: </p>
+<h3 id="the-deployment">the deployment</h3>
 <h2 id="reload-restart-redeploy">reload, restart, redeploy</h2>
 <h3 id="redeploy">redeploy</h3>
 <h3 id="restart">restart</h3>
