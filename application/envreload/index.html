@@ -2146,6 +2146,7 @@
 <li>4321 then it "validates" the credentials and start the webservice.  </li>
 </ul>
 <h3 id="the-code">the code</h3>
+<p>The sources are available <a href="https://github.com/beezy-dev/verbose-couscous/tree/main/docs/sources/hello-path-go">here</a>.
 <div class="language-Golang highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
@@ -2215,7 +2216,7 @@
 </span><span id="__span-0-67"><a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a>
 </span><span id="__span-0-68"><a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a><span class="w">    </span><span class="c1">// if yes, we start the service.</span>
 </span><span id="__span-0-69"><a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a><span class="w">    </span><span class="nx">hplog</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Connection to remote service: ok.&quot;</span><span class="p">)</span>
-</span><span id="__span-0-70"><a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a><span class="w">    </span><span class="nx">hplog</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Web service accessible at&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">listenAddr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;.&quot;</span><span class="p">)</span>
+</span><span id="__span-0-70"><a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a><span class="w">    </span><span class="nx">hplog</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Web service accessible at&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">listenAddr</span><span class="p">)</span>
 </span><span id="__span-0-71"><a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a>
 </span><span id="__span-0-72"><a id="__codelineno-0-72" name="__codelineno-0-72" href="#__codelineno-0-72"></a><span class="w">    </span><span class="c1">// Start the service and listen on the given port.</span>
 </span><span id="__span-0-73"><a id="__codelineno-0-73" name="__codelineno-0-73" href="#__codelineno-0-73"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="o">*</span><span class="nx">listenAddr</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
@@ -2223,21 +2224,50 @@
 </span><span id="__span-0-75"><a id="__codelineno-0-75" name="__codelineno-0-75" href="#__codelineno-0-75"></a><span class="w">        </span><span class="nx">hplog</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 </span><span id="__span-0-76"><a id="__codelineno-0-76" name="__codelineno-0-76" href="#__codelineno-0-76"></a><span class="w">    </span><span class="p">}</span>
 </span><span id="__span-0-77"><a id="__codelineno-0-77" name="__codelineno-0-77" href="#__codelineno-0-77"></a><span class="p">}</span>
-</span></code></pre></div>
-<p>Output of the code with an incorrect <code>my-secret</code> value:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>romdalf@minime ~/dev/opensource/beezy-dev/verbose-couscous (main*) $ go run docs/sources/hello-path-go/main.go --my-secret 1234
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>[GO] 2024/04/17 20:37:55 Creating a hello path web service with logger
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>[GO] 2024/04/17 20:37:55 Connection to remote service: nok. Check my-secret parameter.
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>[GO] 2024/04/17 20:37:55 Note: my-secret value is 1234 while expecting 4321
 </span></code></pre></div></p>
-<p>Output of the code with a correct <code>my-secret</code> value: 
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>romdalf@minime ~/dev/opensource/beezy-dev/verbose-couscous (main*) $ go run docs/sources/hello-path-go/main.go --my-secret 4321
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>[GO] 2024/04/17 20:38:17 Creating a hello path web service with logger
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>[GO] 2024/04/17 20:38:17 Connection to remote service: ok
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>[GO] 2024/04/17 20:38:17 Web service accessible at 0.0.0.0:8080
+<p>Output of the code with no parameters results in an incorrect <code>mysecret</code> value: 
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>romdalf@minime ~/dev/opensource/beezy-dev/verbose-couscous (main) $ go run docs/sources/hello-path-go/main.go                             
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>[hello-path-go-main] 2024/04/18 11:16:44 ------------------------------------------------------------
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>[hello-path-go-main] 2024/04/18 11:16:44 hello-path-go - a simple web service returning the URL path.
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>[hello-path-go-main] 2024/04/18 11:16:44 ------------------------------------------------------------
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>[hello-path-go-main] 2024/04/18 11:16:44 Web service initialization...
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>[hello-path-go-main] 2024/04/18 11:16:44 Note: mysecret value is 1234 while expected value is 4321.
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>[hello-path-go-main] 2024/04/18 11:16:44 FATAL: connection to remote service failed. Check mysecret parameter.
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>exit status 1
+</span></code></pre></div></p>
+<p>Output of the code with the correct value set for <code>my-secret</code> results in a working web service <strong>with a security exposure</strong>: 
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>romdalf@minime ~/dev/opensource/beezy-dev/verbose-couscous (main*) $ go run docs/sources/hello-path-go/main.go --mysecret 4321
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>[hello-path-go-main] 2024/04/18 11:17:59 ------------------------------------------------------------
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>[hello-path-go-main] 2024/04/18 11:17:59 hello-path-go - a simple web service returning the URL path.
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>[hello-path-go-main] 2024/04/18 11:17:59 ------------------------------------------------------------
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>[hello-path-go-main] 2024/04/18 11:17:59 Web service initialization...
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>[hello-path-go-main] 2024/04/18 11:17:59 Connection to remote service: ok.
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>[hello-path-go-main] 2024/04/18 11:17:59 Web service accessible at 0.0.0.0:8080
 </span></code></pre></div></p>
 <h3 id="the-deployment">the deployment</h3>
-<p>The initial image has been built based on the above code which is also available <a href="https://github.com/beezy-dev/verbose-couscous/tree/main/docs/sources/hello-path-go">here</a>. </p>
+<p>The initial image has been built using the following <code>Containerfile</code>
+<div class="language-INI highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="na">FROM docker.io/library/golang</span><span class="o">:</span><span class="s">1.22.0-bullseye AS build</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="na">WORKDIR /work</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># Copy the source</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="na">COPY ./* /work/</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="na">WORKDIR /work/</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="na">RUN CGO_ENABLED</span><span class="o">=</span><span class="s">1 GOOS=linux GO111MODULE=on go build -a -installsuffix cgo main.go</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="na">FROM quay.io/centos/centos</span><span class="o">:</span><span class="s">stream9-minimal</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="na">LABEL org.opencontainers.image.source</span><span class="o">=</span><span class="s">https://github.com/beezy-dev/kleidi</span><span class="w"> </span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="na">LABEL org.opencontainers.image.title</span><span class="o">=</span><span class="s">&quot;hello-path-go&quot;</span><span class="w"> </span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="na">LABEL org.opencontainers.image.vendor</span><span class="o">=</span><span class="s">&quot;beeyz.dev&quot;</span><span class="w"> </span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="na">LABEL org.opencontainers.image.licenses</span><span class="o">=</span><span class="s">&quot;Apache-2.0&quot;</span><span class="w"> </span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="na">LABEL org.opencontainers.image.documentation</span><span class="o">=</span><span class="s">&quot;https://beezy.dev/application/envreload/&quot;</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="na">COPY --from</span><span class="o">=</span><span class="s">build ./work/main ./main</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="na">ENTRYPOINT [ &quot;./main&quot; ]</span>
+</span></code></pre></div></p>
 <h2 id="reload-restart-redeploy">reload, restart, redeploy</h2>
 <h3 id="redeploy">redeploy</h3>
 <h3 id="restart">restart</h3>
