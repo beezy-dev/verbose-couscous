@@ -77,7 +77,7 @@ The image tag is ```ghcr.io/beezy-dev/hello-path-go:v0.1``` for any deployment t
 
 ### the deployment
 
-#### no arg deployment
+#### no arg
 The ```Deployment``` manfiest:
 ```YAML
 --8<-- "sources/hello-path-go/Deployment.yaml"
@@ -128,7 +128,11 @@ kubectl delete -f docs/sources/hello-path-go/Deployment.yaml
 deployment.apps "hello-path-go-deployment" deleted
 ```
 
-#### deployment with explicit mysecret
+#### mysecret arg
+
+To confirm that our application works, the code includes a flag called ```mysecret``` setting the secret as an argument.   
+**However, this is a clear security exposure that should never be considered for a production-grade environment.**
+
 
 The ```Deployment``` manifest:
 ```YAML
@@ -171,7 +175,8 @@ kubectl logs pod/hello-path-go-deployment-54fdf8687b-hq9lh
 [hello-path-go-main] 2024/04/18 19:19:15 Web service accessible at 0.0.0.0:8080
 ```
 
-The explicit secret export allow the mockup connection to succeed and start the web service. **However, this is a clear security exposure that should never be considered for a production-grade environment.**
+The explicit secret export allow the mockup connection to succeed and start the web service.   
+**However, this is a clear security exposure that should never be considered for a production-grade environment.**
 
 Let's delete the ```Deployment```. 
 
@@ -181,7 +186,6 @@ kubectl delete -f docs/sources/hello-path-go/Deployment-mysecret.yam
 ```
 deployment.apps "hello-path-go-deployment" deleted
 ```
-
 
 ## reload, restart, redeploy 
 
