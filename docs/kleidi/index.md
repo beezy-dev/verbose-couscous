@@ -4,12 +4,17 @@
 
 Initially, [romdalf](https://github.com/romdalf) founded [Trousseau](https://trousseau.io) in 2019 and released a production-grade KMSv1 provider plugin during his tenure at Ondat.  
 
-With the Kubernetes project moving to KMSv2 stable with version 1.29 and KMSv1 being deprecated since 1.27, a decision needed to be made regarding rewriting the plugin, leading to the creation of kleidi.
+With the Kubernetes project moving to KMSv2 stable with version 1.29 and KMSv1 being deprecated since 1.27, a decision needed to be made regarding Trousseau. 
+Why? Simply put, the changes between KMSv1 and KMSv2 are significant, and instead of spending effort and time adapting the code, rewriting was faster, leading to the creation of Kleidi. 
 
 The origin is Greek, and the meaning is "key". (Source: [Wikipedia](https://en.wiktionary.org/wiki/%CE%BA%CE%BB%CE%B5%CE%B9%CE%B4%CE%AF))
 
 The project repository is available here: [kleidi](https://github.com/beezy-dev/kleidi)
 
+!!! warning "Deprecation Notice"
+
+    The Kubernetes provider plugin Trousseau is deprecated as it only supports KMSv1. In a production-grade environment,
+    it is highly advised to deploy a plugin supporting KMSv2, like Kleidi. 
 
 ## implementation
 kleidi has bootstrapped a code base from the [Kunernetes mock KMS plugin](https://github.com/kubernetes/kms/tree/master/internal/plugins/_mock). This provides a PKCS#11 interface for a local software HSM like [SoftHSM](https://www.opendnssec.org/softhsm/).
