@@ -49,7 +49,7 @@ class TestBeezyDevWebsite(unittest.TestCase):
         self.assertIn("AI Data Foundations & Pipeline Architecture", html)
         self.assertIn("SPEC-02", html)
         self.assertIn("Zero-Trust Cryptography & Secrets Architecture", html)
-        self.assertNotIn("Zero-Trust Cryptography (KMS)", html)  # Ensure (KMS) was removed
+        self.assertNotIn("Zero-Trust Cryptography (KMS)", html)
         self.assertIn("SPEC-03", html)
         self.assertIn("Enterprise Platform Scale & Storage (CSI)", html)
         self.assertIn("SPEC-04", html)
@@ -82,13 +82,13 @@ class TestBeezyDevWebsite(unittest.TestCase):
             self.assertTrue(full_path.exists(), f"Referenced asset not found: {rel_path}")
 
     def test_github_workflow_structure(self):
-        """Verify publish.yml uses GitHub Pages deploy pattern with GITHUB_TOKEN."""
+        """Verify publish.yml deploys to gh-pages branch without external secrets."""
         workflow_path = SITE_DIR / ".github" / "workflows" / "publish.yml"
         content = workflow_path.read_text(encoding="utf-8")
-        self.assertIn("peaceiris/actions-gh-pages@v4", content)
-        self.assertIn("secrets.GITHUB_TOKEN", content)
-        self.assertIn("cname: beezy.dev", content)
-        self.assertNotIn("INSIDERS", content)  # Private token eliminated
+        self.assertIn("gh-pages", content)
+        self.assertIn("git push origin HEAD:gh-pages --force", content)
+        self.assertNotIn("INSIDERS", content)
+        self.assertNotIn("peaceiris", content)
 
 if __name__ == "__main__":
     unittest.main()

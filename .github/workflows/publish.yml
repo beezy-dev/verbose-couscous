@@ -23,11 +23,26 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Deploy to GitHub Pages (gh-pages branch)
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
-          publish_branch: gh-pages
-          exclude_assets: '.git,.github,_archive_mkdocs,_design_previews'
-          cname: beezy.dev
+      - name: Deploy to gh-pages branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # 1. Stage clean production payload in temporary directory
+          PAYLOAD_DIR=$(mktemp -d)
+          cp index.html CNAME .nojekyll "$PAYLOAD_DIR/"
+          cp -r images "$PAYLOAD_DIR/"
+
+          # 2. Switch to an orphan deploy branch and reset working tree
+          git checkout --orphan gh-pages-deploy
+          git rm -rf .
+
+          # 3. Populate root with static production payload
+          cp -r "$PAYLOAD_DIR"/* .
+          cp "$PAYLOAD_DIR"/.nojekyll .
+          rm -rf "$PAYLOAD_DIR"
+
+          # 4. Commit and force-push to gh-pages
+          git add -A
+          git commit -m "Deploy beezy.dev to gh-pages [skip ci]" || echo "No changes to deploy"
+          git push origin HEAD:gh-pages --force
