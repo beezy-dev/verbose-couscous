@@ -43,17 +43,24 @@ class TestBeezyDevWebsite(unittest.TestCase):
         # Title and Branding
         self.assertIn("beezy.dev", html)
         self.assertIn("Technical Stewardship & Deep Systems Engineering", html)
+        self.assertNotIn("1 SLOT AVAILABLE", html)
+        self.assertNotIn("OpenShift", html)
 
-        # 4 Core Specifications
+        # 4 Core Specifications with exact titles
         self.assertIn("SPEC-01", html)
-        self.assertIn("AI Data Foundations & Pipeline Architecture", html)
+        self.assertIn("Data Foundations for Agentic Access", html)
+        self.assertIn("Deterministic vs probabilistic data topology", html)
+
         self.assertIn("SPEC-02", html)
-        self.assertIn("Zero-Trust Cryptography & Secrets Architecture", html)
+        self.assertIn("Zero-Trust Cryptography Architecture", html)
         self.assertNotIn("Zero-Trust Cryptography (KMS)", html)
+
         self.assertIn("SPEC-03", html)
-        self.assertIn("Enterprise Platform Scale & Storage (CSI)", html)
+        self.assertIn("Enterprise Platform Scale", html)
+        self.assertIn("Ex-Red Hat Mega-Scale Kubernetes", html)
+
         self.assertIn("SPEC-04", html)
-        self.assertIn("AIMES: AI Manufacturing Execution System", html)
+        self.assertIn("AI Manufacturing Execution System (AIMES)", html)
 
         # Verified Artifacts (No Emojis, Bracketed Tags)
         self.assertIn("[PUB]", html)
