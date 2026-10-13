@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>beezy.dev — Fractional CTO & Principal Infrastructure Advisory</title>
+  <meta name="description" content="Strategic engineering advisory for AI data infrastructure, zero-trust cryptographic systems, and large-scale Kubernetes platforms.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #060709;
+      --surface-1: #0d0f14;
+      --surface-2: #131720;
+      --surface-glass: rgba(13, 15, 20, 0.7);
+      --border-subtle: #1a202c;
+      --border-hover: rgba(245, 158, 11, 0.4);
+      --gold: #fbbf24;
+      --honey: #f59e0b;
+      --amber-dark: #b45309;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-tertiary: #64748b;
+      --font-heading: 'Plus Jakarta Sans', sans-serif;
+      --font-code: 'Space Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-heading);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Ambient background glow & honeycomb motif */
+    .ambient-glow {
+      position: fixed;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, rgba(6, 7, 9, 0) 70%);
+      top: -200px;
+      right: -100px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ambient-glow-2 {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(217, 119, 6, 0.05) 0%, rgba(6, 7, 9, 0) 70%);
+      bottom: -150px;
+      left: -150px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Navigation */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--amber-dark) 100%);
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 900;
+      color: #060709;
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-code);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--bg);
+      background: var(--gold);
+      padding: 10px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-cta:hover {
+      background: #ffffff;
+      transform: scale(1.03);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 100px 0 80px;
+      max-width: 960px;
+    }
+
+    .badge-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-code);
+      font-size: 12px;
+      color: var(--gold);
+      background: rgba(251, 191, 36, 0.08);
+      border: 1px solid rgba(251, 191, 36, 0.2);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .hero-h1 {
+      font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      margin-bottom: 28px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 30%, #fbbf24 80%, #d97706 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-p {
+      font-size: 1.3rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      font-weight: 400;
+      margin-bottom: 40px;
+      max-width: 800px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-solid {
+      background: var(--gold);
+      color: #060709;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 20px rgba(245, 158, 11, 0.2);
+    }
+
+    .btn-solid:hover {
+      background: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(245, 158, 11, 0.35);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      background: var(--surface-1);
+    }
+
+    /* Social Proof Bar */
+    .authority-banner {
+      padding: 36px 0;
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+      margin: 40px 0 80px;
+    }
+
+    .authority-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 860px) {
+      .authority-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .authority-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .authority-metric {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: -0.02em;
+    }
+
+    .authority-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* Core Disciplines */
+    .section-title-wrap {
+      margin-bottom: 56px;
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-code);
+      font-size: 11px;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .section-heading {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .disciplines-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-bottom: 90px;
+    }
+
+    @media (max-width: 980px) {
+      .disciplines-cards { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 36px 30px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .card:hover {
+      border-color: var(--border-hover);
+      background: var(--surface-2);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(245, 158, 11, 0.08);
+    }
+
+    .card-hex-id {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-code);
+      font-size: 12px;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .card-body {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 28px;
+      flex-grow: 1;
+    }
+
+    .card-deliverables {
+      list-style: none;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .card-deliverables li {
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      padding: 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-deliverables li svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* Authority Ledger */
+    .authority-ledger {
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 48px;
+      margin-bottom: 90px;
+    }
+
+    .ledger-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+
+    @media (max-width: 768px) {
+      .ledger-grid { grid-template-columns: 1fr; }
+    }
+
+    .ledger-block h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    .ledger-block p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill-tag {
+      font-family: var(--font-code);
+      font-size: 11px;
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      color: var(--gold);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* Engagement Framework */
+    .framework-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 90px;
+    }
+
+    @media (max-width: 860px) {
+      .framework-steps { grid-template-columns: 1fr; }
+    }
+
+    .step-box {
+      border: 1px solid var(--border-subtle);
+      background: var(--surface-1);
+      border-radius: 10px;
+      padding: 32px 24px;
+      position: relative;
+    }
+
+    .step-num {
+      font-family: var(--font-code);
+      font-size: 12px;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .step-box h4 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .step-box p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    /* CTA Section */
+    .cta-card {
+      background: radial-gradient(circle at top right, rgba(245, 158, 11, 0.15), var(--surface-1) 60%);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 16px;
+      padding: 60px 48px;
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .cta-card h2 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .cta-card p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 650px;
+      margin: 0 auto 32px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 40px 0 60px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-tertiary);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow"></div>
+  <div class="ambient-glow-2"></div>
+
+  <div class="container">
+
+    <!-- Navigation -->
+    <header class="navbar">
+      <a href="#" class="brand">
+        <div class="brand-icon">B</div>
+        <span class="brand-title">beezy<span style="color: var(--gold);">.dev</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#disciplines">Disciplines</a></li>
+        <li><a href="#authority">Published Authority</a></li>
+        <li><a href="#framework">Engagement Framework</a></li>
+      </ul>
+      <a href="mailto:rom@beezy.dev" class="nav-cta">Schedule Briefing →</a>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="badge-label">
+        <span class="badge-dot"></span>
+        <span>PRINCIPAL SYSTEMS & FRACTIONAL CTO ADVISORY</span>
+      </div>
+      <h1 class="hero-h1">
+        Architecting the substrate for <span class="gradient-text">AI, Cryptography, and Cloud-Native Scale</span>.
+      </h1>
+      <p class="hero-p">
+        High-growth technology organizations reach inflection points where architectural missteps turn catastrophic. We deliver fractional CTO leadership and deep-tier systems engineering to build resilient, sovereign platforms.
+      </p>
+      <div class="hero-buttons">
+        <a href="mailto:rom@beezy.dev" class="btn-solid">Request Architectural Briefing</a>
+        <a href="#disciplines" class="btn-outline">Explore Disciplines</a>
+      </div>
+    </section>
+
+    <!-- Authority Metrics -->
+    <section class="authority-banner">
+      <div class="authority-grid">
+        <div class="authority-item">
+          <div class="authority-metric">20+ Yrs</div>
+          <div class="authority-desc">Enterprise Infrastructure & Systems Leadership</div>
+        </div>
+        <div class="authority-item">
+          <div class="authority-metric">Author</div>
+          <div class="authority-desc">Kubernetes Secrets Handbook (Packt Publishing)</div>
+        </div>
+        <div class="authority-item">
+          <div class="authority-metric">KMSv1 / v2</div>
+          <div class="authority-desc">Author of Trousseau & Kleidi Provider Plugins</div>
+        </div>
+        <div class="authority-item">
+          <div class="authority-metric">Mega-Scale</div>
+          <div class="authority-desc">Ex-Red Hat Architect for Global OpenShift Fleets</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Disciplines -->
+    <section id="disciplines">
+      <div class="section-title-wrap">
+        <span class="section-eyebrow">// AREAS OF INTERVENTION</span>
+        <h2 class="section-heading">Three Core Engineering Disciplines</h2>
+      </div>
+
+      <div class="disciplines-cards">
+
+        <!-- Card 1 -->
+        <div class="card">
+          <div class="card-hex-id">
+            <span>DISCIPLINE 01</span>
+          </div>
+          <h3 class="card-title">AI Infrastructure & Data Pipelines</h3>
+          <p class="card-body">
+            Architecting modern data layers from ingestion to vector access. Eliminating data bottlenecks, optimizing GPU node utilization, and establishing resilient pipelines.
+          </p>
+          <ul class="card-deliverables">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              High-throughput data access & streaming architecture
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              GPU resource scheduling & inference economics
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Vector database & model serving topology
+            </li>
+          </ul>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+          <div class="card-hex-id">
+            <span>DISCIPLINE 02</span>
+          </div>
+          <h3 class="card-title">Zero-Trust Security & Cryptography</h3>
+          <p class="card-body">
+            Authorial mastery in Kubernetes cryptographic boundaries. Designing envelope encryption, KMSv2 gRPC providers, PKCS#11 hardware integration, and secret lifecycles.
+          </p>
+          <ul class="card-deliverables">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              KMSv2 Provider implementation (HSM & Vault)
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Automated secret rotation & etcd mitigation
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Defense-in-depth audits for regulated compliance
+            </li>
+          </ul>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+          <div class="card-hex-id">
+            <span>DISCIPLINE 03</span>
+          </div>
+          <h3 class="card-title">Cloud-Native Storage & Platform Scale</h3>
+          <p class="card-body">
+            Author of custom CSI drivers and former principal architect behind Fortune 500 OpenShift deployments. Resolving deep storage, network policy, and multi-cluster friction.
+          </p>
+          <ul class="card-deliverables">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Custom CSI driver authoring & POSIX storage tuning
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Multi-cluster network policies & mesh interconnect
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              OpenShift & hybrid cloud modernization strategy
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Authority Ledger -->
+    <section id="authority" class="authority-ledger">
+      <div class="ledger-grid">
+        <div class="ledger-block">
+          <h3>Published Book</h3>
+          <p>
+            <strong>Kubernetes Secrets Handbook</strong> (Packt Publishing, 2024). The industry standard guide to envelope encryption, KMS plugins, and zero-trust Kubernetes architectures.
+          </p>
+          <div class="tag-container">
+            <span class="pill-tag">Packt Publishing</span>
+            <span class="pill-tag">Amazon Bestseller</span>
+            <span class="pill-tag">KMSv2 Spec</span>
+          </div>
+        </div>
+
+        <div class="ledger-block">
+          <h3>Open Source & Production Code</h3>
+          <p>
+            Creator of <strong>Kleidi</strong> and <strong>Trousseau</strong>. Technical reviewer of multiple cloud-native titles. CSI driver contributor with extensive production battle testing.
+          </p>
+          <div class="tag-container">
+            <span class="pill-tag">github.com/beezy-dev/kleidi</span>
+            <span class="pill-tag">trousseau.io</span>
+            <span class="pill-tag">CSI Driver</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Engagement Framework -->
+    <section id="framework">
+      <div class="section-title-wrap">
+        <span class="section-eyebrow">// HOW WE WORK</span>
+        <h2 class="section-heading">Structured Engagement Framework</h2>
+      </div>
+
+      <div class="framework-steps">
+        <div class="step-box">
+          <div class="step-num">PHASE 01 // 2 WEEKS</div>
+          <h4>Architecture Diagnostic</h4>
+          <p>Exhaustive evaluation of data pipelines, KMS configuration, or Kubernetes infrastructure with a high-fidelity findings ledger.</p>
+        </div>
+        <div class="step-box">
+          <div class="step-num">PHASE 02 // 4 WEEKS</div>
+          <h4>Remediation & Prototype Spike</h4>
+          <p>Direct implementation of mission-critical primitives: KMS provider setup, custom CSI tweaks, or data pipeline orchestration.</p>
+        </div>
+        <div class="step-box">
+          <div class="step-num">PHASE 03 // ONGOING</div>
+          <h4>Fractional CTO Stewardship</h4>
+          <p>1–2 days per week advising the executive team, steering vendor selections, and mentoring senior engineering leads.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-card">
+      <h2>Let's Discuss Your Architectural Frontier</h2>
+      <p>Whether you require fractional CTO governance or a deep-dive security and storage audit, start with a direct technical discussion.</p>
+      <a href="mailto:rom@beezy.dev" class="btn-solid" style="display: inline-block;">Dispatch Executive Inquiry</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div>beezy.dev &copy; 2026 Rom Adams (romdalf). All rights reserved.</div>
+      <div>Operating in EMEA & US-East timezone windows.</div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

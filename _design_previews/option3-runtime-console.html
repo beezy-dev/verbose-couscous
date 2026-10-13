@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>beezy.dev [v2.4] // RUNTIME CONSOLE</title>
+  <meta name="description" content="Terminal telemetry interface for Rom Adams — Fractional CTO & Principal Systems Engineer.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000000;
+      --panel: #0a0c10;
+      --border: #222733;
+      --border-bright: #384257;
+      --yellow: #eab308;
+      --amber: #f59e0b;
+      --green: #10b981;
+      --blue: #38bdf8;
+      --text: #f3f4f6;
+      --text-dim: #6b7280;
+      --text-muted: #9ca3af;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.6;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .shell-window {
+      max-width: 1200px;
+      margin: 0 auto;
+      border: 1px solid var(--border-bright);
+      background: var(--panel);
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), 0 0 20px rgba(234, 179, 8, 0.05);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    /* Window Header */
+    .window-header {
+      background: #11141c;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+    }
+
+    .window-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-muted);
+    }
+
+    .dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: var(--yellow); }
+    .dot-green { background: var(--green); }
+
+    .telemetry-badges {
+      display: flex;
+      gap: 16px;
+      color: var(--text-dim);
+    }
+
+    .badge-item {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .badge-item strong {
+      color: var(--yellow);
+    }
+
+    .badge-green {
+      color: var(--green);
+    }
+
+    /* Main Console Area */
+    .console-body {
+      padding: 28px;
+    }
+
+    .prompt-row {
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .prompt-user {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .prompt-cmd {
+      color: var(--text);
+    }
+
+    .prompt-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 15px;
+      background: var(--yellow);
+      animation: blink 1s infinite step-start;
+      vertical-align: middle;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    /* Manifest Window */
+    .manifest-box {
+      background: #050608;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--yellow);
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      font-size: 12.5px;
+      color: #d1d5db;
+    }
+
+    .manifest-key { color: #f43f5e; font-weight: 600; }
+    .manifest-val { color: var(--yellow); }
+    .manifest-str { color: #34d399; }
+    .manifest-comment { color: #6b7280; font-style: italic; }
+
+    /* Interactive Filters */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: #11141c;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 6px 14px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      border-radius: 2px;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--yellow);
+      color: #ffffff;
+    }
+
+    .filter-btn.active {
+      background: var(--yellow);
+      color: #000000;
+      border-color: var(--yellow);
+      font-weight: 700;
+    }
+
+    /* Telemetry Table */
+    .table-container {
+      overflow-x: auto;
+      margin-bottom: 36px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 12px;
+    }
+
+    th {
+      background: #11141c;
+      color: var(--yellow);
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+    }
+
+    td {
+      padding: 14px;
+      border: 1px solid var(--border);
+      color: #e5e7eb;
+      vertical-align: top;
+    }
+
+    tr:hover td {
+      background: rgba(234, 179, 8, 0.03);
+    }
+
+    .pill-status {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 2px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .status-active {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--green);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .status-author {
+      background: rgba(234, 179, 8, 0.15);
+      color: var(--yellow);
+      border: 1px solid rgba(234, 179, 8, 0.3);
+    }
+
+    /* Track Record Boxes */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 36px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    .card-block {
+      background: #080a0f;
+      border: 1px solid var(--border);
+      padding: 20px;
+    }
+
+    .card-header {
+      color: var(--yellow);
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .card-content {
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .card-content strong {
+      color: #ffffff;
+    }
+
+    /* CLI Contact Bar */
+    .interactive-cli {
+      background: #050608;
+      border: 1px solid var(--border-bright);
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .cli-title {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .quick-commands {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .cmd-chip {
+      background: #11141c;
+      border: 1px solid var(--border);
+      color: var(--yellow);
+      padding: 6px 12px;
+      font-size: 11px;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.15s;
+    }
+
+    .cmd-chip:hover {
+      background: var(--yellow);
+      color: #000000;
+      font-weight: 700;
+    }
+
+    .terminal-output-box {
+      background: #000000;
+      border: 1px solid var(--border);
+      padding: 14px;
+      color: #94a3b8;
+      font-size: 12px;
+      min-height: 60px;
+      font-family: var(--font-mono);
+    }
+
+    /* Footer */
+    .console-footer {
+      border-top: 1px solid var(--border);
+      padding: 14px 28px;
+      background: #080a0f;
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-dim);
+      font-size: 11px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="shell-window">
+
+    <!-- Window Top Header -->
+    <div class="window-header">
+      <div class="window-title">
+        <div class="dots">
+          <div class="dot dot-red"></div>
+          <div class="dot dot-yellow"></div>
+          <div class="dot dot-green"></div>
+        </div>
+        <span>beezy.dev — session://advisory-prod-01</span>
+      </div>
+      <div class="telemetry-badges">
+        <div class="badge-item">LOCATION: <strong>EMEA / GLOBAL</strong></div>
+        <div class="badge-item">UPTIME: <strong>20Y+</strong></div>
+        <div class="badge-item">STATUS: <span class="badge-green">● READY</span></div>
+      </div>
+    </div>
+
+    <!-- Console Workspace -->
+    <div class="console-body">
+
+      <!-- Command Prompt -->
+      <div class="prompt-row">
+        <span class="prompt-user">beezy@gateway:~$</span>
+        <span class="prompt-cmd">cat /etc/beezy/manifest.yaml</span>
+        <span class="prompt-cursor"></span>
+      </div>
+
+      <!-- Declarative Manifest -->
+      <div class="manifest-box">
+        <span class="manifest-key">apiVersion</span>: <span class="manifest-val">advisory.beezy.dev/v1alpha1</span><br>
+        <span class="manifest-key">kind</span>: <span class="manifest-val">PrincipalConsultant</span><br>
+        <span class="manifest-key">metadata</span>:<br>
+        &nbsp;&nbsp;<span class="manifest-key">name</span>: <span class="manifest-str">"rom-adams"</span> <span class="manifest-comment"># alias: romdalf</span><br>
+        &nbsp;&nbsp;<span class="manifest-key">advisoryRole</span>: <span class="manifest-str">"Fractional CTO & Principal Systems Architect"</span><br>
+        <span class="manifest-key">spec</span>:<br>
+        &nbsp;&nbsp;<span class="manifest-key">domainExpertise</span>:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;- <span class="manifest-val">ai_data</span>: [<span class="manifest-str">"zero-copy ingestion"</span>, <span class="manifest-str">"vector access"</span>, <span class="manifest-str">"GPU economics"</span>, <span class="manifest-str">"pipeline orchestration"</span>]<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;- <span class="manifest-val">security_kms</span>: [<span class="manifest-str">"author: Kubernetes Secrets Handbook"</span>, <span class="manifest-str">"creator: Kleidi KMSv2 & Trousseau KMSv1"</span>, <span class="manifest-str">"PKCS#11 / HSM"</span>]<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;- <span class="manifest-val">cloud_native</span>: [<span class="manifest-str">"CSI driver author"</span>, <span class="manifest-str">"ex-Red Hat OpenShift mega-fleet architect"</span>, <span class="manifest-str">"book reviewer"</span>]<br>
+        &nbsp;&nbsp;<span class="manifest-key">availability</span>: <span class="manifest-str">"1 Retainer Slot Open (Q3/Q4 2026)"</span>
+      </div>
+
+      <!-- Dynamic Filter Buttons -->
+      <div class="filter-bar">
+        <span style="color: var(--text-dim); align-self: center; font-size: 11px; margin-right: 6px;">[FILTER SPEC]:</span>
+        <button class="filter-btn active" onclick="filterTable('all')">ALL DISCIPLINES (3)</button>
+        <button class="filter-btn" onclick="filterTable('ai')">AI DATA & PIPELINES</button>
+        <button class="filter-btn" onclick="filterTable('security')">SECURITY & KMS</button>
+        <button class="filter-btn" onclick="filterTable('k8s')">KUBERNETES & STORAGE</button>
+      </div>
+
+      <!-- Telemetry Matrix Table -->
+      <div class="table-container">
+        <table id="matrix-table">
+          <thead>
+            <tr>
+              <th style="width: 15%;">DISCIPLINE</th>
+              <th style="width: 25%;">CORE TECHNICAL CAPABILITY</th>
+              <th style="width: 30%;">VERIFIED PRODUCTION ARTIFACT</th>
+              <th style="width: 20%;">ENGAGEMENT DELIVERABLE</th>
+              <th style="width: 10%;">STATUS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- AI Row -->
+            <tr data-cat="ai">
+              <td><span style="color: var(--yellow); font-weight: 700;">AI_DATA</span></td>
+              <td>High-throughput data ingestion, vector database access topology, GPU node autoscaling & inference cost governance.</td>
+              <td>Production pipelines, streaming ETL architectures, telemetry & data access benchmarks.</td>
+              <td>Zero-copy pipeline blueprints & inference cluster cost optimization.</td>
+              <td><span class="pill-status status-active">ACTIVE</span></td>
+            </tr>
+
+            <!-- Security Row -->
+            <tr data-cat="security">
+              <td><span style="color: var(--yellow); font-weight: 700;">SECURITY_KMS</span></td>
+              <td>Zero-trust Kubernetes secret lifecycle, KMSv2 gRPC providers, PKCS#11 hardware security modules (HSM), etcd envelope encryption.</td>
+              <td>
+                • Author: <strong>Kubernetes Secrets Handbook</strong> (Packt 2024)<br>
+                • Creator: <strong>Kleidi</strong> (KMSv2) & <strong>Trousseau</strong> (KMSv1)
+              </td>
+              <td>KMSv2 integration spike, threat modeling, & compliance audits.</td>
+              <td><span class="pill-status status-author">AUTHOR</span></td>
+            </tr>
+
+            <!-- K8s / Storage Row -->
+            <tr data-cat="k8s">
+              <td><span style="color: var(--yellow); font-weight: 700;">K8S_STORAGE</span></td>
+              <td>Custom CSI storage drivers, POSIX file tuning, multi-cluster OpenShift fabrics, stateful workloads & network isolation.</td>
+              <td>
+                • CSI Driver author (Ondat/Akamai)<br>
+                • Ex-Red Hat Principal: built one of the largest OpenShift platforms<br>
+                • Technical reviewer of Kubernetes books
+              </td>
+              <td>Custom CSI development, hybrid platform architecture, & performance tuning.</td>
+              <td><span class="pill-status status-active">ACTIVE</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Key Artifacts Split View -->
+      <div class="grid-2">
+        <div class="card-block">
+          <div class="card-header">
+            <span>[PUB-01] THE BOOK</span>
+            <span style="color: var(--text-dim); font-size: 11px;">PACKT PUBLISHING / 2024</span>
+          </div>
+          <div class="card-content">
+            <strong>Kubernetes Secrets Handbook</strong><br>
+            A practical guide to designing, implementing, and operating production-grade Kubernetes secrets management, envelope encryption, and Vault/KMS integrations.
+          </div>
+        </div>
+
+        <div class="card-block">
+          <div class="card-header">
+            <span>[FOSS-02] KMS PROVIDERS</span>
+            <span style="color: var(--text-dim); font-size: 11px;">GITHUB: BEEZY-DEV</span>
+          </div>
+          <div class="card-content">
+            <strong>Kleidi & Trousseau</strong><br>
+            Pioneering open-source KMS providers for the Kubernetes API server, bridging cloud-native workloads with Hardware Security Modules (PKCS#11/SoftHSM) and Vault.
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Shell Execution Box -->
+      <div class="interactive-cli">
+        <div class="cli-title">Interactive Console Commands (Click to Execute)</div>
+        <div class="quick-commands">
+          <button class="cmd-chip" onclick="runCommand('cat credentials')">cat credentials</button>
+          <button class="cmd-chip" onclick="runCommand('get engagement-modes')">get engagement-modes</button>
+          <button class="cmd-chip" onclick="runCommand('curl contact')">curl contact</button>
+          <button class="cmd-chip" onclick="runCommand('clear')">clear</button>
+        </div>
+        <div id="terminal-output" class="terminal-output-box">
+          Click any command above or initiate direct contact at rom@beezy.dev...
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer Status -->
+    <div class="console-footer">
+      <div>beezy.dev &bull; Rom Adams &bull; Principal Systems Advisory</div>
+      <div>SHELL: /bin/zsh &bull; PROTOCOL: SECURE-TLS &bull; NO TRACKERS</div>
+    </div>
+
+  </div>
+
+  <script>
+    function filterTable(category) {
+      const rows = document.querySelectorAll('#matrix-table tbody tr');
+      const buttons = document.querySelectorAll('.filter-btn');
+
+      buttons.forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+
+      rows.forEach(row => {
+        if (category === 'all' || row.dataset.cat === category) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    function runCommand(cmd) {
+      const output = document.getElementById('terminal-output');
+      if (cmd === 'cat credentials') {
+        output.innerHTML = `[OK] CREDENTIALS INSPECTION:<br>
+• Author: "Kubernetes Secrets Handbook" (Packt, 2024)<br>
+• OSS: Kleidi (KMSv2 PKCS#11) & Trousseau (KMSv1)<br>
+• Storage: CSI driver author (Ondat / Akamai)<br>
+• Platform: Ex-Red Hat Principal Architect (Mega-scale OpenShift platforms)<br>
+• Keynotes: KubeCon, FOSDEM, Red Hat Summit, HashiConf`;
+      } else if (cmd === 'get engagement-modes') {
+        output.innerHTML = `[OK] AVAILABLE ENGAGEMENT MODES:<br>
+1. FRACTIONAL CTO (1-2 days/week, executive architecture governance)<br>
+2. PLATFORM & SECURITY AUDIT (2-week deep-dive sprint with remediation roadmap)<br>
+3. HANDS-ON SPIKE (Critical-path implementation: CSI driver, KMS plugin, AI pipeline)`;
+      } else if (cmd === 'curl contact') {
+        output.innerHTML = `[OK] INITIATING DIRECT CONTACT CHANNEL:<br>
+• Email: <a href="mailto:rom@beezy.dev" style="color: var(--yellow);">rom@beezy.dev</a><br>
+• LinkedIn: <a href="https://www.linkedin.com/in/romdalf/" target="_blank" style="color: var(--yellow);">linkedin.com/in/romdalf</a><br>
+• GitHub: <a href="https://github.com/beezy-dev" target="_blank" style="color: var(--yellow);">github.com/beezy-dev</a><br>
+Dispatch an email to schedule an exploratory architectural briefing.`;
+      } else if (cmd === 'clear') {
+        output.innerHTML = 'Terminal cleared. Select a command above.';
+      }
+    }
+  </script>
+
+</body>
+</html>
