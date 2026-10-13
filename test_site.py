@@ -65,6 +65,8 @@ class TestBeezyDevWebsite(unittest.TestCase):
         # Verified Artifacts (No Emojis, Bracketed Tags)
         self.assertIn("[PUB]", html)
         self.assertIn("Kubernetes Secrets Handbook", html)
+        self.assertIn("The Kubernetes Bible", html)
+        self.assertIn("Kubernetes – An Enterprise Guide", html)
         self.assertIn("[OSS]", html)
         self.assertIn("Kleidi", html)
         self.assertIn("Trousseau", html)
