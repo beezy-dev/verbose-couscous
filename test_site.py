@@ -71,7 +71,7 @@ class TestBeezyDevWebsite(unittest.TestCase):
         self.assertIn("Kleidi", html)
         self.assertIn("Trousseau", html)
         self.assertIn("[SYS]", html)
-        self.assertIn("Flagship: AIMES Orchestration", html)
+        self.assertIn("Flagship: AIMES Orchestration Platform", html)
 
         # 3 Patents Pending
         self.assertIn("[PAT]", html)
@@ -79,6 +79,33 @@ class TestBeezyDevWebsite(unittest.TestCase):
         self.assertIn("Zero-trust architecture for secret handling", html)
         self.assertIn("Virtual file system projection", html)
         self.assertIn("Identity validation in agentic workflow", html)
+
+    def test_ada_and_accessibility_features(self):
+        """Verify ADA / WCAG 2.1 & 2.2 AA accessibility features in index.html."""
+        index_path = SITE_DIR / "index.html"
+        html = index_path.read_text(encoding="utf-8")
+
+        # Skip to main content link (WCAG 2.4.1)
+        self.assertIn('class="skip-link"', html)
+        self.assertIn('Skip to main content', html)
+        self.assertIn('id="main-content"', html)
+
+        # Focus visible styles (WCAG 2.4.7)
+        self.assertIn(':focus-visible', html)
+
+        # Reduced motion query (WCAG 2.3.3)
+        self.assertIn('@media (prefers-reduced-motion: reduce)', html)
+
+        # ARIA landmarks & screen reader enhancements (WCAG 1.3.1)
+        self.assertIn('aria-label=', html)
+        self.assertIn('aria-hidden="true"', html)
+        self.assertIn('role="region"', html)
+        self.assertIn('aria-live="polite"', html)
+
+        # Telemetry A11Y badge and interactive commands
+        self.assertIn('A11Y: WCAG-AA', html)
+        self.assertIn('toggleA11yContrast()', html)
+        self.assertIn('a11y --status', html)
 
     def test_asset_references(self):
         """Verify that local relative image references in index.html actually exist."""
