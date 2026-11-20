@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>beezy.dev // Open Systems Research &amp; Engineering</title>
+  <meta name="description"
+    content="Open systems research and engineering hub by Rom Adams (romdalf): Kleidi (Kubernetes KMSv2 provider plugin), AIMES (AI Manufacturing Execution System), and ENNOIA (agentic source control and cognitive lineage data plane).">
+
+  <!-- Open Graph / Social Metadata -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://beezy.dev/">
+  <meta property="og:title" content="beezy.dev // Open Systems Research &amp; Engineering">
+  <meta property="og:description"
+    content="Research and open systems engineering across data foundations for agentic access, zero-trust cryptography (Kleidi), AI manufacturing execution systems (AIMES), and cognitive lineage data planes (ENNOIA).">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="beezy.dev // Open Systems Research &amp; Engineering">
+  <meta name="twitter:description" content="Open technical logbook by Rom Adams (romdalf): Kleidi, AIMES, and ENNOIA.">
+
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      color-scheme: dark;
+      accent-color: #874bfd;
+      --backdrop: #0d0d0f;
+      --bg: #171717;
+      --bg-panel: #1f1f22;
+      --bg-hover: #26262b;
+      --code-bg: #111113;
+      --purple: #874bfd;
+      --purple-card: #6b46e5;
+      --purple-soft: #c4b5fd;
+      --pink: #d62e6e;
+      --pink-bright: #f25d94;
+      --mint: #43bf6d;
+      --mint-bright: #73f59f;
+      --border: #3c3c3c;
+      --text-main: #fafafa;
+      --text-muted: #b8b8be;
+      --status-bar: #353533;
+      --encoding-bg: #8b3fd0;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    body.a11y-high-contrast {
+      --backdrop: #000000;
+      --bg: #000000;
+      --bg-panel: #0a0a0c;
+      --bg-hover: #18181f;
+      --code-bg: #000000;
+      --border: #c4b5fd;
+      --text-main: #ffffff;
+      --text-muted: #ffffff;
+      --purple: #a78bfa;
+      --purple-soft: #ede9fe;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--backdrop);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      padding: clamp(0.5rem, 0.25rem + 1.5vw, 1.75rem);
+      overflow-x: clip;
+    }
+
+    ::selection {
+      background: var(--pink);
+      color: #ffffff;
+    }
+
+    p {
+      text-wrap: pretty;
+      overflow-wrap: break-word;
+    }
+
+    h1,
+    h2,
+    h3 {
+      text-wrap: balance;
+    }
+
+    .visually-hidden:where(:not(:focus-within, :active)) {
+      position: absolute !important;
+      clip-path: inset(50%) !important;
+      overflow: hidden !important;
+      width: 1px !important;
+      height: 1px !important;
+      margin: -1px !important;
+      padding: 0 !important;
+      border: 0 !important;
+      white-space: nowrap !important;
+    }
+
+    .skip-link {
+      position: fixed;
+      inset-block-start: -8rem;
+      inset-inline-start: 1rem;
+      background: var(--pink);
+      color: #ffffff;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.7rem 1.1rem;
+      z-index: 9999;
+      text-decoration: none;
+      border-radius: 0.25rem;
+      border: 2px solid #ffffff;
+    }
+
+    .skip-link:focus {
+      inset-block-start: 0.75rem;
+      outline: 3px solid var(--purple-soft);
+      outline-offset: 2px;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--pink-bright);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 4px rgba(135, 75, 253, 0.3);
+    }
+
+    /* Terminal Window Shell */
+    .term-window {
+      max-inline-size: 68rem;
+      margin-inline: auto;
+      background: var(--bg);
+      border: 1px solid #303036;
+      border-radius: 0.625rem;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.65);
+      overflow: hidden;
+    }
+
+    /* Window Titlebar + Lip Gloss Prompt + Folder Nav */
+    .term-header {
+      background: var(--bg);
+      padding: 0.85rem 1.35rem 0;
+    }
+
+    .term-bar-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: safe center;
+      flex-wrap: wrap;
+      gap: 0.75rem 1rem;
+      margin-block-end: 0.85rem;
+    }
+
+    .term-bar-left {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+    }
+
+    .term-dots {
+      display: inline-flex;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .term-dot {
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 50%;
+    }
+
+    .term-dot-red {
+      background: #ff5f56;
+    }
+
+    .term-dot-amber {
+      background: #ffbd2e;
+    }
+
+    .term-dot-green {
+      background: #27c93f;
+    }
+
+    .term-cmd {
+      font-size: 0.85rem;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .term-cmd-prompt {
+      color: var(--purple);
+      font-weight: 800;
+      margin-inline-end: 0.35rem;
+    }
+
+    .a11y-btn {
+      background: var(--bg-panel);
+      border: 1px solid var(--purple);
+      color: var(--purple-soft);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 600;
+      min-block-size: 2rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .a11y-btn:hover,
+    .a11y-btn[aria-pressed="true"] {
+      background: var(--purple);
+      color: #ffffff;
+    }
+
+    /* Lip Gloss Folder-Tab Navigation resting on purple baseline */
+    .lip-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      border-bottom: 1px solid var(--purple);
+      padding-block-start: 0.15rem;
+    }
+
+    .lip-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      min-block-size: 2.1rem;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid var(--purple);
+      border-bottom: none;
+      border-radius: 0.35rem 0.35rem 0 0;
+      background: var(--code-bg);
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.15s ease, background-color 0.15s ease;
+    }
+
+    .lip-nav a:hover {
+      color: #ffffff;
+      background: var(--bg-hover);
+    }
+
+    /* Main Content Container */
+    .term-body {
+      padding: 1.75rem 1.35rem 1.5rem;
+    }
+
+    /* Lip Gloss Hero: Cascading Gradient Staircase + Metadata Block */
+    .lip-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.5rem;
+      align-items: center;
+      margin-block-end: 1.75rem;
+    }
+
+    @media (min-width: 46rem) {
+      .lip-hero {
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 2.25rem;
+      }
+    }
+
+    .lip-stair {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding-inline-end: 3rem;
+    }
+
+    .stair-step {
+      display: inline-block;
+      padding: 0.15rem 0.85rem;
+      font-size: 0.92rem;
+      font-weight: 800;
+      font-style: italic;
+      line-height: 1.35;
+      color: #ffffff;
+      letter-spacing: 0.01em;
+    }
+
+    .stair-1 {
+      background: #d62e6e;
+      margin-inline-start: 0;
+    }
+
+    .stair-2 {
+      background: #984ad0;
+      margin-inline-start: 0.75rem;
+    }
+
+    .stair-3 {
+      background: #6b46e5;
+      margin-inline-start: 1.5rem;
+    }
+
+    .lip-hero-meta {
+      min-inline-size: 0;
+    }
+
+    .lip-hero-meta h1 {
+      font-size: clamp(1.25rem, 1.05rem + 1vw, 1.75rem);
+      font-weight: 800;
+      color: var(--text-main);
+      padding-block-end: 0.65rem;
+      border-bottom: 1px solid var(--border);
+      margin-block-end: 0.65rem;
+    }
+
+    .lip-hero-sub {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .lip-hero-sub a {
+      color: var(--mint-bright);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .lip-hero-sub a:hover {
+      text-decoration: underline;
+    }
+
+    /* Patterned Lip Gloss Manifesto Dialog Band */
+    .lip-dialog-band {
+      position: relative;
+      padding: 1.65rem 1.25rem;
+      margin-block-end: 2.25rem;
+      border-radius: 0.25rem;
+      background-color: #131315;
+      background-image:
+        radial-gradient(rgba(255, 255, 255, 0.065) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(135, 75, 253, 0.04) 1px, transparent 1px);
+      background-size: 0.75rem 0.75rem, 1.5rem 1.5rem;
+      border: 1px solid #252529;
+      display: flex;
+      justify-content: center;
+    }
+
+    .lip-dialog {
+      background: var(--bg);
+      border: 1px solid var(--purple);
+      border-radius: 0.3rem;
+      padding: 1.25rem 1.5rem;
+      max-inline-size: 110ch;
+      inline-size: 100%;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    }
+
+    .lip-dialog-prompt {
+      font-size: 0.78rem;
+      color: var(--pink-bright);
+      font-weight: 700;
+      margin-block-end: 0.5rem;
+    }
+
+    .lip-dialog p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-inline-size: 110ch;
+    }
+
+    .lip-dialog p strong {
+      color: var(--text-main);
+    }
+
+    /* Sections */
+    .lip-section {
+      margin-block-end: 2.5rem;
+    }
+
+    .lip-sec-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding-block-end: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      margin-block-end: 1.15rem;
+    }
+
+    .lip-sec-head h2 {
+      font-size: clamp(1.1rem, 0.98rem + 0.6vw, 1.4rem);
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .lip-sec-tag {
+      font-size: 0.76rem;
+      color: var(--purple-soft);
+    }
+
+    /* Lip Gloss Folder-Style Single-Row Tabs */
+    .lip-tabs {
+      min-inline-size: 0;
+    }
+
+    .lip-tablist {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: inline proximity;
+      scrollbar-color: var(--purple) var(--code-bg);
+      gap: 0.25rem;
+      border-bottom: 1px solid var(--purple);
+      margin-block-end: 1.15rem;
+    }
+
+    .lip-tab {
+      position: relative;
+      flex: none;
+      scroll-snap-align: start;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1.2;
+      white-space: nowrap;
+      padding: 0.5rem 0.95rem;
+      min-block-size: 2.3rem;
+      background: var(--code-bg);
+      border: 1px solid var(--purple);
+      border-bottom: none;
+      border-radius: 0.35rem 0.35rem 0 0;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .lip-tab:hover {
+      color: #ffffff;
+      background: var(--bg-hover);
+    }
+
+    .lip-tab[aria-selected="true"] {
+      color: #ffffff;
+      background: var(--bg-panel);
+    }
+
+    .lip-tab[aria-selected="true"]::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      border-block-end: 3px solid var(--pink-bright);
+    }
+
+    /* Zero padding/border/margin/background on tabpanel so hidden="until-found" leaves zero remnants */
+    .lip-panels {
+      display: grid;
+    }
+
+    .lip-tabpanel {
+      grid-area: 1 / 1;
+      min-inline-size: 0;
+    }
+
+    /* Lip Gloss Content Box inside Tabpanel */
+    .lip-box {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 0.35rem;
+      padding: 1.35rem;
+      min-inline-size: 0;
+    }
+
+    .lip-box.accent {
+      border-color: var(--purple);
+    }
+
+    .lip-box-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--pink-bright);
+      padding-block-end: 0.55rem;
+      margin-block-end: 0.85rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lip-badge {
+      background: var(--purple-card);
+      color: #ffffff;
+      padding: 0.15rem 0.55rem;
+      border-radius: 0.2rem;
+      font-size: 0.72rem;
+      border: 1px solid transparent;
+    }
+
+    .lip-badge--active {
+      background: #1b6b3a;
+      color: #ffffff;
+      border-color: var(--mint);
+    }
+
+    .lip-badge--rd {
+      background: var(--purple-card);
+      color: #ffffff;
+      border-color: var(--purple);
+    }
+
+    .lip-badge--paused {
+      background: #8a5600;
+      color: #ffffff;
+      border-color: #f59e0b;
+    }
+
+    .lip-badge--deprecated {
+      background: #3a3a40;
+      color: #e5e5ea;
+      border-color: #6b6b76;
+    }
+
+    .lip-box h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-block-end: 0.5rem;
+    }
+
+    .lip-box p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-block-end: 0.95rem;
+    }
+
+    .lip-box p strong {
+      color: #ffffff;
+    }
+
+    .lip-pipeline {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--purple);
+      padding: 0.6rem 0.85rem;
+      font-size: 0.78rem;
+      color: var(--purple-soft);
+      margin-block-end: 0.95rem;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    /* Mint-green Lip Gloss Checkmark List */
+    .lip-checklist {
+      list-style: none;
+      display: grid;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      color: var(--text-main);
+      margin-block-end: 1rem;
+    }
+
+    .lip-checklist li {
+      display: flex;
+      gap: 0.55rem;
+      align-items: flex-start;
+    }
+
+    .lip-check {
+      color: var(--mint);
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .lip-tags {
+      display: flex;
+      flex-wrap: wrap;
+      flex-wrap: balance;
+      gap: 0.45rem;
+      margin-block-end: 1rem;
+    }
+
+    .lip-tags:last-child {
+      margin-block-end: 0;
+    }
+
+    .lip-tag {
+      font-size: 0.74rem;
+      padding: 0.15rem 0.5rem;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 0.2rem;
+      color: var(--text-muted);
+    }
+
+    .lip-tag.pink {
+      border-color: var(--pink);
+      color: var(--pink-bright);
+    }
+
+    .lip-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      padding-block-start: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .lip-btn {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: #ffffff;
+      background: var(--code-bg);
+      border: 1px solid var(--purple);
+      border-radius: 0.25rem;
+      min-block-size: 2.15rem;
+      padding: 0.35rem 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .lip-btn:hover {
+      background: var(--purple-card);
+      border-color: var(--purple-soft);
+    }
+
+    .lip-btn.primary {
+      background: var(--pink);
+      border-color: var(--pink);
+    }
+
+    .lip-btn.primary:hover {
+      background: #be235e;
+    }
+
+    /* Research Panel Layout */
+    .lip-research-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    @media (min-width: 48rem) {
+      .lip-research-split {
+        grid-template-columns: minmax(0, 1fr) 14rem;
+      }
+    }
+
+    /* About Section: Two-Column Lip Gloss Split + Three Solid Purple Block Cards */
+    .lip-two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.5rem;
+      margin-block-end: 1.75rem;
+      padding-block: 0.5rem;
+    }
+
+    @media (min-width: 46rem) {
+      .lip-two-col {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0;
+      }
+
+      .lip-col:first-child {
+        padding-inline-end: 1.75rem;
+        border-inline-end: 1px solid var(--border);
+      }
+
+      .lip-col:last-child {
+        padding-inline-start: 1.75rem;
+      }
+    }
+
+    .lip-col-title {
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--text-main);
+      padding-block-end: 0.35rem;
+      margin-block-end: 0.85rem;
+      border-bottom: 1px solid var(--border);
+      display: inline-block;
+    }
+
+    .lip-col p {
+      font-size: 0.87rem;
+      color: var(--text-muted);
+      margin-block-end: 0.9rem;
+    }
+
+    .lip-col p strong {
+      color: #ffffff;
+    }
+
+    /* Three Solid Purple Lip Gloss Paragraph Blocks */
+    .lip-purple-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+      gap: 1.15rem;
+    }
+
+    .lip-purple-card {
+      background: var(--purple-card);
+      color: #ffffff;
+      border-radius: 0.2rem;
+      padding: 1.35rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      min-inline-size: 0;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .lip-purple-tag {
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      margin-block-end: 0.35rem;
+      color: #ede9fe;
+    }
+
+    .lip-purple-card h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-block-end: 0.75rem;
+    }
+
+    .lip-purple-card p {
+      font-size: 0.84rem;
+      line-height: 1.55;
+      color: #f5f3ff;
+      margin-block-end: 0.65rem;
+    }
+
+    .lip-purple-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: #ffffff;
+    }
+
+    .lip-purple-list li {
+      display: flex;
+      gap: 0.45rem;
+      align-items: flex-start;
+    }
+
+    .lip-purple-bullet {
+      color: var(--mint-bright);
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    /* Bottom TUI Status Bar & Prompt Cursor */
+    .lip-footer-wrap {
+      padding: 0 1.35rem 1.15rem;
+    }
+
+    .lip-statusbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      font-size: 0.78rem;
+      background: var(--status-bar);
+      color: var(--text-main);
+      margin-block-end: 0.75rem;
+      border-radius: 0.15rem;
+      overflow: hidden;
+    }
+
+    .sb-status {
+      background: var(--pink);
+      color: #ffffff;
+      font-weight: 800;
+      padding: 0.3rem 0.75rem;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .sb-center {
+      padding: 0.3rem 0.85rem;
+      color: var(--text-main);
+      flex: 1 1 14rem;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .sb-encoding {
+      background: var(--encoding-bg);
+      color: #ffffff;
+      font-weight: 700;
+      padding: 0.3rem 0.7rem;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .sb-license {
+      background: var(--purple-card);
+      color: #ffffff;
+      font-weight: 700;
+      padding: 0.3rem 0.8rem;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .term-cursor-line {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--purple);
+      font-weight: 800;
+    }
+
+    .term-cursor {
+      display: inline-block;
+      width: 0.55rem;
+      height: 1.05rem;
+      background: var(--text-main);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .term-cursor {
+        animation: termBlink 1.1s step-start infinite;
+      }
+    }
+
+    @keyframes termBlink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    @media (pointer: coarse) {
+
+      .lip-nav a,
+      .a11y-btn,
+      .lip-tab,
+      .lip-btn {
+        min-block-size: 2.75rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    @media (forced-colors: active) {
+
+      .term-window,
+      .lip-dialog,
+      .lip-box,
+      .lip-badge,
+      .lip-purple-card,
+      .lip-statusbar {
+        border: 1px solid CanvasText;
+      }
+
+      .lip-tab[aria-selected="true"]::after {
+        border-block-end-color: Highlight;
+      }
+
+      .lip-tab[aria-selected="true"],
+      .a11y-btn[aria-pressed="true"],
+      .lip-btn:hover {
+        background: Highlight;
+        color: HighlightText;
+        border: 2px solid ButtonText;
+      }
+
+      :focus-visible {
+        outline: 3px solid Highlight;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="term-window">
+
+    <header class="term-header">
+      <div class="term-bar-top">
+        <div class="term-bar-left">
+          <div class="term-dots" aria-hidden="true">
+            <span class="term-dot term-dot-red"></span>
+            <span class="term-dot term-dot-amber"></span>
+            <span class="term-dot term-dot-green"></span>
+          </div>
+          <div class="term-cmd"><span class="term-cmd-prompt" aria-hidden="true">&gt;</span>./beezy-hub</div>
+        </div>
+
+        <div>
+          <button type="button" id="a11y-badge" class="a11y-btn" aria-pressed="false">
+            <span aria-hidden="true">[</span><span id="a11y-badge-label">A11Y: WCAG-AA</span><span
+              aria-hidden="true">]</span>
+            <span class="visually-hidden"> Toggle enhanced high-contrast mode</span>
+          </button>
+          <span id="a11y-status" class="visually-hidden" aria-live="polite"></span>
+        </div>
+      </div>
+
+      <nav class="lip-nav" aria-label="Primary">
+        <a href="#projects">Projects</a>
+        <a href="#research">Research</a>
+        <a href="#about">About</a>
+      </nav>
+    </header>
+
+    <main id="main-content" tabindex="-1" class="term-body">
+
+      <section class="lip-hero" aria-labelledby="hero-heading">
+        <div class="lip-stair">
+          <span class="stair-step stair-1">beezy.dev</span>
+          <span class="stair-step stair-2" aria-hidden="true">beezy.dev</span>
+          <span class="stair-step stair-3" aria-hidden="true">beezy.dev</span>
+        </div>
+
+        <div class="lip-hero-meta">
+          <h1 id="hero-heading">Open Systems Research &amp; Engineering</h1>
+          <div class="lip-hero-sub">
+            <span>From Rom Adams (romdalf) &middot; Netherlands &middot;</span>
+            <a href="https://github.com/beezy-dev" target="_blank" rel="noopener noreferrer">
+              https://github.com/beezy-dev <span class="visually-hidden">(opens in new tab)</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <div class="lip-dialog-band">
+        <div class="lip-dialog">
+          <div class="lip-dialog-prompt" aria-hidden="true">:: research_scope.md</div>
+          <p>
+            An open technical logbook around <strong>data foundations for agentic access</strong>, <strong>zero-trust
+              cryptography architecture</strong>, <strong>AI manufacturing execution systems</strong>, and
+            <strong>agentic data planes with cognitive lineage</strong>.
+          </p>
+        </div>
+      </div>
+
+      <section id="projects" class="lip-section" aria-labelledby="projects-heading">
+        <div class="lip-sec-head">
+          <h2 id="projects-heading">01 // Projects</h2>
+          <span class="lip-sec-tag">./projects/</span>
+        </div>
+
+        <div class="lip-tabs" data-tabs="projects">
+          <div class="lip-tablist" role="tablist" aria-label="Projects">
+            <button type="button" role="tab" id="tab-aimes" class="lip-tab" aria-selected="true"
+              tabindex="0">Aimes</button>
+            <button type="button" role="tab" id="tab-ennoia" class="lip-tab" aria-selected="false"
+              tabindex="-1">Ennoia</button>
+            <button type="button" role="tab" id="tab-kleidi" class="lip-tab" aria-selected="false"
+              tabindex="-1">Kleidi</button>
+            <button type="button" role="tab" id="tab-trousseau" class="lip-tab" aria-selected="false"
+              tabindex="-1">Trousseau</button>
+            <button type="button" role="tab" id="tab-discoblocks" class="lip-tab" aria-selected="false"
+              tabindex="-1">Discoblocks</button>
+          </div>
+
+          <div class="lip-panels">
+            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-aimes">
+              <article class="lip-box accent">
+                <div class="lip-box-meta">
+                  <span>AIMES — AI Manufacturing Execution System</span>
+                  <span class="lip-badge lip-badge--rd">R&amp;D &middot; 2026 &middot; HARNESS</span>
+                </div>
+                <!-- <h3>AIMES — AI Manufacturing Execution System</h3> -->
+                <p>
+                  The orchestration backbone for an AI software factory. Records each unit of work from specification to
+                  release for autonomous agents and human reviewers while eliminating specification drift.
+                </p>
+                <div class="lip-pipeline" aria-hidden="true">[Spec] --&gt; [AIMES: MCP + Connect/Protobuf] --&gt; [CEL
+                  Gates + gVisor] --&gt; [Release]</div>
+                <ul class="lip-checklist" role="list">
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Agent-to-system-of-record
+                      synchronization stopping knowledge drift</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Model Context Protocol (MCP)
+                      gateway &amp; Connect/Protobuf RPC interfaces</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>CEL policy enforcement, gVisor
+                      sandboxing, and token/compute telemetry</span></li>
+                </ul>
+                <div class="lip-tags">
+                  <span class="lip-tag pink">AIMES</span>
+                  <span class="lip-tag pink">MCP Gateway</span>
+                  <span class="lip-tag">Protobuf / Connect</span>
+                  <span class="lip-tag">CEL + gVisor</span>
+                </div>
+                <div class="lip-links">
+                  <a href="https://github.com/beezy-dev" target="_blank" rel="noopener noreferrer" class="lip-btn">
+                    Coming soon <span class="visually-hidden">(opens in new tab)</span>
+                  </a>
+                </div>
+              </article>
+            </div>
+
+            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-ennoia" hidden="until-found">
+              <article class="lip-box accent">
+                <div class="lip-box-meta">
+                  <span>Ennoia — Source Control &amp; Cognitive Lineage Data Plane</span>
+                  <span class="lip-badge lip-badge--rd">R&amp;D &middot; 2026 &middot; DATA PLANE</span>
+                </div>
+                <!-- <h3>ENNOIA — Source Control &amp; Cognitive Lineage Data Plane</h3> -->
+                <p>
+                  Source control engineered for agentic work, delivering a full data plane for agent harnesses with
+                  verifiable cognitive lineage across context snapshots, tool invocations, and filesystem changes.
+                </p>
+                <div class="lip-pipeline" aria-hidden="true">[Harness] --&gt; [ENNOIA Data Plane] --&gt; [VFS Projection
+                  + Identity] --&gt; [Cognitive Lineage]</div>
+                <ul class="lip-checklist" role="list">
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Full data plane bridging agent
+                      harnesses and persistent versioned state</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Virtual file system projection for
+                      deterministic sandbox checkouts</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Agentic identity validation &amp;
+                      immutable cognitive lineage graphs</span></li>
+                </ul>
+                <div class="lip-tags">
+                  <span class="lip-tag pink">ENNOIA</span>
+                  <span class="lip-tag pink">Cognitive Lineage</span>
+                  <span class="lip-tag">VFS Projection</span>
+                  <span class="lip-tag">Data Plane</span>
+                </div>
+                <div class="lip-links">
+                  <a href="https://github.com/beezy-dev" target="_blank" rel="noopener noreferrer" class="lip-btn">
+                    Coming soon <span class="visually-hidden">(opens in new tab)</span>
+                  </a>
+                </div>
+              </article>
+            </div>
+
+            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-kleidi" hidden="until-found">
+              <article class="lip-box">
+                <div class="lip-box-meta">
+                  <span>Kleidi — Kubernetes KMSv2 Provider Plugin</span>
+                  <span class="lip-badge lip-badge--paused">Paused &middot; 2024&ndash;2026 &middot; KMSv2</span>
+                </div>
+                <!-- <h3>Kleidi — Kubernetes KMSv2 Provider Plugin</h3> -->
+                <p>
+                  Zero-trust envelope encryption plugin for Kubernetes 1.29+ replacing deprecated KMSv1 designs
+                  (Trousseau). Keeps <code>etcd</code> Secrets hardware-protected over control-plane gRPC.
+                </p>
+                <div class="lip-pipeline" aria-hidden="true">[kube-apiserver] --(gRPC socket)--&gt; [kleidi]
+                  --(PKCS#11)--&gt; [HSM / SoftHSM / (v)TPM]</div>
+                <ul class="lip-checklist" role="list">
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Control-plane DaemonSet with
+                      custom initContainer bootstrap</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>PKCS#11 hardware/software HSM
+                      integration layer</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Vault / OpenBao and (v)TPM
+                      hardware attestation roadmap</span></li>
+                </ul>
+                <div class="lip-tags">
+                  <span class="lip-tag">Go</span>
+                  <span class="lip-tag">KMSv2</span>
+                  <span class="lip-tag">PKCS#11</span>
+                  <span class="lip-tag">gRPC</span>
+                </div>
+                <div class="lip-links">
+                  <a href="https://github.com/beezy-dev/kleidi" target="_blank" rel="noopener noreferrer"
+                    class="lip-btn primary">
+                    github.com/beezy-dev/kleidi <span class="visually-hidden">(opens in new tab)</span>
+                  </a>
+                </div>
+              </article>
+            </div>
+
+            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-trousseau" hidden="until-found">
+              <article class="lip-box">
+                <div class="lip-box-meta">
+                  <span>Trousseau — Kubernetes KMSv1 Provider Plugin</span>
+                  <span class="lip-badge lip-badge--deprecated">Deprecated &middot; 2020&ndash;2024 &middot;
+                    KMSv1</span>
+                </div>
+                <!-- <h3>Trousseau — Kubernetes KMSv1 Provider Plugin</h3> -->
+                <p>
+                  Open-source Kubernetes-native KMSv1 provider plugin enabling envelope encryption of <code>etcd</code>
+                  Secrets via external key managers. Archived following Kubernetes KMSv1 deprecation and succeeded by
+                  Kleidi (KMSv2).
+                </p>
+                <div class="lip-pipeline" aria-hidden="true">[kube-apiserver] --(KMSv1 gRPC)--&gt; [trousseau] --&gt;
+                  [Vault / AWS KMS / Azure Key Vault]</div>
+                <ul class="lip-checklist" role="list">
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Native Kubernetes KMSv1 envelope
+                      encryption proxy for <code>etcd</code> Secrets</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Multi-KMS backend support
+                      (HashiCorp Vault, AWS KMS, Azure Key Vault) with failover</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Archived after Kubernetes KMSv1
+                      deprecation; succeeded by Kleidi (KMSv2)</span></li>
+                </ul>
+                <div class="lip-tags">
+                  <span class="lip-tag">Go</span>
+                  <span class="lip-tag">KMSv1</span>
+                  <span class="lip-tag">Vault / Cloud KMS</span>
+                  <span class="lip-tag">Archived</span>
+                </div>
+                <div class="lip-links">
+                  <a href="https://trousseau.io" target="_blank" rel="noopener noreferrer" class="lip-btn">
+                    trousseau.io <span class="visually-hidden">(opens in new tab)</span>
+                  </a>
+                  <a href="https://github.com/ondat/trousseau" target="_blank" rel="noopener noreferrer"
+                    class="lip-btn">
+                    github.com/ondat/trousseau <span class="visually-hidden">(opens in new tab)</span>
+                  </a>
+                </div>
+              </article>
+            </div>
+
+            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-discoblocks" hidden="until-found">
+              <article class="lip-box">
+                <div class="lip-box-meta">
+                  <span>Discoblocks — Declarative Kubernetes Disk Configuration</span>
+                  <span class="lip-badge lip-badge--deprecated">Deprecated &middot; 2021&ndash;2024 &middot; CSI /
+                    Storage</span>
+                </div>
+                <!-- <h3>Discoblocks — Declarative Kubernetes Disk Configuration</h3> -->
+                <p>
+                  Open-source declarative disk configuration and block volume management operator for Kubernetes,
+                  automating cloud disk CRUD lifecycle and dynamic upscaling alongside hyperscaler CSI drivers and
+                  Ondat.
+                </p>
+                <div class="lip-pipeline" aria-hidden="true">[Workload CRD] --&gt; [discoblocks] --&gt; [Cloud CSI (EBS
+                  / Block)] --&gt; [Auto-Upscale &amp; Mount]</div>
+                <ul class="lip-checklist" role="list">
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Per-workload CRDs defining
+                      capacity, mount paths, node/pod selectors, and upscale policies</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Automated cloud block-disk
+                      provisioning, monitoring, and dynamic resizing via CSI</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Built during Ondat cloud-native
+                      storage engineering; now deprecated and archived</span></li>
+                </ul>
+                <div class="lip-tags">
+                  <span class="lip-tag">Kubernetes CRDs</span>
+                  <span class="lip-tag">CSI</span>
+                  <span class="lip-tag">Cloud Block Storage</span>
+                  <span class="lip-tag">Archived</span>
+                </div>
+                <div class="lip-links">
+                  <a href="https://github.com/ondat/discoblocks" target="_blank" rel="noopener noreferrer"
+                    class="lip-btn">
+                    github.com/ondat/discoblocks <span class="visually-hidden">(opens in new tab)</span>
+                  </a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="research" class="lip-section" aria-labelledby="research-heading">
+        <div class="lip-sec-head">
+          <h2 id="research-heading">02 // Research Domains</h2>
+          <span class="lip-sec-tag">./research/</span>
+        </div>
+
+        <div class="lip-tabs" data-tabs="research">
+          <div class="lip-tablist" role="tablist" aria-label="Research domains">
+            <button type="button" role="tab" id="tab-res-01" class="lip-tab" aria-selected="true" tabindex="0">Agentic
+              Data</button>
+            <button type="button" role="tab" id="tab-res-02" class="lip-tab" aria-selected="false"
+              tabindex="-1">Zero-Trust Crypto</button>
+            <button type="button" role="tab" id="tab-res-03" class="lip-tab" aria-selected="false" tabindex="-1">AI
+              MES</button>
+            <button type="button" role="tab" id="tab-res-04" class="lip-tab" aria-selected="false"
+              tabindex="-1">Cognitive Lineage</button>
+          </div>
+
+          <div class="lip-panels">
+            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-res-01" tabindex="0">
+              <article class="lip-box">
+                <div class="lip-box-meta">
+                  <span>RES-01 :: AGENTIC DATA FOUNDATIONS</span>
+                  <span class="lip-badge">DATA SUBSTRATE</span>
+                </div>
+                <div class="lip-research-split">
+                  <div>
+                    <h3>Data Foundations for Agentic Access</h3>
+                    <p>Deterministic vs probabilistic data topology, zero-copy ingestion, vector/structured retrieval
+                      substrates, and cost-governed compute scheduling for harnesses.</p>
+                    <ul class="lip-checklist" role="list">
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Deterministic vs probabilistic
+                          data topology</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>High-throughput zero-copy
+                          ingestion &amp; structured vector retrieval</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Compute-governed access
+                          scheduling &amp; declarative streaming telemetry</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-res-02" hidden="until-found">
+              <article class="lip-box">
+                <div class="lip-box-meta">
+                  <span>RES-02 :: ZERO-TRUST CRYPTOGRAPHY</span>
+                  <span class="lip-badge">CRYPTOGRAPHY</span>
+                </div>
+                <div class="lip-research-split">
+                  <div>
+                    <h3>Zero-Trust Cryptography Architecture</h3>
+                    <p>KMSv2 envelope encryption, PKCS#11 HSM / (v)TPM hardware boundaries, control-plane auditing, and
+                      automated secret lifecycles without clear-text leakage.</p>
+                    <ul class="lip-checklist" role="list">
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Envelope encryption &amp; etcd
+                          attack-surface mitigation</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>PKCS#11 HSM, SoftHSM, OpenBao
+                          / Vault, and (v)TPM attestation</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Sovereign cryptographic
+                          boundaries for agents &amp; clusters</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-res-03" hidden="until-found">
+              <article class="lip-box accent">
+                <div class="lip-box-meta">
+                  <span>RES-03 :: AI MES ORCHESTRATION</span>
+                  <span class="lip-badge">AIMES</span>
+                </div>
+                <div class="lip-research-split">
+                  <div>
+                    <h3>AI Manufacturing Execution System</h3>
+                    <p>Manufacturing Execution System discipline applied to autonomous software pipelines via AIMES:
+                      anti-drift specification links, CEL policy gates, and gVisor isolation.</p>
+                    <ul class="lip-checklist" role="list">
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Specification-to-release
+                          traceability stopping knowledge drift</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>MCP &amp; Connect/Protobuf
+                          orchestration contracts</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Intent/output UAT gates,
+                          gVisor isolation, and compute accountability</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-res-04" hidden="until-found">
+              <article class="lip-box accent">
+                <div class="lip-box-meta">
+                  <span>RES-04 :: COGNITIVE LINEAGE PLANE</span>
+                  <span class="lip-badge">ENNOIA</span>
+                </div>
+                <div class="lip-research-split">
+                  <div>
+                    <h3>Data Plane with Cognitive Lineage</h3>
+                    <p>ENNOIA research on source control for agentic work — tracking full cognitive lineage across
+                      reasoning traces, tool invocations, virtual file systems, and verified agent identities.</p>
+                    <ul class="lip-checklist" role="list">
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Full harness data plane
+                          coupling code commits with reasoning lineage</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Virtual file system projection
+                          for reproducible workspace state</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Cryptographic agent identity
+                          validation across tool invocations</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="lip-section" aria-labelledby="about-heading">
+        <div class="lip-sec-head">
+          <h2 id="about-heading">03 // About Rom Adams (romdalf)</h2>
+          <span class="lip-sec-tag">./about/rom-adams.txt</span>
+        </div>
+
+        <div class="lip-two-col">
+          <div class="lip-col">
+            <!-- <h3 class="lip-col-title">Maintainer Profile</h3> -->
+            <p>
+              <strong>Rom Adams (romdalf)</strong> - Systems engineer and open-source architect based in the
+              Netherlands with 25+ years across unix/linux, cloud-native storage, zero-trust Kubernetes security, and
+              large-scale platform engineering (ex-Red Hat, StorageOS/Ondat, NetApp).
+            </p>
+          </div>
+
+          <div class="lip-col">
+            <!-- <h3 class="lip-col-title">Fractional Engineering</h3> -->
+            <p>
+              Available to partner with engineering teams for <strong>fractional engineering</strong>, hands-on
+              architecture spikes, zero-trust cryptography reviews, CSI/storage systems, and agentic data plane
+              prototypes.
+            </p>
+            <div class="lip-links">
+              <a href="https://github.com/beezy-dev" target="_blank" rel="noopener noreferrer" class="lip-btn">
+                github.com/beezy-dev <span class="visually-hidden">(opens in new tab)</span>
+              </a>
+              <a href="https://www.linkedin.com/in/romdalf/" target="_blank" rel="noopener noreferrer" class="lip-btn">
+                linkedin.com/in/romdalf <span class="visually-hidden">(opens in new tab)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="lip-purple-grid">
+          <article class="lip-purple-card">
+            <div class="lip-purple-tag">[PUB] BOOKS &amp; REVIEWS</div>
+            <h3>Authored &amp; Reviewed Works</h3>
+            <p>Author of <strong>Kubernetes Secrets Handbook</strong> (Packt, 2024).</p>
+            <ul class="lip-purple-list" role="list">
+              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span>Technical Reviewer:
+                  <strong>The Kubernetes Bible</strong></span></li>
+              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span>Technical Reviewer:
+                  <strong>Kubernetes – An Enterprise Guide</strong></span></li>
+            </ul>
+          </article>
+
+          <article class="lip-purple-card">
+            <div class="lip-purple-tag">[PAT] 3 PATENTS PENDING</div>
+            <h3>Intellectual Property</h3>
+            <p>Pending systems patent filings:</p>
+            <ul class="lip-purple-list" role="list">
+              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span><strong>Zero-trust
+                    architecture for secret handling</strong></span></li>
+              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span><strong>Virtual file system
+                    projection</strong></span></li>
+              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span><strong>Identity validation in
+                    agentic workflow</strong></span></li>
+            </ul>
+          </article>
+
+          <article class="lip-purple-card">
+            <div class="lip-purple-tag">[OSS] PRIOR OPEN SOURCE</div>
+            <h3>Foundational Plugins &amp; Drivers</h3>
+            <p>Earlier open-source systems:</p>
+            <ul class="lip-purple-list" role="list">
+              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span><strong>Trousseau</strong>:
+                  Kubernetes KMSv1 provider plugin</span></li>
+              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span><strong>Kubernetes CSI
+                    Driver</strong>: Stateful persistent storage</span></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="lip-footer-wrap">
+      <div class="lip-statusbar">
+        <span class="sb-status">STATUS</span>
+        <span class="sb-center">beezy.dev :: Rom Adams (romdalf) :: Netherlands :: R&D since 2019</span>
+        <span class="sb-encoding">UTF-8</span>
+        <span class="sb-license">Apache-2.0 &middot; WCAG-AA</span>
+      </div>
+      <div class="term-cursor-line" aria-hidden="true">
+        <span>&gt;</span><span class="term-cursor"></span>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    (function () {
+      const a11yBadge = document.getElementById('a11y-badge');
+      const a11yLabel = document.getElementById('a11y-badge-label');
+      const a11yStatus = document.getElementById('a11y-status');
+
+      a11yBadge.addEventListener('click', function () {
+        const isHigh = document.body.classList.toggle('a11y-high-contrast');
+        a11yBadge.setAttribute('aria-pressed', String(isHigh));
+        a11yLabel.textContent = isHigh ? 'A11Y: HIGH-CONTRAST' : 'A11Y: WCAG-AA';
+        a11yStatus.textContent = isHigh
+          ? 'High-contrast Lip Gloss terminal mode enabled.'
+          : 'Standard Lip Gloss terminal mode restored.';
+      });
+
+      function initTabs(root) {
+        const tabs = Array.from(root.querySelectorAll('[role="tab"]'));
+        const panels = Array.from(root.querySelectorAll('[role="tabpanel"]'));
+
+        function activateTab(selectedTab, shouldFocus) {
+          tabs.forEach(function (tab) {
+            const isSelected = tab === selectedTab;
+            tab.setAttribute('aria-selected', String(isSelected));
+            tab.setAttribute('tabindex', isSelected ? '0' : '-1');
+          });
+
+          panels.forEach(function (panel) {
+            const matches = panel.getAttribute('aria-labelledby') === selectedTab.id;
+            if (matches) {
+              panel.removeAttribute('hidden');
+              if (!panel.querySelector('a, button, input, select, textarea')) {
+                panel.setAttribute('tabindex', '0');
+              } else {
+                panel.removeAttribute('tabindex');
+              }
+            } else {
+              panel.setAttribute('hidden', 'until-found');
+              panel.removeAttribute('tabindex');
+            }
+          });
+
+          selectedTab.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+          if (shouldFocus) {
+            selectedTab.focus();
+          }
+        }
+
+        tabs.forEach(function (tab, index) {
+          tab.addEventListener('click', function () {
+            activateTab(tab, false);
+          });
+
+          tab.addEventListener('keydown', function (event) {
+            let nextIndex = null;
+            if (event.key === 'ArrowRight') {
+              nextIndex = (index + 1) % tabs.length;
+            } else if (event.key === 'ArrowLeft') {
+              nextIndex = (index - 1 + tabs.length) % tabs.length;
+            } else if (event.key === 'Home') {
+              nextIndex = 0;
+            } else if (event.key === 'End') {
+              nextIndex = tabs.length - 1;
+            }
+
+            if (nextIndex !== null) {
+              event.preventDefault();
+              activateTab(tabs[nextIndex], true);
+            }
+          });
+        });
+
+        root.addEventListener('beforematch', function (event) {
+          const matchedPanel = event.target.closest('[role="tabpanel"]');
+          if (!matchedPanel) return;
+          const tabId = matchedPanel.getAttribute('aria-labelledby');
+          const matchedTab = tabs.find(function (t) {
+            return t.id === tabId;
+          });
+          if (matchedTab) {
+            activateTab(matchedTab, false);
+          }
+        });
+      }
+
+      document.querySelectorAll('[data-tabs]').forEach(initTabs);
+    })();
+  </script>
+
+</body>
+
+</html>
