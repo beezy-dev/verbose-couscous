@@ -1,10 +1,10 @@
 # beezy.dev
 
-Official repository for [beezy.dev](https://beezy.dev) — Technical Stewardship & Deep Systems Engineering advisory in **AI Data Foundations**, **Zero-Trust Cryptography**, **Cloud-Native Storage**, and **AI Software Factory Orchestration (AIMES)**.
+Official repository for [beezy.dev](https://beezy.dev) — an **Open Systems Research & Engineering Hub** maintained by Rom Adams (`romdalf`) covering **Data Foundations for Agentic Access**, **Zero-Trust Cryptography Architecture** (**Kleidi**), **AI Manufacturing Execution Systems** (**AIMES**), and **Agentic Source Control & Cognitive Lineage Data Planes** (**ENNOIA**).
 
 ## Architecture
 
-- **Format**: Zero-dependency, high-performance static web application (`index.html` + Vanilla CSS).
+- **Format**: Zero-dependency, high-performance static web application (`index.html` + Vanilla CSS/JS, styled in a Charmbracelet Lip Gloss CLI TUI aesthetic).
 - **Hosting**: GitHub Pages via automated GitHub Actions pipeline.
 - **Custom Domain**: `beezy.dev` (configured via `CNAME`).
 
@@ -24,10 +24,10 @@ open http://localhost:8000
 
 Pushes to the `main` branch trigger `.github/workflows/publish.yml`, which deploys the static assets directly to the `gh-pages` branch using GitHub's native `GITHUB_TOKEN`. No external tokens, python dependencies, or build containers required.
 
-## Archives
+## Archives & Previews
 
 - `_archive_mkdocs/`: Historical documentation and MkDocs notes preserved for reference.
-- `_design_previews/`: Alternative design explorations (The Systems Kernel, The Hive Sovereign, The Runtime Console).
+- `_design_previews/`: Design preview options (`option1-lipgloss-cli.html` Lip Gloss CLI, `option2-ascii-blue.html` CRT Blue ASCII, `option3-ascii-hub.html` CRT Amber ASCII).
 
 ## License
 

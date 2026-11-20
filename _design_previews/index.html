@@ -3,43 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>beezy.dev // Design Review Hub</title>
+  <title>beezy.dev // Reworked Research Hub Design Previews</title>
+  <link rel="icon" type="image/png" href="../images/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Red+Hat+Display:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #07080a;
+      color-scheme: dark;
+      accent-color: #f59e0b;
+      --bg: #08090b;
       --bar-bg: #0e1117;
       --border: #1e2330;
+      --border-strong: #374151;
       --amber: #f59e0b;
       --amber-light: #fbbf24;
       --text: #f4f5f7;
-      --text-muted: #8b949e;
-      --font-display: 'Plus Jakarta Sans', sans-serif;
+      --text-muted: #9ca3af;
+      --font-display: 'Red Hat Display', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       background: var(--bg);
       color: var(--text);
       font-family: var(--font-display);
-      height: 100vh;
+      font-size: 1rem;
+      block-size: 100dvh;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
+      overflow-x: clip;
     }
 
-    /* Top Switcher Bar */
+    :focus-visible {
+      outline: 2px solid var(--amber-light);
+      outline-offset: 2px;
+      box-shadow: 0 0 10px rgba(251, 191, 36, 0.45);
+    }
+
+    .visually-hidden:where(:not(:focus-within, :active)) {
+      position: absolute !important;
+      clip-path: inset(50%) !important;
+      overflow: hidden !important;
+      width: 1px !important;
+      height: 1px !important;
+      margin: -1px !important;
+      padding: 0 !important;
+      border: 0 !important;
+      white-space: nowrap !important;
+    }
+
     .top-bar {
       background: var(--bar-bg);
       border-bottom: 1px solid var(--border);
-      padding: 12px 24px;
+      padding: 0.75rem 1.25rem;
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: safe center;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
       flex-shrink: 0;
       z-index: 10;
     }
@@ -47,22 +75,23 @@
     .brand-section {
       display: flex;
       align-items: center;
-      gap: 14px;
+      flex-wrap: wrap;
+      gap: 0.75rem;
     }
 
     .brand-logo {
       font-family: var(--font-mono);
       font-weight: 700;
-      font-size: 14px;
-      color: var(--amber);
+      font-size: 0.875rem;
+      color: var(--amber-light);
       background: rgba(245, 158, 11, 0.1);
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      padding: 4px 10px;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      padding: 0.25rem 0.65rem;
       border-radius: 4px;
     }
 
     .brand-info {
-      font-size: 13px;
+      font-size: 0.85rem;
       color: var(--text-muted);
     }
 
@@ -70,79 +99,81 @@
       color: var(--text);
     }
 
-    /* Option Selector Tabs */
     .tab-group {
       display: flex;
+      flex-wrap: wrap;
+      flex-wrap: balance;
       background: #050608;
       border: 1px solid var(--border);
       border-radius: 6px;
-      padding: 3px;
-      gap: 4px;
+      padding: 0.25rem;
+      gap: 0.35rem;
     }
 
     .tab-btn {
       background: transparent;
-      border: none;
+      border: 1px solid transparent;
       color: var(--text-muted);
       font-family: var(--font-mono);
-      font-size: 12px;
-      padding: 8px 16px;
+      font-size: 0.78rem;
+      min-block-size: 2.25rem;
+      padding: 0.45rem 0.9rem;
       border-radius: 4px;
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
-      transition: all 0.2s ease;
+      gap: 0.5rem;
+      transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
     }
 
     .tab-btn:hover {
       color: #ffffff;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.06);
     }
 
-    .tab-btn.active {
+    .tab-btn[aria-pressed="true"] {
       background: var(--amber);
-      color: #07080a;
+      color: #08090b;
       font-weight: 700;
       box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
     }
 
     .tab-badge {
-      font-size: 10px;
-      padding: 1px 6px;
+      font-size: 0.68rem;
+      padding: 0.1rem 0.4rem;
       border-radius: 3px;
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.22);
     }
 
-    /* Actions */
     .actions-group {
       display: flex;
-      gap: 12px;
+      gap: 0.75rem;
       align-items: center;
     }
 
     .external-link-btn {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 0.78rem;
       color: var(--text-muted);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      border: 1px solid var(--border);
-      padding: 6px 14px;
+      gap: 0.35rem;
+      border: 1px solid var(--border-strong);
+      min-block-size: 2.25rem;
+      padding: 0.35rem 0.85rem;
       border-radius: 4px;
-      transition: all 0.2s;
+      transition: color 0.15s ease, border-color 0.15s ease;
     }
 
     .external-link-btn:hover {
-      color: var(--amber);
+      color: var(--amber-light);
       border-color: var(--amber);
     }
 
-    /* Main Viewport Container */
     .viewport-container {
       flex-grow: 1;
+      min-block-size: 0;
       position: relative;
       background: #000000;
     }
@@ -153,55 +184,90 @@
       border: none;
       display: block;
     }
+
+    @media (pointer: coarse) {
+      .tab-btn,
+      .external-link-btn {
+        min-block-size: 2.75rem;
+      }
+    }
+
+    @media (forced-colors: active) {
+      .top-bar,
+      .tab-group,
+      .external-link-btn {
+        border: 1px solid CanvasText;
+      }
+      .tab-btn[aria-pressed="true"] {
+        background: Highlight;
+        color: HighlightText;
+        border: 2px solid ButtonText;
+      }
+      :focus-visible {
+        outline: 3px solid Highlight;
+        box-shadow: none;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Top Switcher Bar -->
   <header class="top-bar">
     <div class="brand-section">
       <div class="brand-logo">beezy.dev</div>
       <div class="brand-info">
-        Design Review &bull; <strong>The Systems Kernel (Updated with AIMES)</strong>
+        Research Hub Previews &bull; <strong id="active-preview-label">1. Lip Gloss CLI (Charm TUI)</strong>
       </div>
     </div>
 
-    <div class="tab-group">
-      <button class="tab-btn active" onclick="loadPreview('option1-systems-kernel.html', this)">
-        <span>1. The Systems Kernel (Selected)</span>
-        <span class="tab-badge">v2.5 + AIMES</span>
+    <div class="tab-group" role="group" aria-label="Design preview options">
+      <button type="button" class="tab-btn" data-preview="option1-lipgloss-cli.html" data-label="1. Lip Gloss CLI (Charm TUI)" aria-pressed="true">
+        <span>1. Lip Gloss CLI</span>
+        <span class="tab-badge">Charm TUI</span>
       </button>
-      <button class="tab-btn" onclick="loadPreview('option2-hive-sovereign.html', this)">
-        <span>2. The Hive Sovereign</span>
-        <span class="tab-badge">Obsidian</span>
+      <button type="button" class="tab-btn" data-preview="option2-ascii-blue.html" data-label="2. ASCII Hub (CRT Blue)" aria-pressed="false">
+        <span>2. ASCII Blue</span>
+        <span class="tab-badge">CRT Blue</span>
       </button>
-      <button class="tab-btn" onclick="loadPreview('option3-runtime-console.html', this)">
-        <span>3. The Runtime Console</span>
-        <span class="tab-badge">Telemetry</span>
+      <button type="button" class="tab-btn" data-preview="option3-ascii-hub.html" data-label="3. ASCII Hub (CRT Amber)" aria-pressed="false">
+        <span>3. ASCII Amber</span>
+        <span class="tab-badge">CRT Amber</span>
       </button>
     </div>
 
     <div class="actions-group">
-      <a id="open-fullscreen" href="option1-systems-kernel.html" target="_blank" class="external-link-btn">
-        Open Fullscreen ↗
+      <a id="open-fullscreen" href="option1-lipgloss-cli.html" target="_blank" rel="noopener noreferrer" class="external-link-btn">
+        Open Fullscreen <span aria-hidden="true">&#8599;</span><span class="visually-hidden"> (opens in new tab)</span>
       </a>
     </div>
   </header>
 
-  <!-- Interactive Live Preview Frame -->
   <main class="viewport-container">
-    <iframe id="preview-frame" src="option1-systems-kernel.html" title="beezy.dev Design Option Preview"></iframe>
+    <iframe id="preview-frame" src="option1-lipgloss-cli.html" title="beezy.dev Reworked Design Option Preview"></iframe>
   </main>
 
   <script>
-    function loadPreview(url, btn) {
-      document.getElementById('preview-frame').src = url;
-      document.getElementById('open-fullscreen').href = url;
-
+    (function () {
+      const frame = document.getElementById('preview-frame');
+      const fullscreenLink = document.getElementById('open-fullscreen');
+      const activeLabel = document.getElementById('active-preview-label');
       const buttons = document.querySelectorAll('.tab-btn');
-      buttons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    }
+
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const previewUrl = btn.getAttribute('data-preview');
+          const previewLabel = btn.getAttribute('data-label');
+
+          frame.src = previewUrl;
+          fullscreenLink.href = previewUrl;
+          activeLabel.textContent = previewLabel;
+
+          buttons.forEach(function (other) {
+            other.setAttribute('aria-pressed', other === btn ? 'true' : 'false');
+          });
+        });
+      });
+    })();
   </script>
 
 </body>
