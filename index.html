@@ -16,8 +16,7 @@
     content="Research and open systems engineering across data foundations for agentic access, zero-trust cryptography (Kleidi), AI manufacturing execution systems (AIMES), and cognitive lineage data planes (ENNOIA).">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="beezy.dev // Open Systems Research &amp; Engineering">
-  <meta name="twitter:description"
-    content="Open technical logbook by Rom Adams (romdalf): Kleidi, AIMES, and ENNOIA.">
+  <meta name="twitter:description" content="Open technical logbook by Rom Adams (romdalf): Kleidi, AIMES, and ENNOIA.">
 
   <link rel="icon" type="image/png" href="images/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -516,6 +515,31 @@
       padding: 0.15rem 0.55rem;
       border-radius: 0.2rem;
       font-size: 0.72rem;
+      border: 1px solid transparent;
+    }
+
+    .lip-badge--active {
+      background: #1b6b3a;
+      color: #ffffff;
+      border-color: var(--mint);
+    }
+
+    .lip-badge--rd {
+      background: var(--purple-card);
+      color: #ffffff;
+      border-color: var(--purple);
+    }
+
+    .lip-badge--paused {
+      background: #8a5600;
+      color: #ffffff;
+      border-color: #f59e0b;
+    }
+
+    .lip-badge--deprecated {
+      background: #3a3a40;
+      color: #e5e5ea;
+      border-color: #6b6b76;
     }
 
     .lip-box h3 {
@@ -853,6 +877,7 @@
       .term-window,
       .lip-dialog,
       .lip-box,
+      .lip-badge,
       .lip-purple-card,
       .lip-statusbar {
         border: 1px solid CanvasText;
@@ -897,7 +922,8 @@
 
         <div>
           <button type="button" id="a11y-badge" class="a11y-btn" aria-pressed="false">
-            <span aria-hidden="true">[</span><span id="a11y-badge-label">A11Y: WCAG-AA</span><span aria-hidden="true">]</span>
+            <span aria-hidden="true">[</span><span id="a11y-badge-label">A11Y: WCAG-AA</span><span
+              aria-hidden="true">]</span>
             <span class="visually-hidden"> Toggle enhanced high-contrast mode</span>
           </button>
           <span id="a11y-status" class="visually-hidden" aria-live="polite"></span>
@@ -944,34 +970,115 @@
 
       <section id="projects" class="lip-section" aria-labelledby="projects-heading">
         <div class="lip-sec-head">
-          <h2 id="projects-heading">01 // Active Projects</h2>
+          <h2 id="projects-heading">01 // Projects</h2>
           <span class="lip-sec-tag">./projects/</span>
         </div>
 
         <div class="lip-tabs" data-tabs="projects">
-          <div class="lip-tablist" role="tablist" aria-label="Active projects">
-            <button type="button" role="tab" id="tab-kleidi" class="lip-tab" aria-selected="true" tabindex="0">Kleidi</button>
-            <button type="button" role="tab" id="tab-aimes" class="lip-tab" aria-selected="false" tabindex="-1">AIMES</button>
-            <button type="button" role="tab" id="tab-ennoia" class="lip-tab" aria-selected="false" tabindex="-1">ENNOIA</button>
+          <div class="lip-tablist" role="tablist" aria-label="Projects">
+            <button type="button" role="tab" id="tab-aimes" class="lip-tab" aria-selected="true"
+              tabindex="0">Aimes</button>
+            <button type="button" role="tab" id="tab-ennoia" class="lip-tab" aria-selected="false"
+              tabindex="-1">Ennoia</button>
+            <button type="button" role="tab" id="tab-kleidi" class="lip-tab" aria-selected="false"
+              tabindex="-1">Kleidi</button>
+            <button type="button" role="tab" id="tab-trousseau" class="lip-tab" aria-selected="false"
+              tabindex="-1">Trousseau</button>
+            <button type="button" role="tab" id="tab-discoblocks" class="lip-tab" aria-selected="false"
+              tabindex="-1">Discoblocks</button>
           </div>
 
           <div class="lip-panels">
-            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-kleidi">
+            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-aimes">
+              <article class="lip-box accent">
+                <div class="lip-box-meta">
+                  <span>AIMES — AI Manufacturing Execution System</span>
+                  <span class="lip-badge lip-badge--rd">R&amp;D &middot; 2026 &middot; HARNESS</span>
+                </div>
+                <!-- <h3>AIMES — AI Manufacturing Execution System</h3> -->
+                <p>
+                  The orchestration backbone for an AI software factory. Records each unit of work from specification to
+                  release for autonomous agents and human reviewers while eliminating specification drift.
+                </p>
+                <div class="lip-pipeline" aria-hidden="true">[Spec] --&gt; [AIMES: MCP + Connect/Protobuf] --&gt; [CEL
+                  Gates + gVisor] --&gt; [Release]</div>
+                <ul class="lip-checklist" role="list">
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Agent-to-system-of-record
+                      synchronization stopping knowledge drift</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Model Context Protocol (MCP)
+                      gateway &amp; Connect/Protobuf RPC interfaces</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>CEL policy enforcement, gVisor
+                      sandboxing, and token/compute telemetry</span></li>
+                </ul>
+                <div class="lip-tags">
+                  <span class="lip-tag pink">AIMES</span>
+                  <span class="lip-tag pink">MCP Gateway</span>
+                  <span class="lip-tag">Protobuf / Connect</span>
+                  <span class="lip-tag">CEL + gVisor</span>
+                </div>
+                <div class="lip-links">
+                  <a href="https://github.com/beezy-dev" target="_blank" rel="noopener noreferrer" class="lip-btn">
+                    Coming soon <span class="visually-hidden">(opens in new tab)</span>
+                  </a>
+                </div>
+              </article>
+            </div>
+
+            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-ennoia" hidden="until-found">
+              <article class="lip-box accent">
+                <div class="lip-box-meta">
+                  <span>Ennoia — Source Control &amp; Cognitive Lineage Data Plane</span>
+                  <span class="lip-badge lip-badge--rd">R&amp;D &middot; 2026 &middot; DATA PLANE</span>
+                </div>
+                <!-- <h3>ENNOIA — Source Control &amp; Cognitive Lineage Data Plane</h3> -->
+                <p>
+                  Source control engineered for agentic work, delivering a full data plane for agent harnesses with
+                  verifiable cognitive lineage across context snapshots, tool invocations, and filesystem changes.
+                </p>
+                <div class="lip-pipeline" aria-hidden="true">[Harness] --&gt; [ENNOIA Data Plane] --&gt; [VFS Projection
+                  + Identity] --&gt; [Cognitive Lineage]</div>
+                <ul class="lip-checklist" role="list">
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Full data plane bridging agent
+                      harnesses and persistent versioned state</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Virtual file system projection for
+                      deterministic sandbox checkouts</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Agentic identity validation &amp;
+                      immutable cognitive lineage graphs</span></li>
+                </ul>
+                <div class="lip-tags">
+                  <span class="lip-tag pink">ENNOIA</span>
+                  <span class="lip-tag pink">Cognitive Lineage</span>
+                  <span class="lip-tag">VFS Projection</span>
+                  <span class="lip-tag">Data Plane</span>
+                </div>
+                <div class="lip-links">
+                  <a href="https://github.com/beezy-dev" target="_blank" rel="noopener noreferrer" class="lip-btn">
+                    Coming soon <span class="visually-hidden">(opens in new tab)</span>
+                  </a>
+                </div>
+              </article>
+            </div>
+
+            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-kleidi" hidden="until-found">
               <article class="lip-box">
                 <div class="lip-box-meta">
-                  <span>PROJ-01 :: KLEIDI</span>
-                  <span class="lip-badge">OSS &middot; KMSv2</span>
+                  <span>Kleidi — Kubernetes KMSv2 Provider Plugin</span>
+                  <span class="lip-badge lip-badge--paused">Paused &middot; 2024&ndash;2026 &middot; KMSv2</span>
                 </div>
-                <h3>Kleidi — Kubernetes KMSv2 Provider Plugin</h3>
+                <!-- <h3>Kleidi — Kubernetes KMSv2 Provider Plugin</h3> -->
                 <p>
                   Zero-trust envelope encryption plugin for Kubernetes 1.29+ replacing deprecated KMSv1 designs
                   (Trousseau). Keeps <code>etcd</code> Secrets hardware-protected over control-plane gRPC.
                 </p>
-                <div class="lip-pipeline" aria-hidden="true">[kube-apiserver] --(gRPC socket)--&gt; [kleidi] --(PKCS#11)--&gt; [HSM / SoftHSM / (v)TPM]</div>
+                <div class="lip-pipeline" aria-hidden="true">[kube-apiserver] --(gRPC socket)--&gt; [kleidi]
+                  --(PKCS#11)--&gt; [HSM / SoftHSM / (v)TPM]</div>
                 <ul class="lip-checklist" role="list">
-                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Control-plane DaemonSet with custom initContainer bootstrap</span></li>
-                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>PKCS#11 hardware/software HSM integration layer</span></li>
-                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Vault / OpenBao and (v)TPM hardware attestation roadmap</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Control-plane DaemonSet with
+                      custom initContainer bootstrap</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>PKCS#11 hardware/software HSM
+                      integration layer</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Vault / OpenBao and (v)TPM
+                      hardware attestation roadmap</span></li>
                 </ul>
                 <div class="lip-tags">
                   <span class="lip-tag">Go</span>
@@ -988,69 +1095,80 @@
               </article>
             </div>
 
-            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-aimes" hidden="until-found">
-              <article class="lip-box accent">
+            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-trousseau" hidden="until-found">
+              <article class="lip-box">
                 <div class="lip-box-meta">
-                  <span>PROJ-02 :: AIMES</span>
-                  <span class="lip-badge">ACTIVE R&amp;D &middot; AI MES</span>
+                  <span>Trousseau — Kubernetes KMSv1 Provider Plugin</span>
+                  <span class="lip-badge lip-badge--deprecated">Deprecated &middot; 2020&ndash;2024 &middot;
+                    KMSv1</span>
                 </div>
-                <h3>AIMES — AI Manufacturing Execution System</h3>
+                <!-- <h3>Trousseau — Kubernetes KMSv1 Provider Plugin</h3> -->
                 <p>
-                  The orchestration backbone for an AI software factory. Records each unit of work from specification to
-                  release for autonomous agents and human reviewers while eliminating specification drift.
+                  Open-source Kubernetes-native KMSv1 provider plugin enabling envelope encryption of <code>etcd</code>
+                  Secrets via external key managers. Archived following Kubernetes KMSv1 deprecation and succeeded by
+                  Kleidi (KMSv2).
                 </p>
-                <div class="lip-pipeline" aria-hidden="true">[Spec] --&gt; [AIMES: MCP + Connect/Protobuf] --&gt; [CEL Gates + gVisor] --&gt; [Release]</div>
+                <div class="lip-pipeline" aria-hidden="true">[kube-apiserver] --(KMSv1 gRPC)--&gt; [trousseau] --&gt;
+                  [Vault / AWS KMS / Azure Key Vault]</div>
                 <ul class="lip-checklist" role="list">
-                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Agent-to-system-of-record synchronization stopping knowledge drift</span></li>
-                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Model Context Protocol (MCP) gateway &amp; Connect/Protobuf RPC interfaces</span></li>
-                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>CEL policy enforcement, gVisor sandboxing, and token/compute telemetry</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Native Kubernetes KMSv1 envelope
+                      encryption proxy for <code>etcd</code> Secrets</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Multi-KMS backend support
+                      (HashiCorp Vault, AWS KMS, Azure Key Vault) with failover</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Archived after Kubernetes KMSv1
+                      deprecation; succeeded by Kleidi (KMSv2)</span></li>
                 </ul>
                 <div class="lip-tags">
-                  <span class="lip-tag pink">AIMES</span>
-                  <span class="lip-tag pink">MCP Gateway</span>
-                  <span class="lip-tag">Protobuf / Connect</span>
-                  <span class="lip-tag">CEL + gVisor</span>
+                  <span class="lip-tag">Go</span>
+                  <span class="lip-tag">KMSv1</span>
+                  <span class="lip-tag">Vault / Cloud KMS</span>
+                  <span class="lip-tag">Archived</span>
                 </div>
                 <div class="lip-links">
-                  <a href="https://github.com/beezy-dev" target="_blank" rel="noopener noreferrer" class="lip-btn">
-                    github.com/beezy-dev <span class="visually-hidden">(opens in new tab)</span>
+                  <a href="https://trousseau.io" target="_blank" rel="noopener noreferrer" class="lip-btn">
+                    trousseau.io <span class="visually-hidden">(opens in new tab)</span>
                   </a>
-                  <a href="mailto:rom@beezy.dev?subject=Lip%20Gloss%20Hub%20%2F%20AIMES" class="lip-btn primary">
-                    Discuss AIMES
+                  <a href="https://github.com/ondat/trousseau" target="_blank" rel="noopener noreferrer"
+                    class="lip-btn">
+                    github.com/ondat/trousseau <span class="visually-hidden">(opens in new tab)</span>
                   </a>
                 </div>
               </article>
             </div>
 
-            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-ennoia" hidden="until-found">
-              <article class="lip-box accent">
+            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-discoblocks" hidden="until-found">
+              <article class="lip-box">
                 <div class="lip-box-meta">
-                  <span>PROJ-03 :: ENNOIA</span>
-                  <span class="lip-badge">ACTIVE R&amp;D &middot; DATA PLANE</span>
+                  <span>Discoblocks — Declarative Kubernetes Disk Configuration</span>
+                  <span class="lip-badge lip-badge--deprecated">Deprecated &middot; 2021&ndash;2024 &middot; CSI /
+                    Storage</span>
                 </div>
-                <h3>ENNOIA — Source Control &amp; Cognitive Lineage Data Plane</h3>
+                <!-- <h3>Discoblocks — Declarative Kubernetes Disk Configuration</h3> -->
                 <p>
-                  Source control engineered for agentic work, delivering a full data plane for agent harnesses with
-                  verifiable cognitive lineage across context snapshots, tool invocations, and filesystem changes.
+                  Open-source declarative disk configuration and block volume management operator for Kubernetes,
+                  automating cloud disk CRUD lifecycle and dynamic upscaling alongside hyperscaler CSI drivers and
+                  Ondat.
                 </p>
-                <div class="lip-pipeline" aria-hidden="true">[Harness] --&gt; [ENNOIA Data Plane] --&gt; [VFS Projection + Identity] --&gt; [Cognitive Lineage]</div>
+                <div class="lip-pipeline" aria-hidden="true">[Workload CRD] --&gt; [discoblocks] --&gt; [Cloud CSI (EBS
+                  / Block)] --&gt; [Auto-Upscale &amp; Mount]</div>
                 <ul class="lip-checklist" role="list">
-                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Full data plane bridging agent harnesses and persistent versioned state</span></li>
-                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Virtual file system projection for deterministic sandbox checkouts</span></li>
-                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Agentic identity validation &amp; immutable cognitive lineage graphs</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Per-workload CRDs defining
+                      capacity, mount paths, node/pod selectors, and upscale policies</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Automated cloud block-disk
+                      provisioning, monitoring, and dynamic resizing via CSI</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Built during Ondat cloud-native
+                      storage engineering; now deprecated and archived</span></li>
                 </ul>
                 <div class="lip-tags">
-                  <span class="lip-tag pink">ENNOIA</span>
-                  <span class="lip-tag pink">Cognitive Lineage</span>
-                  <span class="lip-tag">VFS Projection</span>
-                  <span class="lip-tag">Data Plane</span>
+                  <span class="lip-tag">Kubernetes CRDs</span>
+                  <span class="lip-tag">CSI</span>
+                  <span class="lip-tag">Cloud Block Storage</span>
+                  <span class="lip-tag">Archived</span>
                 </div>
                 <div class="lip-links">
-                  <a href="https://github.com/beezy-dev" target="_blank" rel="noopener noreferrer" class="lip-btn">
-                    github.com/beezy-dev <span class="visually-hidden">(opens in new tab)</span>
-                  </a>
-                  <a href="mailto:rom@beezy.dev?subject=Lip%20Gloss%20Hub%20%2F%20ENNOIA" class="lip-btn primary">
-                    Discuss ENNOIA
+                  <a href="https://github.com/ondat/discoblocks" target="_blank" rel="noopener noreferrer"
+                    class="lip-btn">
+                    github.com/ondat/discoblocks <span class="visually-hidden">(opens in new tab)</span>
                   </a>
                 </div>
               </article>
@@ -1067,10 +1185,14 @@
 
         <div class="lip-tabs" data-tabs="research">
           <div class="lip-tablist" role="tablist" aria-label="Research domains">
-            <button type="button" role="tab" id="tab-res-01" class="lip-tab" aria-selected="true" tabindex="0">Agentic Data</button>
-            <button type="button" role="tab" id="tab-res-02" class="lip-tab" aria-selected="false" tabindex="-1">Zero-Trust Crypto</button>
-            <button type="button" role="tab" id="tab-res-03" class="lip-tab" aria-selected="false" tabindex="-1">AI MES</button>
-            <button type="button" role="tab" id="tab-res-04" class="lip-tab" aria-selected="false" tabindex="-1">Cognitive Lineage</button>
+            <button type="button" role="tab" id="tab-res-01" class="lip-tab" aria-selected="true" tabindex="0">Agentic
+              Data</button>
+            <button type="button" role="tab" id="tab-res-02" class="lip-tab" aria-selected="false"
+              tabindex="-1">Zero-Trust Crypto</button>
+            <button type="button" role="tab" id="tab-res-03" class="lip-tab" aria-selected="false" tabindex="-1">AI
+              MES</button>
+            <button type="button" role="tab" id="tab-res-04" class="lip-tab" aria-selected="false"
+              tabindex="-1">Cognitive Lineage</button>
           </div>
 
           <div class="lip-panels">
@@ -1086,9 +1208,12 @@
                     <p>Deterministic vs probabilistic data topology, zero-copy ingestion, vector/structured retrieval
                       substrates, and cost-governed compute scheduling for harnesses.</p>
                     <ul class="lip-checklist" role="list">
-                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Deterministic vs probabilistic data topology</span></li>
-                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>High-throughput zero-copy ingestion &amp; structured vector retrieval</span></li>
-                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Compute-governed access scheduling &amp; declarative streaming telemetry</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Deterministic vs probabilistic
+                          data topology</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>High-throughput zero-copy
+                          ingestion &amp; structured vector retrieval</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Compute-governed access
+                          scheduling &amp; declarative streaming telemetry</span></li>
                     </ul>
                   </div>
                 </div>
@@ -1107,9 +1232,12 @@
                     <p>KMSv2 envelope encryption, PKCS#11 HSM / (v)TPM hardware boundaries, control-plane auditing, and
                       automated secret lifecycles without clear-text leakage.</p>
                     <ul class="lip-checklist" role="list">
-                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Envelope encryption &amp; etcd attack-surface mitigation</span></li>
-                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>PKCS#11 HSM, SoftHSM, OpenBao / Vault, and (v)TPM attestation</span></li>
-                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Sovereign cryptographic boundaries for agents &amp; clusters</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Envelope encryption &amp; etcd
+                          attack-surface mitigation</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>PKCS#11 HSM, SoftHSM, OpenBao
+                          / Vault, and (v)TPM attestation</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Sovereign cryptographic
+                          boundaries for agents &amp; clusters</span></li>
                     </ul>
                   </div>
                 </div>
@@ -1128,9 +1256,12 @@
                     <p>Manufacturing Execution System discipline applied to autonomous software pipelines via AIMES:
                       anti-drift specification links, CEL policy gates, and gVisor isolation.</p>
                     <ul class="lip-checklist" role="list">
-                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Specification-to-release traceability stopping knowledge drift</span></li>
-                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>MCP &amp; Connect/Protobuf orchestration contracts</span></li>
-                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Intent/output UAT gates, gVisor isolation, and compute accountability</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Specification-to-release
+                          traceability stopping knowledge drift</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>MCP &amp; Connect/Protobuf
+                          orchestration contracts</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Intent/output UAT gates,
+                          gVisor isolation, and compute accountability</span></li>
                     </ul>
                   </div>
                 </div>
@@ -1149,9 +1280,12 @@
                     <p>ENNOIA research on source control for agentic work — tracking full cognitive lineage across
                       reasoning traces, tool invocations, virtual file systems, and verified agent identities.</p>
                     <ul class="lip-checklist" role="list">
-                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Full harness data plane coupling code commits with reasoning lineage</span></li>
-                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Virtual file system projection for reproducible workspace state</span></li>
-                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Cryptographic agent identity validation across tool invocations</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Full harness data plane
+                          coupling code commits with reasoning lineage</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Virtual file system projection
+                          for reproducible workspace state</span></li>
+                      <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Cryptographic agent identity
+                          validation across tool invocations</span></li>
                     </ul>
                   </div>
                 </div>
@@ -1169,16 +1303,16 @@
 
         <div class="lip-two-col">
           <div class="lip-col">
-            <h3 class="lip-col-title">Maintainer Profile</h3>
+            <!-- <h3 class="lip-col-title">Maintainer Profile</h3> -->
             <p>
-              <strong>Rom Adams (romdalf)</strong> — Systems engineer and open-source architect based in the
-              Netherlands with 20+ years across cloud-native storage, zero-trust Kubernetes security, and large-scale
-              platform engineering (ex-Red Hat, StorageOS/Ondat, NetApp).
+              <strong>Rom Adams (romdalf)</strong> - Systems engineer and open-source architect based in the
+              Netherlands with 25+ years across unix/linux, cloud-native storage, zero-trust Kubernetes security, and
+              large-scale platform engineering (ex-Red Hat, StorageOS/Ondat, NetApp).
             </p>
           </div>
 
           <div class="lip-col">
-            <h3 class="lip-col-title">Fractional Engineering</h3>
+            <!-- <h3 class="lip-col-title">Fractional Engineering</h3> -->
             <p>
               Available to partner with engineering teams for <strong>fractional engineering</strong>, hands-on
               architecture spikes, zero-trust cryptography reviews, CSI/storage systems, and agentic data plane
@@ -1201,8 +1335,10 @@
             <h3>Authored &amp; Reviewed Works</h3>
             <p>Author of <strong>Kubernetes Secrets Handbook</strong> (Packt, 2024).</p>
             <ul class="lip-purple-list" role="list">
-              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span>Technical Reviewer: <strong>The Kubernetes Bible</strong></span></li>
-              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span>Technical Reviewer: <strong>Kubernetes – An Enterprise Guide</strong></span></li>
+              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span>Technical Reviewer:
+                  <strong>The Kubernetes Bible</strong></span></li>
+              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span>Technical Reviewer:
+                  <strong>Kubernetes – An Enterprise Guide</strong></span></li>
             </ul>
           </article>
 
@@ -1211,9 +1347,12 @@
             <h3>Intellectual Property</h3>
             <p>Pending systems patent filings:</p>
             <ul class="lip-purple-list" role="list">
-              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span><strong>Zero-trust architecture for secret handling</strong></span></li>
-              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span><strong>Virtual file system projection</strong></span></li>
-              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span><strong>Identity validation in agentic workflow</strong></span></li>
+              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span><strong>Zero-trust
+                    architecture for secret handling</strong></span></li>
+              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span><strong>Virtual file system
+                    projection</strong></span></li>
+              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span><strong>Identity validation in
+                    agentic workflow</strong></span></li>
             </ul>
           </article>
 
@@ -1222,8 +1361,10 @@
             <h3>Foundational Plugins &amp; Drivers</h3>
             <p>Earlier open-source systems:</p>
             <ul class="lip-purple-list" role="list">
-              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span><strong>Trousseau</strong>: Kubernetes KMSv1 provider plugin</span></li>
-              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span><strong>Kubernetes CSI Driver</strong>: Stateful persistent storage</span></li>
+              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span><strong>Trousseau</strong>:
+                  Kubernetes KMSv1 provider plugin</span></li>
+              <li><span class="lip-purple-bullet" aria-hidden="true">&#10003;</span><span><strong>Kubernetes CSI
+                    Driver</strong>: Stateful persistent storage</span></li>
             </ul>
           </article>
         </div>
@@ -1234,7 +1375,7 @@
     <footer class="lip-footer-wrap">
       <div class="lip-statusbar">
         <span class="sb-status">STATUS</span>
-        <span class="sb-center">beezy.dev :: Rom Adams (romdalf) :: Netherlands</span>
+        <span class="sb-center">beezy.dev :: Rom Adams (romdalf) :: Netherlands :: R&D since 2019</span>
         <span class="sb-encoding">UTF-8</span>
         <span class="sb-license">Apache-2.0 &middot; WCAG-AA</span>
       </div>

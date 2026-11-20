@@ -505,6 +505,31 @@
       padding: 0.15rem 0.55rem;
       border-radius: 0.2rem;
       font-size: 0.72rem;
+      border: 1px solid transparent;
+    }
+
+    .lip-badge--active {
+      background: #1b6b3a;
+      color: #ffffff;
+      border-color: var(--mint);
+    }
+
+    .lip-badge--rd {
+      background: var(--purple-card);
+      color: #ffffff;
+      border-color: var(--purple);
+    }
+
+    .lip-badge--paused {
+      background: #8a5600;
+      color: #ffffff;
+      border-color: #f59e0b;
+    }
+
+    .lip-badge--deprecated {
+      background: #3a3a40;
+      color: #e5e5ea;
+      border-color: #6b6b76;
     }
 
     .lip-box h3 {
@@ -842,6 +867,7 @@
       .term-window,
       .lip-dialog,
       .lip-box,
+      .lip-badge,
       .lip-purple-card,
       .lip-statusbar {
         border: 1px solid CanvasText;
@@ -936,62 +962,30 @@
 
       <section id="projects" class="lip-section" aria-labelledby="projects-heading">
         <div class="lip-sec-head">
-          <h2 id="projects-heading">01 // Active Projects</h2>
+          <h2 id="projects-heading">01 // Projects</h2>
           <span class="lip-sec-tag">./projects/</span>
         </div>
 
         <div class="lip-tabs" data-tabs="projects">
-          <div class="lip-tablist" role="tablist" aria-label="Active projects">
-            <button type="button" role="tab" id="tab-kleidi" class="lip-tab" aria-selected="true"
-              tabindex="0">Kleidi</button>
-            <button type="button" role="tab" id="tab-aimes" class="lip-tab" aria-selected="false"
-              tabindex="-1">AIMES</button>
+          <div class="lip-tablist" role="tablist" aria-label="Projects">
+            <button type="button" role="tab" id="tab-aimes" class="lip-tab" aria-selected="true"
+              tabindex="0">AIMES</button>
             <button type="button" role="tab" id="tab-ennoia" class="lip-tab" aria-selected="false"
               tabindex="-1">ENNOIA</button>
+            <button type="button" role="tab" id="tab-kleidi" class="lip-tab" aria-selected="false"
+              tabindex="-1">Kleidi</button>
+            <button type="button" role="tab" id="tab-trousseau" class="lip-tab" aria-selected="false"
+              tabindex="-1">Trousseau</button>
+            <button type="button" role="tab" id="tab-discoblocks" class="lip-tab" aria-selected="false"
+              tabindex="-1">Discoblocks</button>
           </div>
 
           <div class="lip-panels">
-            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-kleidi">
-              <article class="lip-box">
-                <div class="lip-box-meta">
-                  <span>PROJ-01 :: KLEIDI</span>
-                  <span class="lip-badge">OSS &middot; KMSv2</span>
-                </div>
-                <h3>Kleidi — Kubernetes KMSv2 Provider Plugin</h3>
-                <p>
-                  Zero-trust envelope encryption plugin for Kubernetes 1.29+ replacing deprecated KMSv1 designs
-                  (Trousseau). Keeps <code>etcd</code> Secrets hardware-protected over control-plane gRPC.
-                </p>
-                <div class="lip-pipeline" aria-hidden="true">[kube-apiserver] --(gRPC socket)--&gt; [kleidi]
-                  --(PKCS#11)--&gt; [HSM / SoftHSM / (v)TPM]</div>
-                <ul class="lip-checklist" role="list">
-                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Control-plane DaemonSet with
-                      custom initContainer bootstrap</span></li>
-                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>PKCS#11 hardware/software HSM
-                      integration layer</span></li>
-                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Vault / OpenBao and (v)TPM
-                      hardware attestation roadmap</span></li>
-                </ul>
-                <div class="lip-tags">
-                  <span class="lip-tag">Go</span>
-                  <span class="lip-tag">KMSv2</span>
-                  <span class="lip-tag">PKCS#11</span>
-                  <span class="lip-tag">gRPC</span>
-                </div>
-                <div class="lip-links">
-                  <a href="https://github.com/beezy-dev/kleidi" target="_blank" rel="noopener noreferrer"
-                    class="lip-btn primary">
-                    github.com/beezy-dev/kleidi <span class="visually-hidden">(opens in new tab)</span>
-                  </a>
-                </div>
-              </article>
-            </div>
-
-            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-aimes" hidden="until-found">
+            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-aimes">
               <article class="lip-box accent">
                 <div class="lip-box-meta">
-                  <span>PROJ-02 :: AIMES</span>
-                  <span class="lip-badge">ACTIVE R&amp;D &middot; AI MES</span>
+                  <span>PROJ-01 :: AIMES</span>
+                  <span class="lip-badge lip-badge--rd">R&amp;D &middot; AI MES</span>
                 </div>
                 <h3>AIMES — AI Manufacturing Execution System</h3>
                 <p>
@@ -1028,8 +1022,8 @@
             <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-ennoia" hidden="until-found">
               <article class="lip-box accent">
                 <div class="lip-box-meta">
-                  <span>PROJ-03 :: ENNOIA</span>
-                  <span class="lip-badge">ACTIVE R&amp;D &middot; DATA PLANE</span>
+                  <span>PROJ-02 :: ENNOIA</span>
+                  <span class="lip-badge lip-badge--rd">R&amp;D &middot; DATA PLANE</span>
                 </div>
                 <h3>ENNOIA — Source Control &amp; Cognitive Lineage Data Plane</h3>
                 <p>
@@ -1058,6 +1052,122 @@
                   </a>
                   <a href="mailto:rom@beezy.dev?subject=Lip%20Gloss%20Hub%20%2F%20ENNOIA" class="lip-btn primary">
                     Discuss ENNOIA
+                  </a>
+                </div>
+              </article>
+            </div>
+
+            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-kleidi" hidden="until-found">
+              <article class="lip-box">
+                <div class="lip-box-meta">
+                  <span>PROJ-03 :: KLEIDI</span>
+                  <span class="lip-badge lip-badge--paused">Paused &middot; 2024&ndash;2026 &middot; KMSv2</span>
+                </div>
+                <h3>Kleidi — Kubernetes KMSv2 Provider Plugin</h3>
+                <p>
+                  Zero-trust envelope encryption plugin for Kubernetes 1.29+ replacing deprecated KMSv1 designs
+                  (Trousseau). Keeps <code>etcd</code> Secrets hardware-protected over control-plane gRPC.
+                </p>
+                <div class="lip-pipeline" aria-hidden="true">[kube-apiserver] --(gRPC socket)--&gt; [kleidi]
+                  --(PKCS#11)--&gt; [HSM / SoftHSM / (v)TPM]</div>
+                <ul class="lip-checklist" role="list">
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Control-plane DaemonSet with
+                      custom initContainer bootstrap</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>PKCS#11 hardware/software HSM
+                      integration layer</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Vault / OpenBao and (v)TPM
+                      hardware attestation roadmap</span></li>
+                </ul>
+                <div class="lip-tags">
+                  <span class="lip-tag">Go</span>
+                  <span class="lip-tag">KMSv2</span>
+                  <span class="lip-tag">PKCS#11</span>
+                  <span class="lip-tag">gRPC</span>
+                </div>
+                <div class="lip-links">
+                  <a href="https://github.com/beezy-dev/kleidi" target="_blank" rel="noopener noreferrer"
+                    class="lip-btn primary">
+                    github.com/beezy-dev/kleidi <span class="visually-hidden">(opens in new tab)</span>
+                  </a>
+                </div>
+              </article>
+            </div>
+
+            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-trousseau" hidden="until-found">
+              <article class="lip-box">
+                <div class="lip-box-meta">
+                  <span>PROJ-04 :: TROUSSEAU</span>
+                  <span class="lip-badge lip-badge--deprecated">Deprecated &middot; 2020&ndash;2024 &middot;
+                    KMSv1</span>
+                </div>
+                <h3>Trousseau — Kubernetes KMSv1 Provider Plugin</h3>
+                <p>
+                  Open-source Kubernetes-native KMSv1 provider plugin enabling envelope encryption of <code>etcd</code>
+                  Secrets via external key managers. Archived following Kubernetes KMSv1 deprecation and succeeded by
+                  Kleidi (KMSv2).
+                </p>
+                <div class="lip-pipeline" aria-hidden="true">[kube-apiserver] --(KMSv1 gRPC)--&gt; [trousseau] --&gt;
+                  [Vault / AWS KMS / Azure Key Vault]</div>
+                <ul class="lip-checklist" role="list">
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Native Kubernetes KMSv1 envelope
+                      encryption proxy for <code>etcd</code> Secrets</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Multi-KMS backend support
+                      (HashiCorp Vault, AWS KMS, Azure Key Vault) with failover</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Archived after Kubernetes KMSv1
+                      deprecation; succeeded by Kleidi (KMSv2)</span></li>
+                </ul>
+                <div class="lip-tags">
+                  <span class="lip-tag">Go</span>
+                  <span class="lip-tag">KMSv1</span>
+                  <span class="lip-tag">Vault / Cloud KMS</span>
+                  <span class="lip-tag">Archived</span>
+                </div>
+                <div class="lip-links">
+                  <a href="https://trousseau.io" target="_blank" rel="noopener noreferrer" class="lip-btn">
+                    trousseau.io <span class="visually-hidden">(opens in new tab)</span>
+                  </a>
+                  <a href="https://github.com/ondat/trousseau" target="_blank" rel="noopener noreferrer"
+                    class="lip-btn">
+                    github.com/ondat/trousseau <span class="visually-hidden">(opens in new tab)</span>
+                  </a>
+                </div>
+              </article>
+            </div>
+
+            <div class="lip-tabpanel" role="tabpanel" aria-labelledby="tab-discoblocks" hidden="until-found">
+              <article class="lip-box">
+                <div class="lip-box-meta">
+                  <span>PROJ-05 :: DISCOBLOCKS</span>
+                  <span class="lip-badge lip-badge--deprecated">Deprecated &middot; 2021&ndash;2024 &middot; CSI /
+                    Storage</span>
+                </div>
+                <h3>Discoblocks — Declarative Kubernetes Disk Configuration</h3>
+                <p>
+                  Open-source declarative disk configuration and block volume management operator for Kubernetes,
+                  automating cloud disk CRUD lifecycle and dynamic upscaling alongside hyperscaler CSI drivers and
+                  Ondat.
+                </p>
+                <div class="lip-pipeline" aria-hidden="true">[Workload CRD] --&gt; [discoblocks] --&gt; [Cloud CSI (EBS
+                  / Block)] --&gt; [Auto-Upscale &amp; Mount]</div>
+                <ul class="lip-checklist" role="list">
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Per-workload CRDs defining
+                      capacity,
+                      mount paths, node/pod selectors, and upscale policies</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Automated cloud block-disk
+                      provisioning, monitoring, and dynamic resizing via CSI</span></li>
+                  <li><span class="lip-check" aria-hidden="true">&#10003;</span><span>Built during Ondat cloud-native
+                      storage engineering; now deprecated and archived</span></li>
+                </ul>
+                <div class="lip-tags">
+                  <span class="lip-tag">Kubernetes CRDs</span>
+                  <span class="lip-tag">CSI</span>
+                  <span class="lip-tag">Cloud Block Storage</span>
+                  <span class="lip-tag">Archived</span>
+                </div>
+                <div class="lip-links">
+                  <a href="https://github.com/ondat/discoblocks" target="_blank" rel="noopener noreferrer"
+                    class="lip-btn">
+                    github.com/ondat/discoblocks <span class="visually-hidden">(opens in new tab)</span>
                   </a>
                 </div>
               </article>

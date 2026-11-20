@@ -103,7 +103,23 @@ class TestBeezyDevWebsite(unittest.TestCase):
             self.assertNotIn(forbidden, html_norm)
         self.assertNotIn("brussels", html_lower)
 
-        # Active Projects: Kleidi, AIMES, ENNOIA + 4 Research Domains
+        # Projects & 4 Research Domains
+        self.assertIn("01 // Projects", html_norm)
+        self.assertNotIn("01 // Active Projects", html_norm)
+
+        project_tab_ids = ["tab-aimes", "tab-ennoia", "tab-kleidi", "tab-trousseau", "tab-discoblocks"]
+        positions = [html.index(f'id="{tid}"') for tid in project_tab_ids]
+        self.assertEqual(positions, sorted(positions), "Project tabs are not in the required order")
+        self.assertIn('id="tab-aimes" class="lip-tab" aria-selected="true"', html_norm)
+
+        for badge_cls in [
+            "lip-badge--active",
+            "lip-badge--rd",
+            "lip-badge--paused",
+            "lip-badge--deprecated",
+        ]:
+            self.assertIn(badge_cls, html_norm, f"index.html missing status badge class: {badge_cls}")
+
         for term in [
             "Rom Adams",
             "Netherlands",
@@ -114,6 +130,15 @@ class TestBeezyDevWebsite(unittest.TestCase):
             "https://github.com/beezy-dev/kleidi",
             "AIMES",
             "ENNOIA",
+            "Discoblocks",
+            "https://github.com/ondat/discoblocks",
+            "https://github.com/ondat/trousseau",
+            "2024&ndash;2026",
+            "2020&ndash;2024",
+            "2021&ndash;2024",
+            "R&amp;D",
+            "Paused",
+            "Deprecated",
             "cognitive lineage",
             "data plane",
             "Data Foundations for Agentic Access",
@@ -200,8 +225,8 @@ class TestBeezyDevWebsite(unittest.TestCase):
             self.assertIn(token, html)
 
         self.assertEqual(len(re.findall(r'<div[^>]*role="tablist"', html)), 2)
-        self.assertEqual(html.count('<button type="button" role="tab"'), 7)
-        self.assertEqual(len(re.findall(r'<div[^>]*role="tabpanel"', html)), 7)
+        self.assertEqual(html.count('<button type="button" role="tab"'), 9)
+        self.assertEqual(len(re.findall(r'<div[^>]*role="tabpanel"', html)), 9)
         self.assertNotIn("aria-controls=", html)
         self.assertNotIn("onclick=", html)
         self.assertNotIn("onsubmit=", html)
@@ -398,21 +423,37 @@ class TestDesignPreviews(unittest.TestCase):
         for name in self.OPTION_FILES:
             with self.subTest(preview=name):
                 html = (self.PREVIEWS_DIR / name).read_text(encoding="utf-8")
+                html_norm = re.sub(r"\s+", " ", html)
                 if name == "option1-lipgloss-cli.html":
                     for lip_token in [
+                        "01 // Projects",
                         "term-window",
                         "lip-stair",
                         "lip-dialog",
                         "lip-purple-card",
                         "lip-statusbar",
+                        "lip-badge--active",
+                        "lip-badge--rd",
+                        "lip-badge--paused",
+                        "lip-badge--deprecated",
+                        "Discoblocks",
+                        "2024&ndash;2026",
+                        "2020&ndash;2024",
+                        "2021&ndash;2024",
                         "UTF-8",
                         "&#10003;",
                     ]:
-                        self.assertIn(lip_token, html, f"{name} missing Lip Gloss TUI token: {lip_token}")
+                        self.assertIn(lip_token, html_norm, f"{name} missing Lip Gloss TUI token: {lip_token}")
+                    self.assertNotIn("01 // Active Projects", html_norm)
                     self.assertNotIn("lip-swatch-grid", html, f"{name} should preserve removal of lip-swatch-grid")
+                    project_tab_ids = ["tab-aimes", "tab-ennoia", "tab-kleidi", "tab-trousseau", "tab-discoblocks"]
+                    positions = [html.index(f'id="{tid}"') for tid in project_tab_ids]
+                    self.assertEqual(positions, sorted(positions), f"{name} project tabs out of order")
+                    expected_tab_count = 9
                 else:
                     for glyph in ["┌", "└", "│", "├──", "└──"]:
                         self.assertIn(glyph, html, f"{name} missing ASCII/box-drawing glyph: {glyph}")
+                    expected_tab_count = 7
                 for removed_block in [
                     "STACK_TOPOLOGY",
                     "HOST:",
@@ -431,8 +472,8 @@ class TestDesignPreviews(unittest.TestCase):
                 for tab_group in ['data-tabs="projects"', 'data-tabs="research"']:
                     self.assertIn(tab_group, html)
                 self.assertEqual(len(re.findall(r'<div[^>]*role="tablist"', html)), 2)
-                self.assertEqual(html.count('<button type="button" role="tab"'), 7)
-                self.assertEqual(len(re.findall(r'<div[^>]*role="tabpanel"', html)), 7)
+                self.assertEqual(html.count('<button type="button" role="tab"'), expected_tab_count)
+                self.assertEqual(len(re.findall(r'<div[^>]*role="tabpanel"', html)), expected_tab_count)
                 self.assertIn('hidden="until-found"', html)
                 self.assertIn("beforematch", html)
                 self.assertNotIn("aria-controls=", html)
